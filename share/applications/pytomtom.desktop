@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=pytomtom
+Type=Application
+GenericName=pyTOMTOM
+Comment=Manage your TomTom device
+Icon=/usr/share/pixmaps/pytomtom.png
+Exec=pytomtom
+Terminal=false
+StartupNotify=false
+Categories=GNOME;GTK;Utility;
+Name[fr_FR]=pyTOMTOM

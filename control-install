@@ -1,0 +1,9 @@
+Package: pyTOMTOM
+Version: 0.4
+Section: utils
+Priority: optional
+Architecture: i386
+Depends: python (>=2.4), python-gtk2, cabextract
+Maintainer: Thomas LEROY (tmsleroy@gmail.com)
+Description: Manage your TomTom Device
+		http://tomonweb.2kool4u.net/pytomtom

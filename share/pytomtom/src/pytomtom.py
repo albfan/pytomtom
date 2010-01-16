@@ -1,14 +1,11 @@
 #/usr/bin/python
 # -*- coding:utf-8 -*-
 #----------------------------------------------- ENTETE DE DEFINITION DE L'APPLICATION ---------------------------------------
-##
-## pyTOMTOM version 0.4b (2010) - Gerez votre TomTom sous Linux !
-##
+## pyTOMTOM - Gerez votre TomTom sous Linux !
 ## http://tomonweb.2kool4u.net/pytomtom/
-##
 ## auteur : Thomas LEROY
-##
-## remerciements à Philippe (toto740), Sunil, Chamalow, Exzemat, GallyHC, Pascal
+## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal
+## les icones utilisees proviennent de http://tango.freedesktop.org/Tango_Desktop_Project
 
 #----------------------------------------------- DEFINITION DES REGLES DE DEVELOPPEMENT --------------------------------------
 ## Regles de developpement
@@ -63,7 +60,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.4b"
+Ver = "0.4"
 Dev = "Thomas LEROY"
 Transl = "Pascal MALAISE"
 
@@ -717,7 +714,7 @@ class NotebookTomtom:
 
 	## Affichage de la fin de l'execution, en popup si l'on est pas en mode script
 	if( self.noGui == False ):
-		self.Popup( _( "GPSQuickFix terminé" ) )
+		self.Popup( _( "GPSQuickFix terminé avec succès" ) )
 	self.Debug( 1, _( "GPSQuickFix terminé" ) )
 
 	return True
@@ -1249,17 +1246,35 @@ class NotebookTomtom:
 	##--------------------------------------
         frame = gtk.Frame( _( "Options" ) )
         frame.set_border_width( 10 )
+	frame.set_name( "frameOptions" )
         frame.show()
 	
-	##On crée une boite horizontale
-        tabBox = gtk.VBox( False, 2) 	
+	##On crée une boite verticale
+        tabBox = gtk.HBox( False, 2 )
+	tabBox.set_name( "frameOptions" )
         frame.add( tabBox )
         tabBox.show()
+	
+	##On crée une boite horizontale
+        tabBoxLeft = gtk.VBox( False, 2 )
+	tabBoxLeft.set_size_request ( 120, -1 )
+        tabBox.add( tabBoxLeft )
+	tabBoxLeft.show()
+	##On crée une boite horizontale
+        tabBoxRight = gtk.VBox( False, 2 )	
+	tabBoxRight.set_size_request ( 480, -1 )
+        tabBox.add( tabBoxRight )
+        tabBoxRight.show()
+	
+	## image	
+	image = gtk.Image()
+	image.set_from_file( self.dirPix + "options.png" )
+	tabBoxLeft.pack_start( image, True, False, 2 )
 
         label = gtk.Label( _( '''Indiquez le point de montage de votre TomTom :
 (généralement /media/INTERNAL ou /media/disk)''' ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
-        tabBox.pack_start( label, True, False, 2 )
+        tabBoxRight.pack_start( label, True, False, 2 )
 	
 	## bouton parcourir
 ##        p = gtk.Button( _( "Sélectionner le point de montage du TomTom..." ) )
@@ -1268,13 +1283,13 @@ class NotebookTomtom:
 
 	## Liste des points de montage possibles
 	self.MakeCombo()
-	tabBox.pack_start( self.ptCombo, True, False, 0 )
+	tabBoxRight.pack_start( self.ptCombo, True, False, 0 )
 	## Lancement de la mise a jour automatiquement toutes les 2 secondes
 	self.tempoCombo = gobject.timeout_add( 2000, self.MakeCombo )
 		
 	## separator
         hs = gtk.HSeparator()
-        tabBox.pack_start( hs, False, False, 2 )
+        tabBoxRight.pack_start( hs, False, False, 2 )
 
 	## Liste des modeles
 	self.modeleCombo = gtk.combo_box_new_text()
@@ -1285,14 +1300,14 @@ class NotebookTomtom:
 			self.modeleCombo.set_active( i )
 		i += 1
         ##self.modeleCombo.connect( 'changed', self.OnUpdate ) 
-	tabBox.pack_start( self.modeleCombo, True, False, 0 )
+	tabBoxRight.pack_start( self.modeleCombo, True, False, 0 )
 	
         hs = gtk.HSeparator()
-        tabBox.pack_start( hs, False, False, 2 )
+        tabBoxRight.pack_start( hs, False, False, 2 )
 
 	label = gtk.Label( _( "Pendant la sauvegarde ou la restauration, afficher :" ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
-        tabBox.pack_start( label, True, False, 2 )
+        tabBoxRight.pack_start( label, True, False, 2 )
 
 	## Case a cocher pour l'affichage du temps passe dans la barre de progression
 	button = gtk.CheckButton( _( "le temps passé" ), False )
@@ -1300,7 +1315,7 @@ class NotebookTomtom:
 	button.connect( "clicked", self.UpdateConfigTime )
 	if( self.configTimePassed == True ):
 		button.set_active( True )
-	tabBox.pack_start( button, True, False, 0 )
+	tabBoxRight.pack_start( button, True, False, 0 )
 
 	## Case a cocher pour l'affichage du temps estime restant dans la barre de progression
 	button = gtk.CheckButton( _( "le temps restant" ), False )
@@ -1308,7 +1323,7 @@ class NotebookTomtom:
 	button.connect( "clicked", self.UpdateConfigTime )
 	if( self.configTimeRemind == True ):
 		button.set_active( True )
-	tabBox.pack_start( button, True, False, 0 )
+	tabBoxRight.pack_start( button, True, False, 0 )
 
 	## Case a cocher pour l'affichage du temps estime total dans la barre de progression
 	button = gtk.CheckButton( _( "le temps total" ), False )
@@ -1316,14 +1331,14 @@ class NotebookTomtom:
 	button.connect( "clicked", self.UpdateConfigTime )
 	if( self.configTimeTot == True ):
 		button.set_active( True )
-	tabBox.pack_start( button, True, False, 0 )
+	tabBoxRight.pack_start( button, True, False, 0 )
 	
 	## separator
         hs = gtk.HSeparator()
-        tabBox.pack_start( hs, True, False, 2 )
+        tabBoxRight.pack_start( hs, True, False, 2 )
 	
 	button = gtk.Button( stock = gtk.STOCK_SAVE )
-	tabBox.pack_start( button, True, False, 0 )
+	tabBoxRight.pack_start( button, True, False, 0 )
 
 	## Connexion du signal "clicked" du GtkButton
 	button.connect( "clicked", self.OnUpdate )
@@ -1342,33 +1357,54 @@ class NotebookTomtom:
 	##--------------------------------------
         frame = gtk.Frame( _( "GPSQuickFix" ) )
         frame.set_border_width( 10 )
+	frame.set_name( "frameGPSQuickFix" )
         frame.show()
 	
-	## on cree une boite pour contenir les widgets
-	vbox = gtk.VBox( False, 10 )
-	frame.add( vbox )
-	vbox.show()
+	##On crée une boite verticale
+        tabBox = gtk.HBox( False, 2 )	
+	tabBox.set_name( "boxGPSQuickFix" )
+        frame.add( tabBox )
+        tabBox.show()
 	
+	##On crée une boite horizontale
+        tabBoxLeft = gtk.VBox( False, 2 )
+	tabBoxLeft.set_size_request ( 120, -1 )
+        tabBox.add( tabBoxLeft )
+	tabBoxLeft.show()
+	##On crée une boite horizontale
+        tabBoxRight = gtk.VBox( False, 2 )	
+	tabBoxRight.set_size_request ( 480, -1 )
+        tabBox.add( tabBoxRight )
+        tabBoxRight.show()
+	
+	## image	
+	image = gtk.Image()
+	image.set_from_file( self.dirPix + "gpsquickfix.png" )
+	tabBoxLeft.pack_start( image, True, False, 2 )
+		
 	## label
-        label = gtk.Label( _( '''Cette mise-à-jour détermine les dernières positions connues des satellites.
-Elle permet donc de trouver votre position initiale en moins de 30 secondes
+        label = gtk.Label( _( '''Cette mise-à-jour détermine 
+les dernières positions connues des satellites.
+Elle permet donc de trouver votre position initiale 
+en moins de 30 secondes
 et de commencer à naviguer plus rapidement... 
 
-Assurez-vous d\'avoir correctement paramétré votre GPS dans les options.''' ) )
+Assurez-vous d\'avoir correctement paramétré 
+votre GPS dans les options.''' ) )
 	## On centre le texte
 	label.set_justify( gtk.JUSTIFY_CENTER )
-        vbox.pack_start( label, True, False, 2 )
+        tabBoxRight.pack_start( label, True, False, 2 )
 	
 	## bouton maj quickfix
 	if( self.couldGpsFix ):
 		btn_csi = gtk.Button( _( "Lancer la mise-à-jour GPSQuickfix" ) )
-		vbox.pack_start( btn_csi, True, False, 2 )
+		tabBoxRight.pack_start( btn_csi, True, False, 2 )
 		## On connecte le signal "clicked" du bouton a la fonction qui lui correspond
         	btn_csi.connect( "clicked", self.GpsQuickFix )
 	else:
 		btn_csi = gtk.Button( _( "Impossible de lancer la mise-à-jour GPSQuickfix (cabextract absent)" ) )
 		btn_csi.set_sensitive( False )
-		vbox.pack_start( btn_csi, True, False, 2 )
+		tabBoxRight.pack_start( btn_csi, True, False, 2 )
 		## On ne connecte à aucune fonction
            
         eventBox = self.CreateCustomTab( _( "GPSQuickFix" ), notebook, frame )
@@ -1389,17 +1425,36 @@ Assurez-vous d\'avoir correctement paramétré votre GPS dans les options.''' ) 
 	frame.set_name( "frameSaveRestore" )
         frame.show()
 	
-	## on crée une boite pour contenir les widgets
-	vbox = gtk.VBox( False, 10 )
-	vbox.set_name( "boxSaveRestore" )
-	frame.add( vbox )
-	vbox.show()
+	##On crée une boite verticale
+        tabBox = gtk.HBox( False, 2 )	
+	tabBox.set_name( "boxSaveRestore" )
+        frame.add( tabBox )
+        tabBox.show()
+	
+	##On crée une boite horizontale
+        tabBoxLeft = gtk.VBox( False, 2 )
+	tabBoxLeft.set_size_request ( 120, -1 )
+        tabBox.add( tabBoxLeft )
+	tabBoxLeft.show()
+	##On crée une boite horizontale
+        tabBoxRight = gtk.VBox( False, 2 )	
+	tabBoxRight.set_size_request ( 480, -1 )
+        tabBox.add( tabBoxRight )
+        tabBoxRight.show()
+	
+	## image	
+	image = gtk.Image()
+	image.set_from_file( self.dirPix + "saverestore.png" )
+	tabBoxLeft.pack_start( image, True, False, 2 )
+	
+	
 
 	## Text pour le choix du fichier de sauvegarde
         label = gtk.Label( _( "Fichier de sauvegarde:" ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
-        vbox.pack_start( label, True, False, 2 )
+        tabBoxRight.pack_start( label, True, False, 2 )
 	
+	## TODO : n'afficher que le nom du fichier, pas le chemin complet
 	## Liste des fichiers de sauvegarde existant et un nouveau
 	self.saveFileCombo = gtk.combo_box_new_text()
 	## recuperation du nom d'un fichier
@@ -1433,7 +1488,8 @@ Assurez-vous d\'avoir correctement paramétré votre GPS dans les options.''' ) 
 		if( extension == ".tar" and ( self.fileName == False or os.path.realpath( self.dir + "/" + file ) != os.path.realpath( self.fileName ) ) ):
 			self.saveFileCombo.append_text( self.dir + "/" + file )
 
-	vbox.pack_start( self.saveFileCombo, True, False, 0 )
+	##self.saveFileCombo.set_size_request ( 60, -1 )
+	tabBoxRight.pack_start( self.saveFileCombo, True, False, 0 )
 
 	## Mise en place de la barre de progression
 	self.progressionBar = gtk.ProgressBar()
@@ -1442,7 +1498,7 @@ Assurez-vous d\'avoir correctement paramétré votre GPS dans les options.''' ) 
 	text = "";
 	self.progressionBar.set_text( text.center( self.progressionBarSize ) )
 	align = gtk.Alignment( 0.5, 0.5, 0, 0 )
-	vbox.pack_start( align, False, False, 10 )
+	tabBoxRight.pack_start( align, False, False, 10 )
 	align.show()
 	align.add( self.progressionBar )
 	self.progressionBar.show()
@@ -1451,11 +1507,11 @@ Assurez-vous d\'avoir correctement paramétré votre GPS dans les options.''' ) 
         label = gtk.Label( _( '''Pour effectuer ces opérations, ''' ) + App + _( ''' prend du temps et de l'espace. 
 Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
-        vbox.pack_start( label, True, False, 2 )
+        tabBoxRight.pack_start( label, True, False, 2 )
 	
 	## separator
         hs = gtk.HSeparator()
-        vbox.pack_start( hs, True, False, 2 )
+        tabBoxRight.pack_start( hs, True, False, 2 )
 	
 	## bouton sauvegarde
 	## Si la commande tar n'existe pas, la sauvegarde ne peut etre lancee, l'affichage change et le bouton ne peut
@@ -1463,19 +1519,19 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	if( self.couldBackup ):
 		btnSave = gtk.Button( _( "Lancer la sauvegarde..." ) )
 		btnSave.props.name = "btnSave"
-		vbox.pack_start( btnSave, True, False, 2 )
+		tabBoxRight.pack_start( btnSave, True, False, 2 )
 		## On connecte le signal "clicked" du bouton a la fonction qui lui correspond
         	btnSave.connect( "clicked", self.BackupRestoreGPS, "backup" )
 	else:
 		btnSave = gtk.Button( _( "Impossible de lancer la sauvegarde... (tar absent)" ) )
 		btnSave.set_sensitive( False )
 		btnSave.props.name = "btnSave"
-		vbox.pack_start( btnSave, True, False, 2 )
+		tabBoxRight.pack_start( btnSave, True, False, 2 )
 		## On connecte le signal "clicked" du bouton a rien
 		
 	## separator
         hs = gtk.HSeparator()
-        vbox.pack_start( hs, True, False, 2 )
+        tabBoxRight.pack_start( hs, True, False, 2 )
 	
 	## bouton RESTAURATION
 	## Si la commande tar n'existe pas, la sauvegarde ne peut etre lancee, l'affichage change et le bouton ne peut
@@ -1483,19 +1539,19 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	if( self.couldBackup ):
 		btnRestore = gtk.Button( _( "Lancer la restauration..." ) )
 		btnRestore.set_name( "btnRestore" )
-		vbox.pack_start( btnRestore, True, False, 2 )
+		tabBoxRight.pack_start( btnRestore, True, False, 2 )
 		## On connecte le signal "clicked" du bouton a la fonction qui lui correspond
         	btnRestore.connect( "clicked", self.BackupRestoreGPS, "restore" )
 	else:
 		btnRestore = gtk.Button( _( "Impossible de lancer la restauration... (tar absent)" ) )
 		btnRestore.set_sensitive( False )
 		btnRestore.set_name( "btnRestore" )
-		vbox.pack_start( btnRestore, True, False, 2 )
+		tabBoxRight.pack_start( btnRestore, True, False, 2 )
 		## On connecte le signal "clicked" du bouton a rien
 	
 	label = gtk.Label( _( '''N\'utilisez la restauration qu\'en cas d\'absolue nécessité !''' ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
-	vbox.pack_start( label, True, False, 2 )
+	tabBoxRight.pack_start( label, True, False, 2 )
 
 	## Creation et affichage de la frame
         eventBox = self.CreateCustomTab( _( "Sauvegarde et Restauration" ), notebook, frame )
@@ -1544,10 +1600,12 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	##--------------------------------------
         frame = gtk.Frame( _( "A propos" ) )
         frame.set_border_width( 10 )
+	frame.set_name( "frameAbout" )
         frame.show()
 	
 	##On crée une boite horizontale
-        tabBox = gtk.VBox( False, 2 )	
+        tabBox = gtk.VBox( False, 2 )
+	tabBox.set_name( "boxAbout" )
         frame.add( tabBox )
         tabBox.show()
 		
@@ -1580,22 +1638,40 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	##--------------------------------------
         frame = gtk.Frame( _( "Quitter ?" ) )
         frame.set_border_width( 10 )
+	frame.set_name( "frameQuit" )
         frame.show()
 	
-	##On crée une boite horizontale
-        tabBox = gtk.VBox( False, 2 )	
+	##On crée une boite verticale
+        tabBox = gtk.HBox( False, 2 )
+	tabBox.set_name( "boxQuit" )
         frame.add( tabBox )
         tabBox.show()
 	
+	##On crée une boite horizontale
+        tabBoxLeft = gtk.VBox( False, 2 )
+	tabBoxLeft.set_size_request ( 120, -1 )
+        tabBox.add( tabBoxLeft )
+	tabBoxLeft.show()
+	##On crée une boite horizontale
+        tabBoxRight = gtk.VBox( False, 2 )	
+	tabBoxRight.set_size_request ( 480, -1 )
+        tabBox.add( tabBoxRight )
+        tabBoxRight.show()
+	
+	## image	
+	image = gtk.Image()
+	image.set_from_file( self.dirPix + "quit.png" )
+	tabBoxLeft.pack_start( image, True, False, 2 )
+		
 	## label
         label = gtk.Label( _( "N\'oubliez pas d\'éjecter proprement votre TomTom !" ) )
-       	label.show()
-	tabBox.pack_start( label, True, False, 2 )
+	label.show()
+	tabBoxRight.pack_start( label, True, False, 2 )
 	
 	## bouton quitter
         b = gtk.Button( stock = gtk.STOCK_QUIT )
 	b.show()
-	tabBox.pack_start( b, True, False, 2 )
+	tabBoxRight.pack_start( b, True, False, 2 )
         b.connect( "clicked", self.Delete )
 	
         eventBox = self.CreateCustomTab( _( "Quitter" ), notebook, frame )

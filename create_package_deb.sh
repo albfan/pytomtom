@@ -25,7 +25,7 @@ cp share/pytomtom/src/pytomtom.py "pytomtom"$INSTALL_DIR"/src"
 
 mkdir -p "pytomtom"$INSTALL_DIR
 mkdir -p "pytomtom"$INSTALL_DIR"/pix"
-cp share/pytomtom/pix/pytomtom.png "pytomtom"$INSTALL_DIR"/pix"
+cp share/pytomtom/pix/*.png "pytomtom"$INSTALL_DIR"/pix"
 
 ##mkdir -p "test"$INSTALL_DIR"/doc"
 ##cp doc/gpl.txt "test"$INSTALL_DIR"/doc/"

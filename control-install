@@ -3,7 +3,7 @@ Version: 0.4
 Maintainer: Thomas LEROY (tmsleroy@gmail.com)
 Priority: optional
 Section: utils
-Installed-Size: 146.7
+Installed-Size: 179.9
 Architecture: i386
 Depends: python (>=2.6), python-gtk2, cabextract
 Description: Manage your TomTom Device

@@ -802,6 +802,16 @@ class NotebookTomtom:
 
 	## retour de l'enfant, comme le parent est devenu l'enfant, il suffit de retourner le parent (on est sur qu'il est defini)
 	return objParent
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction de remplacement image de demarrage avec toutes les verifications utiles
+    def ChangeStartImg( self, widget ):
+		## TODO : mettre en place la reconnaissance des noms des images a remplacer
+		if ( os.path.exists( self.ptMount +"/splash.bmp" ) ):
+			return True ##ecran normal n
+		else: 
+			if ( os.path.exists( self.ptMount +"/splashw.bmp" ) ): ##elif ??
+				return True ##ecran widescreen w
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction de creation d'un nom de fichier de sauvegarde
@@ -811,7 +821,6 @@ class NotebookTomtom:
 	if( uniq == False ):
 		return( self.dir + "/sv-" + str( date.today() ) + "-" + self.model + ".tar" )
 	else:
-		
 		return( self.dir + "/sv" + str( random.randint( 1, 50 ) ) + "-" + str( date.today() ) + "-" + self.model + ".tar" )
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1153,71 +1162,6 @@ class NotebookTomtom:
 
         return eventBox
 
-    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## Fonction de demarrage de la classe
-    def __init__( self ):
-
-	## Definition du repertoire contenant les donnees d'internationalisation
-	gettext.bindtextdomain( App, '.' )
-	## Recuperation de la configuration
-	self.GetConfig()
-
-	## Si on est pas en mode script
-	if( self.noGui == False ):
-		##On cree la fenetre principale
-        	self.window = gtk.Window( gtk.WINDOW_TOPLEVEL )
-		## En cas de fermeture de la fenetre, on appel la fonction Delete
-        	self.window.connect( "delete_event", self.Delete )
-        	self.window.set_border_width( 10 )
-		self.window.set_title( App )
-		## centrage de la fenetre 
-		self.window.set_position( gtk.WIN_POS_CENTER )
-		##*************************************************************************************************************
-        	##On cree un nouveau notebook
-        	notebook = gtk.Notebook()
-		notebook.set_name( "notebook" )
-        	self.window.add( notebook )
-        	notebook.show()
-		##*************************************************************************************************************
-		## Construction des onglets de la fenetre principale
-		self.FrameOption( notebook )
-		self.FrameGPSQuickFix( notebook )
-		self.FrameBackupRestore( notebook )
-		self.FrameBonus( notebook )
-		self.FrameAPropos( notebook )
-		self.FrameQuit( notebook )
-		##*************************************************************************************************************
-		## Onglet que nous verrons à l'ouverture
-        	notebook.set_current_page( self.boxInit )
-		## Affichage de l'ensemble
-        	self.window.show_all()
-
-	## Lancement des actions
-
-	## Si l'option a ete fournie, lancement de la sauvegarde de la configuration
-	if( self.doSave ):
-		self.PutConfig()
-
-	## Si l'option a ete fournie, lancement du GpsFix
-	if( self.doGpsFix ):
-		self.Debug( 1, _( "Lancement de GpsQuickFix" ) )
-		self.GpsQuickFix( None )
-
-	## Si l'option a ete fournie, lancement du Backup
-	if( self.doBackup ):
-		self.Debug( 1, _( "Lancement de la Sauvegarde" ) )
-		self.BackupRestoreGPS( None, "backup" )
-
-	## Si l'option a ete fournie, lancement de la restauration
-	if( self.doRestore ):
-		self.Debug( 1, _( "Lancement de la Restauration" ) )
-
-	## Si on est en mode script, fermeture de l'application
-	if( self.noGui == True ):
-		self.Delete( None )
-		return None
-
-	return None
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction d'affichage d'un popup
@@ -1577,6 +1521,7 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	## label
         label = gtk.Label( _( "Remplacez l\'écran de démarrage de votre GPS par la photo de votre choix" ) )
        	tabBox.pack_start( label, True, False, 2 )
+	##TODO verifier presence ImageMagick
 	## subprocess.call( [ "convert image.jpg -resize 320x240 -background black -gravity center -extent 320x240 splash.bmp" ], shell = True )
 	## bouton 
         b = gtk.Button( _( "texte bouton" ) )
@@ -1584,14 +1529,15 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
         b.connect( "clicked", self.Delete )
 
         eventBox = self.CreateCustomTab( _( "Personnaliser" ), notebook, frame )
-	## decommenter la ligne suivante pour afficher l'onglet
-        ##notebook.append_page( frame, eventBox )
+	
+	notebook.append_page( frame, eventBox )
+	
 
 	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction de creation de la frame a propos
-    def FrameAPropos( self, notebook ):
+    def FrameAbout( self, notebook ):
 
 	##--------------------------------------
 	## Onglet A PROPOS
@@ -1658,8 +1604,8 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## fonction parcourir le point de montage / conservation en cas de besoin
-    def parcourir_gps( self,entry ):
+    ## fonction parcourir pour selectionner un dossier / conservation en cas de besoin def parcourir_gps( self,entry ):
+    def selectFolder( self,entry ):
 	
 	self.window = gtk.FileChooserDialog( _( "Ouvrir..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ),
 		gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER, ( gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK ) );
@@ -1667,10 +1613,93 @@ Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30''' ) )
 	if( self.window.run() == gtk.RESPONSE_OK ):
 		dossier = self.window.get_filename()
 		self.Debug( 5, dossier )
-		self.label.set_text( dossier )
+		self.labelfolder.set_text( dossier )
 		self.window.destroy()
 
 	return True
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction parcourir pour selectionner un fichier
+    def selectFile( self,entry ):
+	
+	self.window = gtk.FileChooserDialog( _( "Ouvrir..." ), gtk.Window(gtk.WINDOW_TOPLEVEL), 
+		gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK));
+
+	if( self.window.run() == gtk.RESPONSE_OK ):
+		file = self.window.get_filename()
+		self.Debug( 5, file )
+		self.labelfile.set_text( file )
+		self.window.destroy()
+		
+	return True
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## Fonction de demarrage de la classe
+    def __init__( self ):
+
+	## Definition du repertoire contenant les donnees d'internationalisation
+	gettext.bindtextdomain( App, '.' )
+	## Recuperation de la configuration
+	self.GetConfig()
+
+	## Si on est pas en mode script
+	if( self.noGui == False ):
+		##On cree la fenetre principale
+        	self.window = gtk.Window( gtk.WINDOW_TOPLEVEL )
+		## En cas de fermeture de la fenetre, on appel la fonction Delete
+        	self.window.connect( "delete_event", self.Delete )
+        	self.window.set_border_width( 10 )
+		self.window.set_title( App )
+		## centrage de la fenetre 
+		self.window.set_position( gtk.WIN_POS_CENTER )
+		##*************************************************************************************************************
+        	##On cree un nouveau notebook
+        	notebook = gtk.Notebook()
+		notebook.set_name( "notebook" )
+        	self.window.add( notebook )
+        	notebook.show()
+		##*************************************************************************************************************
+		## Construction des onglets de la fenetre principale
+		self.FrameOption( notebook )
+		self.FrameGPSQuickFix( notebook )
+		self.FrameBackupRestore( notebook )
+		##TODO decommenter la ligne suivante pour affichage
+		##self.FrameBonus( notebook )
+		self.FrameAbout( notebook )
+		self.FrameQuit( notebook )
+		##*************************************************************************************************************
+		## Onglet que nous verrons à l'ouverture
+        	notebook.set_current_page( self.boxInit )
+		## Affichage de l'ensemble
+        	self.window.show_all()
+
+	## Lancement des actions
+
+	## Si l'option a ete fournie, lancement de la sauvegarde de la configuration
+	if( self.doSave ):
+		self.PutConfig()
+
+	## Si l'option a ete fournie, lancement du GpsFix
+	if( self.doGpsFix ):
+		self.Debug( 1, _( "Lancement de GpsQuickFix" ) )
+		self.GpsQuickFix( None )
+
+	## Si l'option a ete fournie, lancement du Backup
+	if( self.doBackup ):
+		self.Debug( 1, _( "Lancement de la Sauvegarde" ) )
+		self.BackupRestoreGPS( None, "backup" )
+
+	## Si l'option a ete fournie, lancement de la restauration
+	if( self.doRestore ):
+		self.Debug( 1, _( "Lancement de la Restauration" ) )
+
+	## Si on est en mode script, fermeture de l'application
+	if( self.noGui == True ):
+		self.Delete( None )
+		return None
+
+	return None
+
 
 #----------------------------------------------- DEFINITION DES FONCTIONS GLOBALES -------------------------------------------
 def main():

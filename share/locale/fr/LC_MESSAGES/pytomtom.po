@@ -1,0 +1,581 @@
+# French translations for PACKAGE package
+# Traductions françaises du paquet PACKAGE.
+# Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# tom <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-18 19:41+0100\n"
+"PO-Revision-Date: 2010-01-18 19:41+0100\n"
+"Last-Translator: Pascal MALAISE <malaise@magic.fr>\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: share/pytomtom/src/pytomtom.py:78
+msgid "You are not runnig Linux operating system"
+msgstr "Vous n'êtes pas sous un système Linux"
+
+#: share/pytomtom/src/pytomtom.py:218
+msgid "usage: "
+msgstr "utilisation: "
+
+#: share/pytomtom/src/pytomtom.py:220
+msgid "This online help"
+msgstr "Cette aide"
+
+#: share/pytomtom/src/pytomtom.py:221
+msgid "Print the name and version of this software"
+msgstr "Affichage du nom et de la version de l'application"
+
+#: share/pytomtom/src/pytomtom.py:222
+msgid "Debugging level, from 0 to 9"
+msgstr "Niveau de déboggage valeur entre 0 et 9"
+
+#: share/pytomtom/src/pytomtom.py:223
+msgid "Name of traces log file"
+msgstr "Nom du fichier d'enregistrement des traces de l'application"
+
+#: share/pytomtom/src/pytomtom.py:224
+msgid "Overwrite log file (default is append)"
+msgstr "Ecraser le ficher des traces (mode ajout par défaut)"
+
+#: share/pytomtom/src/pytomtom.py:225
+msgid "Show commands to be executed but do not execute them"
+msgstr "Ne pas executer les commandes, juste afficher ce qui doit être fait"
+
+#: share/pytomtom/src/pytomtom.py:226
+msgid "Show elapsed time in progress bar"
+msgstr "Afficher le temps estimé restant dans la barre de progression"
+
+#: share/pytomtom/src/pytomtom.py:227
+msgid "Show remaining time in progress bar"
+msgstr "Afficher le temps estimé restant dans la barre de progression"
+
+#: share/pytomtom/src/pytomtom.py:228
+msgid "Show total estimated time in progress bar"
+msgstr "Afficher le temps estimé total dans la barre de progression"
+
+#: share/pytomtom/src/pytomtom.py:229
+msgid "Usage in text mode"
+msgstr "Utilisation en mode texte"
+
+#: share/pytomtom/src/pytomtom.py:230
+msgid "Save configuration file"
+msgstr "Lancer la sauvegarde du fichier de configuration"
+
+#: share/pytomtom/src/pytomtom.py:231
+msgid "Start update of GPSQuickFix"
+msgstr "Lancer la mise a jour de GPSQuickFix"
+
+#: share/pytomtom/src/pytomtom.py:232
+msgid "Start backup operation in file "
+msgstr "Lancer le backup dans le fichier "
+
+#: share/pytomtom/src/pytomtom.py:234 share/pytomtom/src/pytomtom.py:237
+msgid ""
+"\n"
+"                                               or provided with -f"
+msgstr ""
+"\n"
+"                                               ou fourni par -f"
+#: share/pytomtom/src/pytomtom.py:235
+msgid "Start restore operation from file "
+msgstr "Lancer la restauration du fichier "
+
+#: share/pytomtom/src/pytomtom.py:238
+msgid "Path of backup/restore file"
+msgstr "Emplacement du fichier de sauvegarde ou de restauration"
+
+#: share/pytomtom/src/pytomtom.py:239
+msgid "Mounting point of the TomTom"
+msgstr "Point de montage du TomTom"
+
+#: share/pytomtom/src/pytomtom.py:240
+msgid "TomTom model, in the list:"
+msgstr "Modèle du TomTom dans la liste:"
+
+#: share/pytomtom/src/pytomtom.py:279
+msgid "Option Backup"
+msgstr "Backup à effectuer"
+
+#: share/pytomtom/src/pytomtom.py:285
+msgid "Option File name: "
+msgstr "Nom du fichier fourni: "
+
+#: share/pytomtom/src/pytomtom.py:288
+msgid "Option GPSQuickFix"
+msgstr "GPSQuickFix à executer"
+
+#: share/pytomtom/src/pytomtom.py:299 share/pytomtom/src/pytomtom.py:451
+msgid "Option Script mode"
+msgstr "Mode script activé"
+
+#: share/pytomtom/src/pytomtom.py:305
+msgid "Option Restore"
+msgstr "Restauration à effectuer"
+
+#: share/pytomtom/src/pytomtom.py:308
+msgid "Option Save configuration"
+msgstr "Sauvegarde de la configuration à effectuer"
+
+#: share/pytomtom/src/pytomtom.py:311
+msgid "Option Overwrite configuration"
+msgstr "Ecrasement du fichier de configuration"
+
+#: share/pytomtom/src/pytomtom.py:317
+msgid "Option Without execution"
+msgstr "Mode sans execution"
+
+#: share/pytomtom/src/pytomtom.py:320
+msgid "Option Print elapsed time in progress bar"
+msgstr "Affichage du temps passé dans la barre de progression"
+
+#: share/pytomtom/src/pytomtom.py:323
+msgid "Option Print remaining time in progress bar"
+msgstr "Affichage du temps restant dans la barre de progression"
+
+#: share/pytomtom/src/pytomtom.py:326
+msgid "Option Print total time in progress bar"
+msgstr "Affichage du temps total dans la barre de progression"
+
+#: share/pytomtom/src/pytomtom.py:329
+msgid "Option No action"
+msgstr "Mode sans action"
+
+#: share/pytomtom/src/pytomtom.py:352
+msgid "Impossible to change log file"
+msgstr "Impossible de changer de fichier de traces"
+
+#: share/pytomtom/src/pytomtom.py:362
+msgid "Incompatible options -b and -r"
+msgstr "Options -b et -r fournies en meme temps"
+
+#: share/pytomtom/src/pytomtom.py:370 share/pytomtom/src/pytomtom.py:418
+msgid "Selected model: "
+msgstr "Modèle fourni: "
+
+#: share/pytomtom/src/pytomtom.py:372
+msgid "Invalid model "
+msgstr "Mauvais choix de modèle "
+
+#: share/pytomtom/src/pytomtom.py:380 share/pytomtom/src/pytomtom.py:412
+msgid "Selected mounting point: "
+msgstr "Point de montage fourni: "
+
+#: share/pytomtom/src/pytomtom.py:382
+msgid "Invalid mounting point argument: "
+msgstr "Mauvais argument pour le point de montage: "
+
+#: share/pytomtom/src/pytomtom.py:391
+msgid "Debugging level argument "
+msgstr "Argument pour l'option de deboggage "
+
+#: share/pytomtom/src/pytomtom.py:393
+msgid "Mauvais argument pour l'option de deboggage "
+msgstr "Invalid debugging level argument "
+
+#: share/pytomtom/src/pytomtom.py:395
+msgid "Debugging level argument is not an int "
+msgstr "Argument pour l'option de deboggage non entier "
+
+#: share/pytomtom/src/pytomtom.py:427
+msgid "Elapsed time: "
+msgstr "Affichage du temps passé: "
+
+#: share/pytomtom/src/pytomtom.py:436
+msgid "Remaining time: "
+msgstr "Affichage du temps restant: "
+
+#: share/pytomtom/src/pytomtom.py:445
+msgid "Total time: "
+msgstr "Affichage du temps total: "
+
+#: share/pytomtom/src/pytomtom.py:468
+msgid "Impossible to create configuration file "
+msgstr "Création du dossier de configuration impossible "
+
+#: share/pytomtom/src/pytomtom.py:504
+msgid "Configuration path is not a directory "
+msgstr "Le dossier de configuration n'est pas un dossier "
+
+#: share/pytomtom/src/pytomtom.py:521
+msgid "cabextract is not installed"
+msgstr "cabextract n'est pas installé"
+
+#: share/pytomtom/src/pytomtom.py:527
+msgid "tar is not installed"
+msgstr "tar n'est pas installé"
+
+#: share/pytomtom/src/pytomtom.py:531
+msgid "Application: "
+msgstr "Application: "
+
+#: share/pytomtom/src/pytomtom.py:531
+msgid " - Version: "
+msgstr " - Version: "
+
+#: share/pytomtom/src/pytomtom.py:532
+msgid "Mounting point used: "
+msgstr "Point de montage utilisé: "
+
+#: share/pytomtom/src/pytomtom.py:533
+msgid "Model used: "
+msgstr "Modèle utilisé: "
+
+#: share/pytomtom/src/pytomtom.py:563
+msgid "Cannot write data: "
+msgstr "Les données ne peuvent être enregistrées: "
+
+#: share/pytomtom/src/pytomtom.py:563
+msgid "mounting point = '"
+msgstr "point de montage = '"
+
+#: share/pytomtom/src/pytomtom.py:564
+msgid "' - model = '"
+msgstr "' - modèle = '"
+
+#: share/pytomtom/src/pytomtom.py:579
+msgid "TomTom: "
+msgstr "TomTom: "
+
+#: share/pytomtom/src/pytomtom.py:579 share/pytomtom/src/pytomtom.py:580
+msgid " ::saved::"
+msgstr " ::enregistré::"
+
+#: share/pytomtom/src/pytomtom.py:580
+msgid "Mounting point: "
+msgstr "Point de montage: "
+
+#: share/pytomtom/src/pytomtom.py:595
+msgid "No mounting point"
+msgstr "Aucun point de montage"
+
+#: share/pytomtom/src/pytomtom.py:603
+msgid "List of mounting points "
+msgstr "Liste de points de montage "
+
+#: share/pytomtom/src/pytomtom.py:616
+msgid "Testing mounting point "
+msgstr "Test du point de montage "
+
+#: share/pytomtom/src/pytomtom.py:618
+msgid "Valid mounting point: "
+msgstr "Point de montage valide: "
+
+#: share/pytomtom/src/pytomtom.py:634 share/pytomtom/src/pytomtom.py:831
+msgid "Invalid mounting point: "
+msgstr "Point de montage non valide: "
+
+#: share/pytomtom/src/pytomtom.py:657
+msgid "Impossible to fetch URL: "
+msgstr "Impossible de récupérer l'URL: "
+
+#: share/pytomtom/src/pytomtom.py:665
+msgid "Creating temporary directory: "
+msgstr "Création du dossier temporaire: "
+
+#: share/pytomtom/src/pytomtom.py:669
+msgid "Creating temporary file: "
+msgstr "Création du fichier temporaire: "
+
+#: share/pytomtom/src/pytomtom.py:671
+msgid "Fetching data: "
+msgstr "Récupération des données: "
+
+#: share/pytomtom/src/pytomtom.py:685
+msgid "Launching command "
+msgstr "Lancement de la commande "
+
+#: share/pytomtom/src/pytomtom.py:694
+msgid "Moving file to final destination: "
+msgstr "Déplacement des fichiers vers leur destination finale: "
+
+#: share/pytomtom/src/pytomtom.py:701
+msgid "Impossible to move data"
+msgstr "Impossible de déplacer les données"
+
+#: share/pytomtom/src/pytomtom.py:703
+msgid "Impossible to extract data"
+msgstr "Impossible d'extraire les données"
+
+#: share/pytomtom/src/pytomtom.py:705
+msgid "Impossible to fetch data"
+msgstr "Impossible de récupérer les données"
+
+#: share/pytomtom/src/pytomtom.py:707
+msgid "Impossible to create temporary file"
+msgstr "Impossible de créer un fichier temporaire"
+
+#: share/pytomtom/src/pytomtom.py:712
+msgid "Impossible to create temporary directory"
+msgstr "Impossible de créer un répertoire temporaire"
+
+#: share/pytomtom/src/pytomtom.py:719 share/pytomtom/src/pytomtom.py:720
+msgid "GPSQuickFix completed"
+msgstr "GPSQuickFix terminé"
+
+#: share/pytomtom/src/pytomtom.py:747
+msgid "launching command: "
+msgstr "Lancement de la commande: "
+
+#: share/pytomtom/src/pytomtom.py:756
+msgid "Command result: "
+msgstr "Résultat de la commande: "
+
+#: share/pytomtom/src/pytomtom.py:777
+msgid "Searched object: "
+msgstr "Objet recherché: "
+
+#: share/pytomtom/src/pytomtom.py:781
+msgid "Scanning level: "
+msgstr "Parcours niveau: "
+
+#: share/pytomtom/src/pytomtom.py:788
+msgid "     Object scanned: "
+msgstr "     Objet parcouru: "
+
+#: share/pytomtom/src/pytomtom.py:791
+msgid "Object found"
+msgstr "Objet trouvé"
+
+#: share/pytomtom/src/pytomtom.py:838
+msgid "Invalid file selected for "
+msgstr "Mauvaise sélection du fichier de "
+
+#: share/pytomtom/src/pytomtom.py:841
+msgid "File for "
+msgstr "Fichier de "
+
+#: share/pytomtom/src/pytomtom.py:846
+msgid "Backup file not found"
+msgstr "Archive inexistante"
+
+#: share/pytomtom/src/pytomtom.py:869
+msgid "Impossible to compute filesystem size"
+msgstr "Taille du systeme de fichier impossible à calculer"
+
+#: share/pytomtom/src/pytomtom.py:871
+msgid "Mounting point size: "
+msgstr "Taille du point de montage: "
+
+#: share/pytomtom/src/pytomtom.py:876
+msgid "Backup partition size: "
+msgstr "Taille de la partition de sauvegarde: "
+
+#: share/pytomtom/src/pytomtom.py:880
+msgid "Insufficient disk space: "
+msgstr "Espace disque insuffisant: "
+
+#: share/pytomtom/src/pytomtom.py:880
+msgid " for "
+msgstr " pour "
+
+#: share/pytomtom/src/pytomtom.py:891
+msgid "Creation"
+msgstr "Création"
+
+#: share/pytomtom/src/pytomtom.py:894
+msgid "Restoration"
+msgstr "Restauration"
+
+#: share/pytomtom/src/pytomtom.py:905
+msgid "Launching command: "
+msgstr "Lancement de la commande: "
+
+#: share/pytomtom/src/pytomtom.py:912 share/pytomtom/src/pytomtom.py:913
+#: share/pytomtom/src/pytomtom.py:986
+msgid " completed"
+msgstr " terminée"
+
+#: share/pytomtom/src/pytomtom.py:916
+msgid "Launching the test of "
+msgstr "Lancement du test de "
+
+#: share/pytomtom/src/pytomtom.py:916
+msgid " of archive each second"
+msgstr " d'archive toutes les secondes"
+
+#: share/pytomtom/src/pytomtom.py:925
+msgid " of archive"
+msgstr " de l'archive"
+
+#: share/pytomtom/src/pytomtom.py:984
+msgid " failed"
+msgstr " non réussie"
+
+#: share/pytomtom/src/pytomtom.py:988
+msgid ": "
+msgstr ": "
+
+#: share/pytomtom/src/pytomtom.py:1052
+msgid "Exiting on request"
+msgstr "On quitte suite à la demande"
+
+#: share/pytomtom/src/pytomtom.py:1063
+msgid "File size: "
+msgstr "Taille du fichier: "
+
+#: share/pytomtom/src/pytomtom.py:1126
+msgid "Waiting for end of child process"
+msgstr "En attente de fin de sous-processus"
+
+#: share/pytomtom/src/pytomtom.py:1249 share/pytomtom/src/pytomtom.py:1347
+msgid "Options"
+msgstr "Options"
+
+#: share/pytomtom/src/pytomtom.py:1276
+msgid "Please indicate the mounting point of your Tomtom:"
+msgstr "Indiquez le point de montage de votre TomTom:"
+
+#: share/pytomtom/src/pytomtom.py:1309
+msgid "During backup or restore, display:"
+msgstr "Pendant la sauvegarde ou la restauration, afficher:"
+
+#: share/pytomtom/src/pytomtom.py:1314
+msgid "elapsed time"
+msgstr "le temps passé"
+
+#: share/pytomtom/src/pytomtom.py:1322
+msgid "remaining time"
+msgstr "le temps restant"
+
+#: share/pytomtom/src/pytomtom.py:1330
+msgid "total time"
+msgstr "le temps total"
+
+#: share/pytomtom/src/pytomtom.py:1359 share/pytomtom/src/pytomtom.py:1409
+msgid "GPSQuickFix"
+msgstr "GPSQuickFix"
+
+#: share/pytomtom/src/pytomtom.py:1387
+msgid ""
+"This update sets the last known positions of the satellites. \n"
+"It allows your GPS to find its initial position in less than 30 seconds\n"
+"and to initiate navigation more quickly...\n"
+"\n"
+"Please ensure that you have properly set your GPS parameters in the \n"
+"options."
+msgstr ""
+"Cette mise-à-jour détermine les dernières positions\n"
+"connues des satellites.\n"
+"Elle permet donc de trouver votre position initiale\n"
+"en moins de 30 secondes\n"
+"et de commencer à naviguer plus rapidement... \n"
+"\n"
+"Assurez-vous d'avoir correctement paramétré\n"
+"votre GPS dans les options."
+
+#: share/pytomtom/src/pytomtom.py:1399
+msgid "Start GPSQuickfix update"
+msgstr "Lancer la mise-à-jour GPSQuickfix"
+
+#: share/pytomtom/src/pytomtom.py:1404
+msgid "Cannot start GPSQuickfix update (cabextract is missing)"
+msgstr "Impossible de lancer la mise-à-jour GPSQuickfix (cabextract absent)"
+
+#: share/pytomtom/src/pytomtom.py:1422
+msgid "Backup and restore"
+msgstr "Sauvegarde et restauration"
+
+#: share/pytomtom/src/pytomtom.py:1452
+msgid "Backup file:"
+msgstr "Fichier de sauvegarde:"
+
+#: share/pytomtom/src/pytomtom.py:1506
+msgid "In order to complete these operations "
+msgstr "Pour effectuer ces opérations, "
+
+#: share/pytomtom/src/pytomtom.py:1506
+msgid ""
+" takes time \n"
+"and consumes disk space.\n"
+"For information, 25 minutes and 1GB on disk for a One Series 30"
+msgstr ""
+" prend du temps et de l'espace. \n"
+"Pour info, 25 minutes et 1GB sur le disque dur pour un One Series 30"
+
+#: share/pytomtom/src/pytomtom.py:1520
+msgid "Start backup..."
+msgstr "Lancer la sauvegarde..."
+
+#: share/pytomtom/src/pytomtom.py:1526
+msgid "Cannot start backup (tar is missing)"
+msgstr "Impossible de lancer la sauvegarde (tar absent)"
+
+#: share/pytomtom/src/pytomtom.py:1540
+msgid "Start restore..."
+msgstr "Lancer la restauration..."
+
+#: share/pytomtom/src/pytomtom.py:1546
+msgid "Cannot start restore (tar is missing)"
+msgstr "Impossible de lancer la restauration (tar absent)"
+
+#: share/pytomtom/src/pytomtom.py:1552
+msgid "Please use restore only in case of necessity !"
+msgstr "N'utilisez la restauration qu'en cas d'absolue nécessité !"
+
+#: share/pytomtom/src/pytomtom.py:1557
+msgid "Backup and Restore"
+msgstr "Sauvegarde et Restauration"
+
+#: share/pytomtom/src/pytomtom.py:1569 share/pytomtom/src/pytomtom.py:1605
+msgid "Personify"
+msgstr "Personnaliser"
+
+#: share/pytomtom/src/pytomtom.py:1596
+msgid "Replace the startup screen of your GPS by the picture of your choice"
+msgstr "Remplacez l'écran de démarrage de votre GPS par la photo de votre choix"
+
+#: share/pytomtom/src/pytomtom.py:1601
+msgid "button"
+msgstr "bouton"
+
+#: share/pytomtom/src/pytomtom.py:1619 share/pytomtom/src/pytomtom.py:1645
+msgid "About"
+msgstr "A propos"
+
+#: share/pytomtom/src/pytomtom.py:1636
+msgid "version "
+msgstr "version "
+
+#: share/pytomtom/src/pytomtom.py:1636
+msgid ""
+"\n"
+"\t\n"
+"\thttp://tomonweb.2kool4u.net/pytomtom/\n"
+"\t"
+msgstr ""
+"\n"
+"\t\n"
+"\thttp://tomonweb.2kool4u.net/pytomtom/\n"
+"\t"
+
+#: share/pytomtom/src/pytomtom.py:1657 share/pytomtom/src/pytomtom.py:1696
+msgid "Exit"
+msgstr "Quitter"
+
+#: share/pytomtom/src/pytomtom.py:1685
+msgid "Don't forget to cleanly unmount your TomTom!"
+msgstr "N'oubliez pas d'éjecter proprement votre TomTom!"
+
+#: share/pytomtom/src/pytomtom.py:1705 share/pytomtom/src/pytomtom.py:1720
+msgid "Open..."
+msgstr "Ouvrir..."
+
+#: share/pytomtom/src/pytomtom.py:1779
+msgid "Starting GPSQuickFix"
+msgstr "Lancement de GPSQuickFix"
+
+#: share/pytomtom/src/pytomtom.py:1784
+msgid "Starting Backup"
+msgstr "Lancement de la Sauvegarde"
+
+#: share/pytomtom/src/pytomtom.py:1789
+msgid "Starting Restore"
+msgstr "Lancement de la Restauration"

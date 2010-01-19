@@ -64,8 +64,8 @@ Ver = "0.4"
 Dev = "Thomas LEROY"
 Transl = "Pascal MALAISE"
 
-## i18n (internationalisation)
-gettext.bindtextdomain('pytomtom', '/usr/share/locale')
+## i18n (internationalisation) /usr/share/locale
+gettext.bindtextdomain('pytomtom', '../share/locale')
 gettext.textdomain('pytomtom')
 _ = gettext.gettext
 
@@ -320,7 +320,7 @@ class NotebookTomtom:
 			self.Debug( 5, _( "Option Print elapsed time in progress bar" ) )
 		elif opt in ( "--print-time-remind" ):
 			self.configTimeRemind = True
-			self.Debug( 5, _( "Affichage du temps restant dans la barre de progression" ) )
+			self.Debug( 5, _( "Option Print remaining time in progress bar" ) )
 		elif opt in ( "--print-time-tot" ):
 			self.configTimeTot = True
 			self.Debug( 5, _( "Option Print total time in progress bar" ) )
@@ -576,7 +576,7 @@ class NotebookTomtom:
 		configFile.close()
 
 	## Affichage des informations de deboggage
-	self.Debug( 1, _( "TomTom : " ) + str( self.model ) + _( " ::saved::" ) )
+	self.Debug( 1, _( "TomTom: " ) + str( self.model ) + _( " ::saved::" ) )
 	self.Debug( 1, _( "Mounting point: " ) + str( self.ptMount ) + _( " ::saved::" ) )
 
 	return True

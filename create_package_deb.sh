@@ -5,7 +5,7 @@ BIN_DIR="/usr/bin"
 APP_DIR="/usr/share/applications"
 LOC_DIR="/usr/share/locale"
 ICO_DIR="/usr/share/pixmaps"
-VERSION="0.4"
+VERSION="0.4.1"
 
 mkdir -p pytomtom/DEBIAN
 cp control-install pytomtom/DEBIAN/control
@@ -37,8 +37,8 @@ cp share/applications/pytomtom.desktop "pytomtom"$APP_DIR
 mkdir -p "pytomtom"$BIN_DIR
 cp bin/pytomtom.sh "pytomtom"$BIN_DIR"/pytomtom"
 
-#mkdir -p "pytomtom"$LOC_DIR
-#cp -R locale/* "pytomtom"$LOC_DIR
+mkdir -p "pytomtom"$LOC_DIR
+cp -R share/locale/* "pytomtom"$LOC_DIR
 
 dpkg-deb --build pytomtom pytomtom-$VERSION.deb
 rm -rf pytomtom

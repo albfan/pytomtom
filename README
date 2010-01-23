@@ -3,7 +3,7 @@ pyTOMTOM
 http://tomonweb.2kool4u.net/pytomtom
 -------------------------------------------------
 
-English translation at bottom...
+English translation by Pascal MALAISE at bottom...
 
 -------------------------------------------------
 
@@ -18,7 +18,7 @@ I. PRE-REQUIS
 
 Système d'exploitation: Linux
 Les paquets suivants sont indispensables au bon fonctionnement du logiciel: 
-	python (>=2.6), python-gtk2, cabextract
+	python (>=2.5), python-gtk2, cabextract
 Veuillez vous assurer qu'ils soient présents sur votre système avant de lancer le logiciel.
 Sous Ubuntu, vous pouvez les installer depuis la console en tapant:
 	sudo apt-get install python2.6 python-gtk2 cabextract

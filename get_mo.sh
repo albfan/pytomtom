@@ -1,10 +1,9 @@
 #!/bin/sh
-LOCALE_DIR="share/locale/fr/LC_MESSAGES"
+LANG_PO="fr"
+LOC_DIR="share/locale/"$LANG_PO"/LC_MESSAGES"
 PY_DIR="share/pytomtom/src/pytomtom.py"
 
-
-msgfmt $LOCALE_DIR"/pytomtom.po" -o $LOCALE_DIR"/pytomtom.mo"
-##rm -f $LOCALE_DIR"/pytomtom.po"
+msgfmt "po/"$LANG_PO".po" -o $LOC_DIR"/pytomtom.mo"
 
 
 

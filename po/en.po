@@ -1,8 +1,8 @@
-# French translations for PACKAGE package
-# Traductions françaises du paquet PACKAGE.
+# English translations for pyTOMTOM package
+# Traductions anglaises du paquet pyTOMTOM.
 # Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# tom <tmsleroy@gmail.com>, 2010.
+# Thomas LEROY <tmsleroy@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
@@ -10,449 +10,62 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-19 16:06+0100\n"
 "PO-Revision-Date: 2010-01-19 16:06+0100\n"
-"Last-Translator: tom <EMAIL@ADDRESS>\n"
-"Language-Team: French\n"
+"Last-Translator: Pascal MALAISE <malaise@magic.fr>\n"
+"Language-Team: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: share/pytomtom/src/pytomtom.py:78
-msgid "You are not runnig Linux operating system"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:218
-msgid "usage: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:220
-msgid "This online help"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:221
-msgid "Print the name and version of this software"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:222
-msgid "Debugging level, from 0 to 9"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:223
-msgid "Name of traces log file"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:224
-msgid "Overwrite log file (default is append)"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:225
-msgid "Show commands to be executed but do not execute them"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:226
-msgid "Show elapsed time in progress bar"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:227
-msgid "Show remaining time in progress bar"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:228
-msgid "Show total estimated time in progress bar"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:229
-msgid "Usage in text mode"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:230
-msgid "Save configuration file"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:231
-msgid "Start update of GPSQuickFix"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:232
-msgid "Start backup operation in file "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:234 share/pytomtom/src/pytomtom.py:237
-msgid ""
-"\n"
-"                                               or provided with -f"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:235
-msgid "Start restore operation from file "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:238
-msgid "Path of backup/restore file"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:239
-msgid "Mounting point of the TomTom"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:240
-msgid "TomTom model, in the list:"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:279
-msgid "Option Backup"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:285
-msgid "Option File name: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:288
-msgid "Option GPSQuickFix"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:299 share/pytomtom/src/pytomtom.py:451
-msgid "Option Script mode"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:305
-msgid "Option Restore"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:308
-msgid "Option Save configuration"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:311
-msgid "Option Overwrite configuration"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:317
-msgid "Option Without execution"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:320
-msgid "Option Print elapsed time in progress bar"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:323
-msgid "Option Print remaining time in progress bar"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:326
-msgid "Option Print total time in progress bar"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:329
-msgid "Option No action"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:352
-msgid "Impossible to change log file"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:362
-msgid "Incompatible options -b and -r"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:370 share/pytomtom/src/pytomtom.py:418
-msgid "Selected model: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:372
-msgid "Invalid model "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:380 share/pytomtom/src/pytomtom.py:412
-msgid "Selected mounting point: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:382
-msgid "Invalid mounting point argument: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:391
-msgid "Debugging level argument "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:393
-msgid "Mauvais argument pour l'option de deboggage "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:395
-msgid "Debugging level argument is not an int "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:427
-msgid "Elapsed time: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:436
-msgid "Remaining time: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:445
-msgid "Total time: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:468
-msgid "Impossible to create configuration file "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:504
-msgid "Configuration path is not a directory "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:521
-msgid "cabextract is not installed"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:527
-msgid "tar is not installed"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:531
-msgid "Application: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:531
-msgid " - Version: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:532
-msgid "Mounting point used: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:533
-msgid "Model used: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:563
-msgid "Cannot write data: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:563
-msgid "mounting point = '"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:564
-msgid "' - model = '"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:579
-msgid "TomTom: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:579 share/pytomtom/src/pytomtom.py:580
-msgid " ::saved::"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:580
-msgid "Mounting point: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:595
-msgid "No mounting point"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:603
-msgid "List of mounting points "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:616
-msgid "Testing mounting point "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:618
-msgid "Valid mounting point: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:634 share/pytomtom/src/pytomtom.py:831
-msgid "Invalid mounting point: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:657
-msgid "Impossible to fetch URL: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:665
-msgid "Creating temporary directory: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:669
-msgid "Creating temporary file: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:671
-msgid "Fetching data: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:685
-msgid "Launching command "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:694
-msgid "Moving file to final destination: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:701
-msgid "Impossible to move data"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:703
-msgid "Impossible to extract data"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:705
-msgid "Impossible to fetch data"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:707
-msgid "Impossible to create temporary file"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:712
-msgid "Impossible to create temporary directory"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:719 share/pytomtom/src/pytomtom.py:720
+#: share/pytomtom/src/pytomtom.py:721
 msgid "GPSQuickFix completed"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:747
-msgid "launching command: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:756
-msgid "Command result: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:777
-msgid "Searched object: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:781
-msgid "Scanning level: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:788
-msgid "     Object scanned: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:791
-msgid "Object found"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:838
-msgid "Invalid file selected for "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:841
-msgid "File for "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:846
-msgid "Backup file not found"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:869
-msgid "Impossible to compute filesystem size"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:871
-msgid "Mounting point size: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:876
-msgid "Backup partition size: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:880
-msgid "Insufficient disk space: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:880
-msgid " for "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:891
+#: share/pytomtom/src/pytomtom.py:893
 msgid "Creation"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:894
+#: share/pytomtom/src/pytomtom.py:896
 msgid "Restoration"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:905
-msgid "Launching command: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:912 share/pytomtom/src/pytomtom.py:913
-#: share/pytomtom/src/pytomtom.py:986
+#: share/pytomtom/src/pytomtom.py:914 share/pytomtom/src/pytomtom.py:988
 msgid " completed"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:916
-msgid "Launching the test of "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:916
-msgid " of archive each second"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:925
-msgid " of archive"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:984
+#: share/pytomtom/src/pytomtom.py:986
 msgid " failed"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:988
-msgid ": "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1052
-msgid "Exiting on request"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1063
-msgid "File size: "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1126
-msgid "Waiting for end of child process"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1249 share/pytomtom/src/pytomtom.py:1347
+#: share/pytomtom/src/pytomtom.py:1251 share/pytomtom/src/pytomtom.py:1349
 msgid "Options"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1276
+#: share/pytomtom/src/pytomtom.py:1278
 msgid "Please indicate the mounting point of your Tomtom:"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1309
+#: share/pytomtom/src/pytomtom.py:1311
 msgid "During backup or restore, display:"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1314
+#: share/pytomtom/src/pytomtom.py:1316
 msgid "elapsed time"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1322
+#: share/pytomtom/src/pytomtom.py:1324
 msgid "remaining time"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1330
+#: share/pytomtom/src/pytomtom.py:1332
 msgid "total time"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1359 share/pytomtom/src/pytomtom.py:1409
+#: share/pytomtom/src/pytomtom.py:1361 share/pytomtom/src/pytomtom.py:1411
 msgid "GPSQuickFix"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1387
+#: share/pytomtom/src/pytomtom.py:1389
 msgid ""
 "This update sets the last known positions of the satellites. \n"
 "It allows your GPS to find its initial position in less than 30 seconds\n"
@@ -462,78 +75,78 @@ msgid ""
 "options."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1399
+#: share/pytomtom/src/pytomtom.py:1401
 msgid "Start GPSQuickfix update"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1404
+#: share/pytomtom/src/pytomtom.py:1406
 msgid "Cannot start GPSQuickfix update (cabextract is missing)"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1422
+#: share/pytomtom/src/pytomtom.py:1424
 msgid "Backup and restore"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1452
+#: share/pytomtom/src/pytomtom.py:1454
 msgid "Backup file:"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1506
+#: share/pytomtom/src/pytomtom.py:1508
 msgid "In order to complete these operations "
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1506
+#: share/pytomtom/src/pytomtom.py:1508
 msgid ""
 " takes time \n"
 "and consumes disk space.\n"
 "For information, 25 minutes and 1GB on disk for a One Series 30"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1520
+#: share/pytomtom/src/pytomtom.py:1522
 msgid "Start backup..."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1526
+#: share/pytomtom/src/pytomtom.py:1528
 msgid "Cannot start backup (tar is missing)"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1540
+#: share/pytomtom/src/pytomtom.py:1542
 msgid "Start restore..."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1546
+#: share/pytomtom/src/pytomtom.py:1548
 msgid "Cannot start restore (tar is missing)"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1552
+#: share/pytomtom/src/pytomtom.py:1554
 msgid "Please use restore only in case of necessity !"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1557
+#: share/pytomtom/src/pytomtom.py:1559
 msgid "Backup and Restore"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1569 share/pytomtom/src/pytomtom.py:1605
+#: share/pytomtom/src/pytomtom.py:1571 share/pytomtom/src/pytomtom.py:1607
 msgid "Personify"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1596
+#: share/pytomtom/src/pytomtom.py:1598
 msgid "Replace the startup screen of your GPS by the picture of your choice"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1601
+#: share/pytomtom/src/pytomtom.py:1603
 msgid "button"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1619 share/pytomtom/src/pytomtom.py:1645
+#: share/pytomtom/src/pytomtom.py:1621 share/pytomtom/src/pytomtom.py:1647
 msgid "About"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1636
+#: share/pytomtom/src/pytomtom.py:1638
 msgid "version "
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1636
+#: share/pytomtom/src/pytomtom.py:1638
 msgid ""
 "\n"
 "\t\n"
@@ -541,26 +154,14 @@ msgid ""
 "\t"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1657 share/pytomtom/src/pytomtom.py:1696
+#: share/pytomtom/src/pytomtom.py:1659 share/pytomtom/src/pytomtom.py:1698
 msgid "Exit"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1685
+#: share/pytomtom/src/pytomtom.py:1687
 msgid "Don't forget to cleanly unmount your TomTom!"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1705 share/pytomtom/src/pytomtom.py:1720
+#: share/pytomtom/src/pytomtom.py:1707 share/pytomtom/src/pytomtom.py:1722
 msgid "Open..."
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1779
-msgid "Starting GPSQuickFix"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1784
-msgid "Starting Backup"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1789
-msgid "Starting Restore"
 msgstr ""

@@ -6,6 +6,7 @@
 ## auteur : Thomas LEROY
 ## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal
 ## les icones utilisees proviennent de http://tango.freedesktop.org/Tango_Desktop_Project
+## python (>=2.5), python-gtk2, cabextract
 
 #----------------------------------------------- DEFINITION DES REGLES DE DEVELOPPEMENT --------------------------------------
 ## Regles de developpement
@@ -27,9 +28,10 @@
 ##   - les fonctions internes commencent par _
 
 #----------------------------------------------- IMPORT DES LIBRAIRIES UTILES ------------------------------------------------
+## Utilise pour rendre compatible python 2.5 (with)
+from __future__ import with_statement
 ## TODO : Utile ? import pygtk
 import gtk
-
 ## Utilise pour recuperer les fichiers cab pour le GPSFix
 import urllib2
 ## Utilise pour lancer des sous-programmes (tar, cabextract, df, ...)
@@ -60,7 +62,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.4"
+Ver = "0.4.1"
 Dev = "Thomas LEROY"
 Transl = "Pascal MALAISE"
 
@@ -75,7 +77,7 @@ _ = gettext.gettext
 #----------------------------------------------- VERIFICATIONS DES PRE-REQUIS ------------------------------------------------
 ## Verification d'etre sous Linux - du moins un systeme posix
 if( os.name != "posix" ):
-	print _( "You are not runnig Linux operating system" )
+	print "You are not runnig Linux operating system"
 	sys.exit( 2 )
 ## TODO : Utile ? Verification de python en version 2.0 minimum
 ##pygtk.require('2.0')
@@ -215,29 +217,29 @@ class NotebookTomtom:
     def Usage(self):
 	## Utilisation de sysr.argv[ 0 ] afin d'avoir toujours le bon nom de l'executable
 	print( "" )
-	print( _( "usage: " ) + "python " + os.path.basename( sys.argv[ 0 ] ) + " [option]" )
+	print( "usage: " + "python " + os.path.basename( sys.argv[ 0 ] ) + " [option]" )
 	print( "" )
-	print( "    -h, --help                                 " + _( "This online help" ) )
-	print( "    -V, --version                              " + _( "Print the name and version of this software" ) )
-	print( "    -d, --debug         niv                    " + _( "Debugging level, from 0 to 9" ) )
-	print( "    -l, --log-file      file-to-log            " + _( "Name of traces log file" ) )
-	print( "    -x, --overwrite-log                        " + _( "Overwrite log file (default is append)" ) )
-	print( "        --no-exec                              " + _( "Show commands to be executed but do not execute them" ) )
-	print( "        --print-time-passed                    " + _( "Show elapsed time in progress bar" ) )
-	print( "        --print-time-remind                    " + _( "Show remaining time in progress bar" ) )
-	print( "        --print-time-tot                       " + _( "Show total estimated time in progress bar" ) )
-	print( "    -n, --no-gui                               " + _( "Usage in text mode" ) )
-	print( "    -s, --save-config                          " + _( "Save configuration file" ) )
-	print( "    -g, --do-gpsfix                            " + _( "Start update of GPSQuickFix" ) )
-	print( "    -b, --do-backup                            " + _( "Start backup operation in file " )
+	print( "    -h, --help                                 " + "This online help" )
+	print( "    -V, --version                              " + "Print the name and version of this software" )
+	print( "    -d, --debug         niv                    " + "Debugging level, from 0 to 9" )
+	print( "    -l, --log-file      file-to-log            " + "Name of traces log file" )
+	print( "    -x, --overwrite-log                        " + "Overwrite log file (default is append)" )
+	print( "        --no-exec                              " + "Show commands to be executed but do not execute them" )
+	print( "        --print-time-passed                    " + "Show elapsed time in progress bar" )
+	print( "        --print-time-remind                    " + "Show remaining time in progress bar" )
+	print( "        --print-time-tot                       " + "Show total estimated time in progress bar" )
+	print( "    -n, --no-gui                               " + "Usage in text mode" )
+	print( "    -s, --save-config                          " + "Save configuration file" )
+	print( "    -g, --do-gpsfix                            " + "Start update of GPSQuickFix" )
+	print( "    -b, --do-backup                            " + "Start backup operation in file " 
 		+ self.dir + "/sv-[date-du-jour]-[model].tar[.gz|.bz] "
-		+ _( "\n                                               or provided with -f" ) )
-	print( "    -r, --do-restore                           " + _( "Start restore operation from file " )
+		+ "\n                                               or provided with -f" )
+	print( "    -r, --do-restore                           " + "Start restore operation from file "
 		+ self.dir + "/sv-[date-du-jour]-[model].tar[.gz|.bz]"
-		+ _( "\n                                               or provided with -f" ) )
-	print( "    -f, --file          file-to-save           " + _( "Path of backup/restore file" ) )
-	print( "    -p, --ptmount       dir                    " + _( "Mounting point of the TomTom" ) )
-	print( "    -m, --model         model                  " + _( "TomTom model, in the list:" ) )
+		+ "\n                                               or provided with -f" )
+	print( "    -f, --file          file-to-save           " + "Path of backup/restore file" )
+	print( "    -p, --ptmount       dir                    " + "Mounting point of the TomTom" )
+	print( "    -m, --model         model                  " + "TomTom model, in the list:" )
 	## Liste des modeles
 	for model in self.models:
 		print( "                                                     '" + model + "'" )
@@ -276,16 +278,16 @@ class NotebookTomtom:
 	for opt, argument in opts:
 		if opt in ( "-b", "--do-backup" ):
 			self.doBackup = True
-			self.Debug( 5, _( "Option Backup" ) )
+			self.Debug( 5, "Option Backup" )
 		elif opt in ( "-d", "--debug" ):
 			## Verification de l'option fournie faite a la fin
 			debug = argument
 		elif opt in ( "-f", "--file" ):
 			self.fileName = os.path.realpath( argument )
-			self.Debug( 5, _( "Option File name: " ) + self.fileName )
+			self.Debug( 5, "Option File name: " + self.fileName )
 		elif opt in ( "-g", "--do-gpsfix" ):
 			self.doGpsFix = True
-			self.Debug( 5, _( "Option GPSQuickFix" ) )
+			self.Debug( 5, "Option GPSQuickFix" )
 		elif opt in ( "-h", "--help" ):
 			self.Usage()
 			sys.exit()
@@ -296,37 +298,37 @@ class NotebookTomtom:
 			model = argument
 		elif opt in ( "-n", "--no-gui" ):
 			self.noGui = True
-			self.Debug( 5, _( "Option Script mode" ) )
+			self.Debug( 5, "Option Script mode" )
 		elif opt in ( "-p", "--ptmount" ):
 			## Verification du bon choix du point de montage faite a la fin
 			ptMount = argument
 		elif opt in ( "-r", "--do-restore" ):
 			self.doRestore = True
-			self.Debug( 5, _( "Option Restore" ) )
+			self.Debug( 5, "Option Restore" )
 		elif opt in ( "-s", "--save-config" ):
 			self.doSave = True
-			self.Debug( 5, _( "Option Save configuration" ) )
+			self.Debug( 5, "Option Save configuration" )
 		elif opt in ( "-x", "--overwrite-log" ):
 			self.overwriteLog = True
-			self.Debug( 5, _( "Option Overwrite configuration" ) )
+			self.Debug( 5, "Option Overwrite configuration" )
 		elif opt in ( "-V", "--version" ):
 			self.PrintVersion()
 			sys.exit()
 		elif opt in ( "--no-exec" ):
 			self.noExec = True
-			self.Debug( 5, _( "Option Without execution" ) )
+			self.Debug( 5, "Option Without execution" )
 		elif opt in ( "--print-time-passed" ):
 			self.configTimePassed = True
-			self.Debug( 5, _( "Option Print elapsed time in progress bar" ) )
+			self.Debug( 5, "Option Print elapsed time in progress bar" )
 		elif opt in ( "--print-time-remind" ):
 			self.configTimeRemind = True
-			self.Debug( 5, _( "Option Print remaining time in progress bar" ) )
+			self.Debug( 5, "Option Print remaining time in progress bar" )
 		elif opt in ( "--print-time-tot" ):
 			self.configTimeTot = True
-			self.Debug( 5, _( "Option Print total time in progress bar" ) )
+			self.Debug( 5, "Option Print total time in progress bar" )
 		else:
 			## Si l'option est mise dans getopt mais n'est pas traite ici
-			self.Debug( 0, _( "Option No action" ) )
+			self.Debug( 0, "Option No action" )
 
 	## Verifications diverses
 
@@ -349,7 +351,7 @@ class NotebookTomtom:
 			self.logFile = logFile
 		except:
 			## S'il y a une erreur, on affiche un message d'erreur (dans l'ancien fichier de log)
-			self.Debug( 1, _( "Impossible to change log file" ) )
+			self.Debug( 1, "Impossible to change log file" )
 	else:
 		## S'il n'y a pas de demande de nouveau fichier mais simplement d'excrasement du fichier de log (et qu'il ne s'agit pas
 		## de stdout, et re-ouvre (fermeture puis re-ouverture) le fichier de log en ecrasement
@@ -359,7 +361,7 @@ class NotebookTomtom:
 		
 	## Si les options de sauvegarde et de restauration sont founies en meme temps, il y a erreur
 	if( self.doBackup and self.doRestore ):
-		self.Debug( 0, _( "Incompatible options -b and -r" ) )
+		self.Debug( 0, "Incompatible options -b and -r" )
 		## Afin que toutes les options soient testees plutot que de stopper sur la premiere puis la seconde...
 		err = True
 
@@ -367,9 +369,9 @@ class NotebookTomtom:
 	if not( model == False ):
 		if( model in self.models ):
 			self.model = model
-			self.Debug( 5, _( "Selected model: " ) + self.model )
+			self.Debug( 5, "Selected model: " + self.model )
 		else:
-			self.Debug( 0, _( "Invalid model " ) + str( model ) )
+			self.Debug( 0, "Invalid model " + str( model ) )
 			## Afin que toutes les options soient testees plutot que de stopper sur la premiere puis la seconde...
 			err = True
 
@@ -377,9 +379,9 @@ class NotebookTomtom:
 	if not( ptMount == False ):
 		if( self.IsPtMount( ptMount ) ):
 			self.ptMount = ptMount
-			self.Debug( 5, _( "Selected mounting point: " ) + self.ptMount )
+			self.Debug( 5, "Selected mounting point: " + self.ptMount )
 		else:
-			self.Debug( 0, _( "Invalid mounting point argument: " ) + ptMount )
+			self.Debug( 0, "Invalid mounting point argument: " + ptMount )
 			## Afin que toutes les options soient testees plutot que de stopper sur la premiere puis la seconde...
 			err = True
 
@@ -388,11 +390,11 @@ class NotebookTomtom:
 		try:
 			if( int( debug ) >= 0 and int( debug ) <= 9 ):
 				self.debug = int( debug )
-				self.Debug( 5, _( "Debugging level argument " ) + str( int( debug ) ) )
+				self.Debug( 5, "Debugging level argument " + str( int( debug ) ) )
 			else:
-				self.Debug( 1, _( "Mauvais argument pour l'option de deboggage " ) + str( int( debug ) ) )
+				self.Debug( 1, "Mauvais argument pour l'option de deboggage " + str( int( debug ) ) )
 		except:
-			self.Debug( 1, _( "Debugging level argument is not an int " ) + debug )
+			self.Debug( 1, "Debugging level argument is not an int " + debug )
 
 	## Si on a une erreur, on arrete le programme
 	if( err ):
@@ -409,13 +411,13 @@ class NotebookTomtom:
 	env = os.getenv( "PYTOMTOM_PTMOUNT", False )
 	if not( env == False ):
 		self.ptMount = str( env )
-		self.Debug( 5, _( "Selected mounting point: " ) + str( env ) )
+		self.Debug( 5, "Selected mounting point: " + str( env ) )
 
 	## Lecture du modele PYTOMTOM_MODELE
 	env = os.getenv( "PYTOMTOM_MODELE", False )
 	if not( env == False ):
 		self.model = str( env )
-		self.Debug( 5, _( "Selected model: " ) + str( env ) )
+		self.Debug( 5, "Selected model: " + str( env ) )
 
 	## Lecture de l'affichage de la barre de progression
 	env = os.getenv( "PYTOMTOM_CONFIG_TIME_PASSED", False )
@@ -424,7 +426,7 @@ class NotebookTomtom:
 			self.configTimePassed = False
 		elif( env == "True" ):
 			self.configTimePassed = True
-		self.Debug( 5, _( "Elapsed time: " ) + str( env ) )
+		self.Debug( 5, "Elapsed time: " + str( env ) )
 
 	## Lecture de l'affichage de la barre de progression
 	env = os.getenv( "PYTOMTOM_CONFIG_TIME_REMIND", False )
@@ -433,7 +435,7 @@ class NotebookTomtom:
 			self.configTimeRemind = False
 		elif( env == "True" ):
 			self.configTimeRemind = True
-		self.Debug( 5, _( "Remaining time: " ) + str( env ) )
+		self.Debug( 5, "Remaining time: " + str( env ) )
 
 	## Lecture de l'affichage de la barre de progression
 	env = os.getenv( "PYTOMTOM_CONFIG_TIME_TOT", False )
@@ -442,13 +444,13 @@ class NotebookTomtom:
 			self.configTimeTot = False
 		elif( env == "True" ):
 			self.configTimeTot = True
-		self.Debug( 5, _( "Total time: " ) + str( env ) )
+		self.Debug( 5, "Total time: " + str( env ) )
 
 	## Afin de valider le mode graphique, on verifie la variable d'environnement DISPLAY
 	env = os.getenv( "DISPLAY", False )
 	if( env == False or env == "" ):
 		self.noGui = True
-		self.Debug( 5, _( "Option Script mode" ) )
+		self.Debug( 5, "Option Script mode" )
 
 	return True
 	
@@ -465,7 +467,7 @@ class NotebookTomtom:
 		os.mkdir( self.dir )
 		## Verification apres creation afin de valider le systeme
 		if not( os.path.exists( self.dir ) ):
-			self.Debug( 0, _( "Impossible to create configuration file " ) + self.dir )
+			self.Debug( 0, "Impossible to create configuration file " + self.dir )
 			sys.exit( 2 )
 	else:
 		## Verification que le dossier de configuration en est bien un
@@ -501,7 +503,7 @@ class NotebookTomtom:
 				## Fermeture du fichier de configuration
 				config.close()
 		else:
-			self.Debug( 0, _( "Configuration path is not a directory " ) + self.dir )
+			self.Debug( 0, "Configuration path is not a directory " + self.dir )
 			sys.exit( 2 )
 
 	## Lecture des options
@@ -518,19 +520,19 @@ class NotebookTomtom:
 	## Lancement de la commande which cabextract qui precise l'emplacement de cabextract, renvoi 0 si trouve, 1 sinon
 	p = subprocess.Popen( "which cabextract > /dev/null", shell=True )
 	if( p.wait() != 0 ):
-		self.Debug( 1, _( "cabextract is not installed" ) )
+		self.Debug( 1, "cabextract is not installed" )
 		self.couldGpsFix = False
 
 	## Lancement de la commande which tar qui precise l'emplacement de cabextract, renvoi 0 si trouve, 1 sinon
 	p = subprocess.Popen( "which tar > /dev/null", shell=True )
 	if( p.wait() != 0 ):
-		self.Debug( 1,_( "tar is not installed" )  )
+		self.Debug( 1, "tar is not installed"  )
 		self.couldBackup = False
 
 	## Affichage des informations de deboggage
-	self.Debug( 1, _( "Application: " ) + App + _( " - Version: " ) + Ver )
-	self.Debug( 1, _( "Mounting point used: " ) + str( self.ptMount ) )
-	self.Debug( 1, _( "Model used: " ) + str( self.model ) )
+	self.Debug( 1, "Application: " + App + " - Version: " + Ver )
+	self.Debug( 1, "Mounting point used: " + str( self.ptMount ) )
+	self.Debug( 1, "Model used: " + str( self.model ) )
 
 	return True
 	
@@ -560,8 +562,8 @@ class NotebookTomtom:
 	
 	## Verification des donnees a sauvegarder
 	if not( self.ptMount and self.model ):
-		self.Debug( 0, _( "Cannot write data: " ) + _( "mounting point = '" ) + str( self.ptMount )
-			+ _( "' - model = '" ) + str( self.model ) + "'" )
+		self.Debug( 0, "Cannot write data: " + "mounting point = '" + str( self.ptMount )
+			+ "' - model = '" + str( self.model ) + "'" )
 		sys.exit(2)
 
 	## Sauvegarde des donnees dans le fichier de configuration
@@ -576,8 +578,8 @@ class NotebookTomtom:
 		configFile.close()
 
 	## Affichage des informations de deboggage
-	self.Debug( 1, _( "TomTom: " ) + str( self.model ) + _( " ::saved::" ) )
-	self.Debug( 1, _( "Mounting point: " ) + str( self.ptMount ) + _( " ::saved::" ) )
+	self.Debug( 1, "TomTom: " + str( self.model ) + " ::saved::" )
+	self.Debug( 1, "Mounting point: " + str( self.ptMount ) + " ::saved::" )
 
 	return True
 
@@ -592,7 +594,7 @@ class NotebookTomtom:
 	## Pour chaque point de montage
 	for ptMountSize, ptMount in ptMounts:
 		if( ptMountSize == -1 ):
-			self.Debug( 5, _( "No mounting point" ) )
+			self.Debug( 5, "No mounting point" )
 			return True
 
 		## Validation du point de montage
@@ -600,7 +602,7 @@ class NotebookTomtom:
 			self.ptMounts.append( [ ptMountSize, ptMount ] )
 
 	## Affichage des informations de deboggage
-	self.Debug( 5, _( "List of mounting points " ) + str( self.ptMounts ) )
+	self.Debug( 5, "List of mounting points " + str( self.ptMounts ) )
 
 	return True
 
@@ -613,9 +615,9 @@ class NotebookTomtom:
 		return False
 
 	## Verification de l'existence du fichier ttgo.bif pour valider qu'il s'agit bien d'un point de montage d'un tomtom
-	self.Debug( 6, _( "Testing mounting point " ) + mountPoint )
+	self.Debug( 6, "Testing mounting point " + mountPoint )
 	if( os.path.exists( mountPoint + self.ttgo ) ):
-		self.Debug( 5, _( "Valid mounting point: " ) + mountPoint )
+		self.Debug( 5, "Valid mounting point: " + mountPoint )
 		return True
 
 	## Dans tous les autres cas, le point de montage n'est pas valide
@@ -631,7 +633,7 @@ class NotebookTomtom:
 
 	## Verification du point de montage
 	if not( self.IsPtMount( self.ptMount ) ):
-		self.Debug( 1, _( "Invalid mounting point: " + self.ptMount ) )
+		self.Debug( 1, "Invalid mounting point: " + self.ptMount )
 		return False
 
 	## Aucune verification du modele car il provient d'une liste pre-definie
@@ -654,7 +656,7 @@ class NotebookTomtom:
 		if( self.noExec == False ):
 			urlFile = urllib2.urlopen( request )
 	except:
-		self.Debug( 1, _( "Impossible to fetch URL: " ) + url )
+		self.Debug( 1, "Impossible to fetch URL: " + url )
 		return False
 
 	## Autant de try imbrique afin de fournir des messages justes, et de supprimer correctement les fichiers et dossiers temporaires
@@ -662,13 +664,13 @@ class NotebookTomtom:
 	try:
 		## Creation d'un repertoire temporaire pour extraire le cab telecharge
 		tempDirName = tempfile.mkdtemp()
-		self.Debug( 5, _( "Creating temporary directory: " ) + tempDirName )
+		self.Debug( 5, "Creating temporary directory: " + tempDirName )
 		try:
 			## Creation d'un fichier temporaire pour le telechargement du cab
 			tempFile = tempfile.NamedTemporaryFile()
-			self.Debug( 5, _( "Creating temporary file: " ) + tempFile.name )
+			self.Debug( 5, "Creating temporary file: " + tempFile.name )
 			try:
-				self.Debug( 5, _( "Fetching data: " ) + url )
+				self.Debug( 5, "Fetching data: " + url )
 				## Si l'on veut une execution, on telecharge le cab
 				if( self.noExec == False ):
 					tempFile.write( urlFile.read() )
@@ -682,7 +684,7 @@ class NotebookTomtom:
 					else:
 						cmd = ( "echo cabextract -d " + tempDirName
                         				+ " " + tempFile.name + "; echo touch " + tempDirName + "/*" )
-					self.Debug( 5, _( "Launching command " ) + cmd )
+					self.Debug( 5, "Launching command " + cmd )
 					## Lancement du processus
 					p = subprocess.Popen( cmd, shell=True )
 					p.wait()
@@ -691,25 +693,25 @@ class NotebookTomtom:
 						##     Ceci evite de faire une difference entre les deux modeles de chipset
 						files = os.listdir( tempDirName )
 						for file in files:
-							self.Debug( 5, _( "Moving file to final destination: " )
+							self.Debug( 5, "Moving file to final destination: "
 								+ tempDirName + "/" + file + " -> " + self.ptMount + self.dest + "/" + file )
 							## ATTENTION : si le fichier destination est un repertoire, et que le fichier existe
 							##             shutil.move fait une erreur, il faut donc preciser le fichier de destination
 							##             pour l'ecraser, et non simplement le repertoire de destination
 							shutil.move( tempDirName + "/" + file, self.ptMount + self.dest + "/" + file )
 					except:
-						self.Debug( 0, _( "Impossible to move data" ) )
+						self.Debug( 0, "Impossible to move data" )
 				except:
-					self.Debug( 0, _( "Impossible to extract data" ) )
+					self.Debug( 0, "Impossible to extract data" )
 			except:
-				self.Debug( 0, _( "Impossible to fetch data" ) )
+				self.Debug( 0, "Impossible to fetch data" )
 		except:
-			self.Debug( 0, _( "Impossible to create temporary file" ) )
+			self.Debug( 0, "Impossible to create temporary file" )
 		finally:
 			## Fermeture propre du fichier temporaire (avec sa suppression) dans tous les cas (meme si un probleme survient)
 			tempFile.close()
 	except:
-		self.Debug( 0, _( "Impossible to create temporary directory" ) )
+		self.Debug( 0, "Impossible to create temporary directory" )
 	finally:
 		## Suppression du dossier temporaire dans tous les cas (meme si un probleme survient)
 		shutil.rmtree( tempDirName )
@@ -717,7 +719,7 @@ class NotebookTomtom:
 	## Affichage de la fin de l'execution, en popup si l'on est pas en mode script
 	if( self.noGui == False ):
 		self.Popup( _( "GPSQuickFix completed" ) )
-	self.Debug( 1, _( "GPSQuickFix completed" ) )
+	self.Debug( 1, "GPSQuickFix completed" )
 
 	return True
 
@@ -744,7 +746,7 @@ class NotebookTomtom:
 	cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7 --output-delimiter=,"
 
 	## Lancement de la commande, avec recuperation du stdout dans le processus actuel
-	self.Debug( 5, _( "launching command: " ) + cmd )
+	self.Debug( 5, "launching command: " + cmd )
 	p = subprocess.Popen( cmd, stdout = subprocess.PIPE, shell=True )
 	res = []
 	## Lecture du resultat
@@ -753,7 +755,7 @@ class NotebookTomtom:
 		line = line[ : -1 ]
 		## Grace a l'option --output-delimiter, on lance split
 		line = line.split( ',', 2 )
-		self.Debug( 5, _( "Command result: " ) + str( int( line[0 ] ) ) + " -> " + line[ 1 ] )
+		self.Debug( 5, "Command result: " + str( int( line[0 ] ) ) + " -> " + line[ 1 ] )
 		res.append( [ int( line[ 0 ] ), line[ 1 ] ] )
 	p.wait()
 
@@ -774,21 +776,21 @@ class NotebookTomtom:
 
 	## On commence au niveau self.window
 	objParent = self.window
-	self.Debug( 7, _( "Searched object: " ) + str( name ) )
+	self.Debug( 7, "Searched object: " + str( name ) )
 
 	## Pour tous les niveaux du nom fourni
 	for i in range( 0, len( name ) - 1, 1 ):
-		self.Debug( 7, _( "Scanning level: " ) + str( i ) )
+		self.Debug( 7, "Scanning level: " + str( i ) )
 
 		## Enfant non trouve
 		find = False
 
 		## Pour chaque enfant
 		for objChild in objParent:
-			self.Debug( 7, _( "     Object scanned: " ) + objChild.get_name() )
+			self.Debug( 7, "     Object scanned: " + objChild.get_name() )
 			## Si le nom correspond
 			if( objChild.get_name() == name[ i ] ):
-				self.Debug( 7, _( "Object found" ) )
+				self.Debug( 7, "Object found" )
 				## Le parent devient l'enfant pour continuer la recherche au niveau suivant
 				objParent = objChild
 				## On a bien trouve l'enfant
@@ -828,22 +830,22 @@ class NotebookTomtom:
 
 	## Verification du point de montage
 	if not( self.IsPtMount( self.ptMount ) ):
-		self.Debug( 1, _( "Invalid mounting point: " + self.ptMount ) )
+		self.Debug( 1, "Invalid mounting point: " + self.ptMount )
 		return False
 
 	## Recuperation du nom du fichier de sauvegarde
 	files = self.saveFileCombo.get_model()
 	index = self.saveFileCombo.get_active()
 	if( files[ index ][ 0 ] == "" ):
-		self.Debug( 2, _( "Invalid file selected for " ) + _( type ) )
+		self.Debug( 2, "Invalid file selected for " + _( type ) )
 		return False
 	self.fileName = files[ index ][ 0 ]
-	self.Debug( 1, _( "File for " ) + _( type ) + ": " + self.fileName )
+	self.Debug( 1, "File for " + _( type ) + ": " + self.fileName )
 
 	if( type == "restore" ):
 		##c'est corrige: si le fichier n'existe pas !!! et non l'inverse...
 		if not( os.path.exists( self.fileName ) ):
-			self.Debug( 1, _( "Backup file not found" ) )
+			self.Debug( 1, "Backup file not found" )
 			return False
 
 	if( self.noGui == False ):
@@ -866,18 +868,18 @@ class NotebookTomtom:
 	self.ptMountSize = self.ptMountSize[ 0 ][ 0]
 
 	if( self.ptMountSize == -1 ):
-		self.Debug( 1, _( "Impossible to compute filesystem size" ) )
+		self.Debug( 1, "Impossible to compute filesystem size" )
 		return False
-	self.Debug( 5, _( "Mounting point size: " ) + self.ptMount  + " -> " + str( self.ptMountSize ) )
+	self.Debug( 5, "Mounting point size: " + self.ptMount  + " -> " + str( self.ptMountSize ) )
 
 	## Recuperation de la taille de la partition hote du fichier de sauvegarde
 	size = self.GetPtWithSize( None, os.path.dirname( os.path.realpath( self.fileName ) ) )
 	size = size[ 0 ][ 0 ]
-	self.Debug( 5, _( "Backup partition size: " ) + str( size ) )
+	self.Debug( 5, "Backup partition size: " + str( size ) )
 
 	## Attention, si la taille de la partition de la sauvegarde est trop petite
 	if( self.ptMountSize > size ):
-		self.Debug( 1, _( "Insufficient disk space: " ) + str( size ) + _( " for " ) + str( self.ptMountSize ) )
+		self.Debug( 1, "Insufficient disk space: " + str( size ) + " for " + str( self.ptMountSize ) )
 		return False
 
 	## ajout d'affichage supplementaire de la commande tar si le debug est suffisament important
@@ -902,7 +904,7 @@ class NotebookTomtom:
 			cmd = "cd " + self.ptMount + "; tar -" + option + "f \"" + self.fileName + "\" ." 
 		else:
 			cmd = "cd " + self.ptMount + "; echo tar -" + option + "f \"" + self.fileName + "\" ." 
-		self.Debug( 5, _( "Launching command: " ) + cmd )
+		self.Debug( 5, "Launching command: " + cmd )
 		self.procBackup = subprocess.Popen( cmd, shell=True )
 
 		## verification de la fin du processus
@@ -910,10 +912,10 @@ class NotebookTomtom:
 			## Si l'on est pas en mode script, on affiche un popup de fin de processus
 			if( self.noGui == False ):
 				self.Popup( text + _( " completed" ) )
-			self.Debug( 5, text + _( " completed" ) )
+			self.Debug( 5, text + " completed" )
 
 		## Lancement de la barre de progression
-		self.Debug( 5, _( "Launching the test of " ) + text + _( " of archive each second" ) )
+		self.Debug( 5, "Launching the test of " + text + " of archive each second" )
 		## Supression du tempo avant sa re-utilisation
 		if( self.tempo != None ):
 			gobject.source_remove( self.tempo )
@@ -922,7 +924,7 @@ class NotebookTomtom:
 		sys.stdout.flush()
 		## Creation d'un timeout toutes les n ms, lancement de la fonction self.Progress avec ces parametres
 		self.tempo = gobject.timeout_add( self.tempoDelay, self.Progress, 100, 100,
-				text + _( " of archive" ), self._BackupRestoreGPSEnd, text )
+				text + " of archive", self._BackupRestoreGPSEnd, text )
 
 		return False
 
@@ -985,7 +987,7 @@ class NotebookTomtom:
 	else:
 		type += _( " completed" )
 
-	self.Debug( 1, type + _( ": " ) + str( self.procBackup.poll() ) )
+	self.Debug( 1, type + ": " + str( self.procBackup.poll() ) )
 
 	## Si l'on est pas en mode script, on re-active les boutons de lancement des taches
 	if( self.noGui == False ):
@@ -1049,7 +1051,7 @@ class NotebookTomtom:
 		
 		## Si on a deja voulu quitter, on quitte a la fin du processus
 		if( self.quit == True ):
-			self.Debug( 5, _( "Exiting on request" ) )
+			self.Debug( 5, "Exiting on request" )
 			self.Delete( None )
 
 		## Pour arreter le minuteur, il faut renvoyer False
@@ -1060,7 +1062,7 @@ class NotebookTomtom:
 	newVal = round( float( 0.01 ), 2 )
 	## Recuperation de la taille du fichier de destination
 	newSize = os.path.getsize( self.fileName )
-	self.Debug( 7, _( "File size: " )  + self.fileName + " -> " + str( newSize ) + " / " + str( self.ptMountSize ) )
+	self.Debug( 7, "File size: "  + self.fileName + " -> " + str( newSize ) + " / " + str( self.ptMountSize ) )
 
 	## On estime que la taille du fichier finale sera percentMin, mais qu'au maximum le fichier aura une taille de percentMax
 	## On calcul donc le pourcentage estime entre ces deux valeurs, avec des sauts de 10 pourcent
@@ -1123,7 +1125,7 @@ class NotebookTomtom:
 
 	## On ne quitte que si le sous-processus est fini
 	if( self.tempo != None ):
-		self.Debug( 1, _( "Waiting for end of child process" ) )
+		self.Debug( 1, "Waiting for end of child process" )
 		return False
 
 	## Fermeture du fichier de log, si ce n'est pas stdout
@@ -1776,17 +1778,17 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 
 	## Si l'option a ete fournie, lancement du GpsFix
 	if( self.doGpsFix ):
-		self.Debug( 1, _( "Starting GPSQuickFix" ) )
+		self.Debug( 1, "Starting GPSQuickFix" )
 		self.GpsQuickFix( None )
 
 	## Si l'option a ete fournie, lancement du Backup
 	if( self.doBackup ):
-		self.Debug( 1, _( "Starting Backup" ) )
+		self.Debug( 1, "Starting Backup" )
 		self.BackupRestoreGPS( None, "backup" )
 
 	## Si l'option a ete fournie, lancement de la restauration
 	if( self.doRestore ):
-		self.Debug( 1, _( "Starting Restore" ) )
+		self.Debug( 1, "Starting Restore" )
 
 	## Si on est en mode script, fermeture de l'application
 	if( self.noGui == True ):

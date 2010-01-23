@@ -1,0 +1,11 @@
+== 0.4.1 ==
+* internationalisation (en, fr)
+* verifier presence dossier ephem sinon griser bouton
+
+== 0.5 ==
+* personnaliser l'écran de démarrage/fermeture
+* date d'expiration du gpsquickfix
+* depot ppa pour ubuntu
+
+== 0.6 ==
+* Ajout de POI

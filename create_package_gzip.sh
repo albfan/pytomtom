@@ -33,3 +33,5 @@ cp README "pytomtom"
 
 tar czfv pytomtom-$VERSION.tar.gz pytomtom/
 rm -rf pytomtom
+cp pytomtom-$VERSION.tar.gz pytomtom.tar.gz
+cp pytomtom-$VERSION.tar.gz pytomtom-current.tar.gz

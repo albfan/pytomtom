@@ -42,3 +42,4 @@ cp -R share/locale/* "pytomtom"$LOC_DIR
 
 dpkg-deb --build pytomtom pytomtom-$VERSION.deb
 rm -rf pytomtom
+cp pytomtom-$VERSION.deb pytomtom-current.deb

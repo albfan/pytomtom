@@ -641,6 +641,17 @@ class NotebookTomtom:
 	## Definition du dossier de destination
 	dir = str( self.ptMount + self.dest )
 	
+	## Verification de l'existence du du dossier ephem
+	## self.couldGpsFix == False
+	self.Debug( 6, "Testing ephem directory " + dir )
+	if( os.path.exists( dir ) ):
+		self.Debug( 5, "Valid directory: " + dir )
+	else:
+		self.Debug( 5, "ephem directory not initialized by TomTomHome" )
+		if( self.noGui == False ):
+			self.Popup( _( "ephem directory not initialized by TomTomHome" ) )
+		return False
+	
 	if self.model in self.siRFStarIII: ## si le tomtom possede un chipset SiRFStarIII
 		url = "http://home.tomtom.com/download/Ephemeris.cab?type=ephemeris&amp;eeProvider=SiRFStarIII&amp;devicecode=2"
 		self.Debug( 6, "chipset SiRFStarIII : " + url )

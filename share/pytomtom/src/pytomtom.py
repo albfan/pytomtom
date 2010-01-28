@@ -93,7 +93,7 @@ class NotebookTomtom:
     ## Dossier de destination pour le GpsQuickFix sur le point de montage, 
     dest = "/ephem"
     ## Definition du fichier permettant de valider la presence d'un tomtom
-    ttgo = "/ttgo.bif"
+    ttgo = "/tomtom.ico"
     ## Dossier contenant les images du logiciel
     dirPix = "../share/pytomtom/pix/"
     ## Definition par defaut du point de montage, vide veut dire que le point de montage n'a pas ete fourni

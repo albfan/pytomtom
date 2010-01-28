@@ -1,75 +1,114 @@
-# Italian translations for pyTOMTOM package
-# Traductions italiennes du paquet pyTOMTOM.
-# Copyright (C) 2010 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Thomas LEROY <tmsleroy@gmail.com>, 2010.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-25 18:15+0100\n"
-"PO-Revision-Date: 2010-01-19 16:06+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-01-25 18:07+0100\n"
+"PO-Revision-Date: 2010-01-28 11:00+0100\n"
+"Last-Translator: Giovanni Scafora <giovanni@archlinux.org>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: share/pytomtom/src/pytomtom.py:652
-msgid "ephem directory not initialized by TomTomHome"
+msgid ""
+"\n"
+"\t\n"
+"\thttp://tomonweb.2kool4u.net/pytomtom/\n"
+"\t"
 msgstr ""
+"\n"
+"\t\n"
+"\thttp://tomonweb.2kool4u.net/pytomtom/\n"
+"\t"
 
-#: share/pytomtom/src/pytomtom.py:732
-msgid "GPSQuickFix completed"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:904
-msgid "Creation"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:907
-msgid "Restoration"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:925 share/pytomtom/src/pytomtom.py:999
 msgid " completed"
-msgstr ""
+msgstr " completato"
 
-#: share/pytomtom/src/pytomtom.py:997
 msgid " failed"
-msgstr ""
+msgstr " non riuscito"
 
-#: share/pytomtom/src/pytomtom.py:1262 share/pytomtom/src/pytomtom.py:1360
-msgid "Options"
+msgid ""
+" takes time \n"
+"and consumes disk space.\n"
+"For information, 25 minutes and 1GB on disk for a One Series 30"
 msgstr ""
+" impiega tempo ed occupa spazio. \n"
+"Per info, necessitano 25 minuti ed 1GB di spazio per un One Series 30"
 
-#: share/pytomtom/src/pytomtom.py:1289
-msgid "Please indicate the mounting point of your Tomtom:"
-msgstr ""
+msgid "About"
+msgstr "Informazioni"
 
-#: share/pytomtom/src/pytomtom.py:1322
+msgid "Backup and Restore"
+msgstr "Backup e Ripristino"
+
+msgid "Backup and restore"
+msgstr "Backup et ripristino"
+
+msgid "Backup file:"
+msgstr "File di backup:"
+
+msgid "Cannot start GPSQuickfix update (cabextract is missing)"
+msgstr "Impossibile avviare l'aggiornamento di GPSQuickfix (manca cabextract)"
+
+msgid "Cannot start backup (tar is missing)"
+msgstr "Impossibile avviare il backup (manca tar)"
+
+msgid "Cannot start restore (tar is missing)"
+msgstr "Impossibile avviare il ripristino (manca tar)"
+
+msgid "Creation"
+msgstr "Creazione"
+
+msgid "Don't forget to cleanly unmount your TomTom!"
+msgstr "Non dimenticate di smontare il vostro TomTom!"
+
 msgid "During backup or restore, display:"
-msgstr ""
+msgstr "Durante il backup o il ripristino, visualizza:"
 
-#: share/pytomtom/src/pytomtom.py:1327
-msgid "elapsed time"
-msgstr ""
+msgid "Exit"
+msgstr "Esci"
 
-#: share/pytomtom/src/pytomtom.py:1335
-msgid "remaining time"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1343
-msgid "total time"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1372 share/pytomtom/src/pytomtom.py:1422
 msgid "GPSQuickFix"
-msgstr ""
+msgstr "GPSQuickFix"
 
-#: share/pytomtom/src/pytomtom.py:1400
+msgid "GPSQuickFix completed"
+msgstr "GPSQuickFix completato"
+
+msgid "In order to complete these operations "
+msgstr "Per effettuare queste operazioni "
+
+msgid "Open..."
+msgstr "Apri..."
+
+msgid "Options"
+msgstr "Opzioni"
+
+msgid "Personify"
+msgstr "Personalizza"
+
+msgid "Please indicate the mounting point of your Tomtom:"
+msgstr "Indicate il punto di mount del vostro TomTom:"
+
+msgid "Please use restore only in case of necessity !"
+msgstr "Utilizzate il ripristino solo in caso di assoluta necessità !"
+
+msgid "Replace the startup screen of your GPS by the picture of your choice"
+msgstr ""
+"Sostituite l'immagine d'avvio del vostro GPS con un'immagine a vostra scelta"
+
+msgid "Restoration"
+msgstr "Ripristino"
+
+msgid "Start GPSQuickfix update"
+msgstr "Avvia l'aggiornamento di GPSQuickfix"
+
+msgid "Start backup..."
+msgstr "Avvia il backup..."
+
+msgid "Start restore..."
+msgstr "Avvia il ripristino..."
+
 msgid ""
 "This update sets the last known positions of the satellites. \n"
 "It allows your GPS to find its initial position in less than 30 seconds\n"
@@ -78,94 +117,31 @@ msgid ""
 "Please ensure that you have properly set your GPS parameters in the \n"
 "options."
 msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1412
-msgid "Start GPSQuickfix update"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1417
-msgid "Cannot start GPSQuickfix update (cabextract is missing)"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1435
-msgid "Backup and restore"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1465
-msgid "Backup file:"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1519
-msgid "In order to complete these operations "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1519
-msgid ""
-" takes time \n"
-"and consumes disk space.\n"
-"For information, 25 minutes and 1GB on disk for a One Series 30"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1533
-msgid "Start backup..."
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1539
-msgid "Cannot start backup (tar is missing)"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1553
-msgid "Start restore..."
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1559
-msgid "Cannot start restore (tar is missing)"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1565
-msgid "Please use restore only in case of necessity !"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1570
-msgid "Backup and Restore"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1582 share/pytomtom/src/pytomtom.py:1618
-msgid "Personify"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1609
-msgid "Replace the startup screen of your GPS by the picture of your choice"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1614
-msgid "button"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1632 share/pytomtom/src/pytomtom.py:1658
-msgid "About"
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1649
-msgid "version "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1649
-msgid ""
+"Questo aggiornamento determina le ultime posizioni\n"
+"conosciute dei satelliti.\n"
+"Consente di trovare la vostra posizione iniziale\n"
+"in meno di 30 secondi\n"
+"e di iniziare a navigare più rapidamente... \n"
 "\n"
-"\t\n"
-"\thttp://tomonweb.2kool4u.net/pytomtom/\n"
-"\t"
-msgstr ""
+"Assicuratevi di aver impostato correttamente i parametri\n"
+"del vostro GPS nelle opzioni."
 
-#: share/pytomtom/src/pytomtom.py:1670 share/pytomtom/src/pytomtom.py:1709
-msgid "Exit"
-msgstr ""
+msgid "button"
+msgstr "pulsante"
 
-#: share/pytomtom/src/pytomtom.py:1698
-msgid "Don't forget to cleanly unmount your TomTom!"
-msgstr ""
+msgid "elapsed time"
+msgstr "tempo trascorso"
 
-#: share/pytomtom/src/pytomtom.py:1718 share/pytomtom/src/pytomtom.py:1733
-msgid "Open..."
+msgid "ephem directory not initialized by TomTomHome"
 msgstr ""
+"La directory ephem non è stata inizializzata dal TomTomHome oppure il vostro modello "
+"non è compatibile."
+
+msgid "remaining time"
+msgstr "tempo restante"
+
+msgid "total time"
+msgstr "tempo totale"
+
+msgid "version "
+msgstr "versione "

@@ -4,7 +4,7 @@
 ## pyTOMTOM - Gerez votre TomTom sous Linux !
 ## http://tomonweb.2kool4u.net/pytomtom/
 ## auteur : Thomas LEROY
-## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal
+## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni
 ## les icones utilisees proviennent de http://tango.freedesktop.org/Tango_Desktop_Project
 ## python (>=2.5), python-gtk2, cabextract
 
@@ -62,9 +62,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.4.1"
-Dev = "Thomas LEROY"
-Transl = "Pascal MALAISE"
+Ver = "0.4.2"
 
 ## i18n (internationalisation) /usr/share/locale
 gettext.bindtextdomain('pytomtom', '../share/locale')
@@ -642,16 +640,16 @@ class NotebookTomtom:
 	dir = str( self.ptMount + self.dest )
 	
 	## Verification de l'existence du du dossier ephem
-	## self.couldGpsFix == False
 	self.Debug( 6, "Testing ephem directory " + dir )
 	if( os.path.exists( dir ) ):
 		self.Debug( 5, "Valid directory: " + dir )
 	else:
-		self.Debug( 5, "ephem directory not initialized by TomTomHome" )
-		if( self.noGui == False ):
-			self.Popup( _( "ephem directory not initialized by TomTomHome" ) )
-		return False
-	
+		self.Debug( 5, "Creating ephem directory" )
+		## on cree le repertoire ephem si il n'existe pas
+		cmd = ( "mkdir " + dir )
+		p = subprocess.Popen( cmd, shell=True )
+		p.wait()
+			
 	if self.model in self.siRFStarIII: ## si le tomtom possede un chipset SiRFStarIII
 		url = "http://home.tomtom.com/download/Ephemeris.cab?type=ephemeris&amp;eeProvider=SiRFStarIII&amp;devicecode=2"
 		self.Debug( 6, "chipset SiRFStarIII : " + url )
@@ -1745,8 +1743,6 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
     ## Fonction de demarrage de la classe
     def __init__( self ):
 
-	## Definition du repertoire contenant les donnees d'internationalisation
-	gettext.bindtextdomain( App, '.' )
 	## Recuperation de la configuration
 	self.GetConfig()
 
@@ -1758,6 +1754,7 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
         	self.window.connect( "delete_event", self.Delete )
         	self.window.set_border_width( 10 )
 		self.window.set_title( App )
+		self.window.set_icon_from_file( self.dirPix + "icon.png" )
 		## centrage de la fenetre 
 		self.window.set_position( gtk.WIN_POS_CENTER )
 		##*************************************************************************************************************

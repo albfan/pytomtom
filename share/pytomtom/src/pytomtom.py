@@ -620,6 +620,15 @@ class NotebookTomtom:
 
 	## Dans tous les autres cas, le point de montage n'est pas valide
 	return False
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## Fonction demontage
+    def UMount(self, mountPoint):
+	cmd = ( "umount " + self.ptMount )
+	p = subprocess.Popen( cmd, shell=True )
+	p.wait()
+		
+	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## fonction GPSQUICKFIX, mise a jour des donnees de l'emplacement des satellites (a effectuer une fois par semaine)
@@ -1649,9 +1658,7 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 	http://tomonweb.2kool4u.net/pytomtom/
 	''' ) )
 	tabLabel.set_justify( gtk.JUSTIFY_CENTER )
-	tabLabel.show()
-	##On attache label dans la boite
-        tabBox.pack_start( tabLabel, True, False, 2 )
+	tabBox.pack_start( tabLabel, True, False, 2 )
 	
         eventBox = self.CreateCustomTab( _( "About" ), notebook, frame )
         notebook.append_page( frame, eventBox )
@@ -1694,15 +1701,21 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 		
 	## label
 	label = gtk.Label( _( "Don't forget to cleanly unmount your TomTom!" ) )
-	label.show()
 	tabBoxRight.pack_start( label, True, False, 2 )
 	
+	## demontage propre du GPS
+        btnUnmount = gtk.Button( _( "Unmount" ) )
+	##TODO: griser le btn si gps pas branche
+	##if( self.IsPtMount( self.ptMount ) == False ):
+	##	btnUnmount.set_sensitive( False )
+	##self.tempoUnmount = gobject.timeout_add( 2000, btnUnmount.show )
+	tabBoxRight.pack_start( btnUnmount, True, False, 2 )
+	btnUnmount.connect( "clicked", self.UMount )
+	
 	## bouton quitter
-	## associer une fonction d'ejection du GPS
-        b = gtk.Button( stock = gtk.STOCK_QUIT )
-	b.show()
-	tabBoxRight.pack_start( b, True, False, 2 )
-        b.connect( "clicked", self.Delete )
+	btnQuit = gtk.Button( stock = gtk.STOCK_QUIT )
+	tabBoxRight.pack_start( btnQuit, True, False, 2 )
+        btnQuit.connect( "clicked", self.Delete )
 	
         eventBox = self.CreateCustomTab( _( "Exit" ), notebook, frame )
         notebook.append_page( frame, eventBox )

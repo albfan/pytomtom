@@ -9,61 +9,62 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-06 09:30+0100\n"
-"PO-Revision-Date: 2010-01-19 16:06+0100\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2010-02-07 05:45+0000\n"
+"Last-Translator: D.Schäfer <trash4you@online.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Launchpad-Export-Date: 2010-02-07 08:28+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: share/pytomtom/src/pytomtom.py:739
 msgid "GPSQuickFix completed"
-msgstr ""
+msgstr "GPSQuickFix komplett"
 
 #: share/pytomtom/src/pytomtom.py:911
 msgid "Creation"
-msgstr ""
+msgstr "Erstellen"
 
 #: share/pytomtom/src/pytomtom.py:914
 msgid "Restoration"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #: share/pytomtom/src/pytomtom.py:932 share/pytomtom/src/pytomtom.py:1006
 msgid " completed"
-msgstr ""
+msgstr " vollständig"
 
 #: share/pytomtom/src/pytomtom.py:1004
 msgid " failed"
-msgstr ""
+msgstr " fehlgeschlagen"
 
 #: share/pytomtom/src/pytomtom.py:1269 share/pytomtom/src/pytomtom.py:1367
 msgid "Options"
-msgstr ""
+msgstr "Einstellungen"
 
 #: share/pytomtom/src/pytomtom.py:1296
 msgid "Please indicate the mounting point of your Tomtom:"
-msgstr ""
+msgstr "Bitte legen Sie den Einhängepunkt Ihres TomTom fest:"
 
 #: share/pytomtom/src/pytomtom.py:1329
 msgid "During backup or restore, display:"
-msgstr ""
+msgstr "Zeige während der Sicherung oder Wiederherstellung:"
 
 #: share/pytomtom/src/pytomtom.py:1334
 msgid "elapsed time"
-msgstr ""
+msgstr "vergangene Zeit"
 
 #: share/pytomtom/src/pytomtom.py:1342
 msgid "remaining time"
-msgstr ""
+msgstr "verbleibende Zeit"
 
 #: share/pytomtom/src/pytomtom.py:1350
 msgid "total time"
-msgstr ""
+msgstr "Gesamtzeit"
 
 #: share/pytomtom/src/pytomtom.py:1379 share/pytomtom/src/pytomtom.py:1429
 msgid "GPSQuickFix"
-msgstr ""
+msgstr "GPSQuickFix"
 
 #: share/pytomtom/src/pytomtom.py:1407
 msgid ""
@@ -74,26 +75,33 @@ msgid ""
 "Please ensure that you have properly set your GPS parameters in the \n"
 "options."
 msgstr ""
+"Diese Aktualisierung setzt die letzte bekannte Position der Satelliten. \n"
+"Das erlaubt Ihren GPS seine Startposition in weniger als 30\n"
+"Sekunden zu finden und mit der Navigation schneller zu beginnen...\n"
+"\n"
+"Bitte versicheren Sie sich, dass die GPS Parameter in den Optionen \n"
+"richtig gesetzt sind."
 
 #: share/pytomtom/src/pytomtom.py:1419
 msgid "Start GPSQuickfix update"
-msgstr ""
+msgstr "Starte GPSQuickfix Aktualisierung"
 
 #: share/pytomtom/src/pytomtom.py:1424
 msgid "Cannot start GPSQuickfix update (cabextract is missing)"
 msgstr ""
+"GPSQuickfix Aktualisierung kann nicht gestartet werden (cabextract fehlt)"
 
 #: share/pytomtom/src/pytomtom.py:1442
 msgid "Backup and restore"
-msgstr ""
+msgstr "Sichern und Wiederherstellen"
 
 #: share/pytomtom/src/pytomtom.py:1472
 msgid "Backup file:"
-msgstr ""
+msgstr "Sicherungsdatei:"
 
 #: share/pytomtom/src/pytomtom.py:1526
 msgid "In order to complete these operations "
-msgstr ""
+msgstr "Um diese Arbeiten zu beenden benötigt "
 
 #: share/pytomtom/src/pytomtom.py:1526
 msgid ""
@@ -101,50 +109,54 @@ msgid ""
 "and consumes disk space.\n"
 "For information, 25 minutes and 1GB on disk for a One Series 30"
 msgstr ""
+" Zeit und beansprucht\n"
+"Speicherplatz. Zur Information für ein TomTom\n"
+" One Serie 30, werden 25 Minuten\n"
+" und 1GB Speicherplatz  benötigt"
 
 #: share/pytomtom/src/pytomtom.py:1540
 msgid "Start backup..."
-msgstr ""
+msgstr "Starte Sicherung..."
 
 #: share/pytomtom/src/pytomtom.py:1546
 msgid "Cannot start backup (tar is missing)"
-msgstr ""
+msgstr "Backup kann nicht starten (tar fehlt)"
 
 #: share/pytomtom/src/pytomtom.py:1560
 msgid "Start restore..."
-msgstr ""
+msgstr "Starte Wiederherstellung..."
 
 #: share/pytomtom/src/pytomtom.py:1566
 msgid "Cannot start restore (tar is missing)"
-msgstr ""
+msgstr "Wiederherstellung kann nicht gestartet werden (tar fehlt)"
 
 #: share/pytomtom/src/pytomtom.py:1572
 msgid "Please use restore only in case of necessity !"
-msgstr ""
+msgstr "Bitte nur benutzen wenn eine Wiederherstellung unvermeidlich ist!"
 
 #: share/pytomtom/src/pytomtom.py:1577
 msgid "Backup and Restore"
-msgstr ""
+msgstr "Sichern und Wiederherstellen"
 
 #: share/pytomtom/src/pytomtom.py:1589 share/pytomtom/src/pytomtom.py:1625
 msgid "Personify"
-msgstr ""
+msgstr "Personalisierung"
 
 #: share/pytomtom/src/pytomtom.py:1616
 msgid "Replace the startup screen of your GPS by the picture of your choice"
-msgstr ""
+msgstr "Begrüßungsbildschirm Ihres GPS durch ein Bild Ihrer Wahl ersetzten"
 
 #: share/pytomtom/src/pytomtom.py:1621
 msgid "button"
-msgstr ""
+msgstr "button"
 
 #: share/pytomtom/src/pytomtom.py:1639 share/pytomtom/src/pytomtom.py:1663
 msgid "About"
-msgstr ""
+msgstr "Über"
 
 #: share/pytomtom/src/pytomtom.py:1656
 msgid "version "
-msgstr ""
+msgstr "Version "
 
 #: share/pytomtom/src/pytomtom.py:1656
 msgid ""
@@ -153,19 +165,23 @@ msgid ""
 "\thttp://tomonweb.2kool4u.net/pytomtom/\n"
 "\t"
 msgstr ""
+"\n"
+"\t\n"
+"\thttp://tomonweb.2kool4u.net/pytomtom/\n"
+"\t"
 
 #: share/pytomtom/src/pytomtom.py:1675 share/pytomtom/src/pytomtom.py:1720
 msgid "Exit"
-msgstr ""
+msgstr "Beenden"
 
 #: share/pytomtom/src/pytomtom.py:1703
 msgid "Don't forget to cleanly unmount your TomTom!"
-msgstr ""
+msgstr "Vergessen Sie nicht, Ihr TomTom sauber auszuhängen!"
 
 #: share/pytomtom/src/pytomtom.py:1707
 msgid "Unmount"
-msgstr ""
+msgstr "Aushängen"
 
 #: share/pytomtom/src/pytomtom.py:1729 share/pytomtom/src/pytomtom.py:1744
 msgid "Open..."
-msgstr ""
+msgstr "Öffnen..."

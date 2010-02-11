@@ -4,7 +4,7 @@
 ## pyTOMTOM - Gerez votre TomTom sous Linux !
 ## http://tomonweb.2kool4u.net/pytomtom/
 ## auteur : Thomas LEROY
-## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni
+## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni, Denny
 ## les icones utilisees proviennent de http://tango.freedesktop.org/Tango_Desktop_Project
 ## python (>=2.5), python-gtk2, cabextract
 
@@ -34,6 +34,8 @@ from __future__ import with_statement
 import gtk
 ## Utilise pour recuperer les fichiers cab pour le GPSFix
 import urllib2
+##Utilise pour ouvrir le lien du site dans un navigateur
+import webbrowser
 ## Utilise pour lancer des sous-programmes (tar, cabextract, df, ...)
 import subprocess
 ## Utilise pour copier les fichiers et supprimer des repertoires
@@ -62,7 +64,8 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.4.2"
+Ver = "0.4.3"
+WebUrl = "http://pytomtom.tuxfamily.org"
 
 ## i18n (internationalisation) /usr/share/locale
 gettext.bindtextdomain('pytomtom', '../share/locale')
@@ -209,6 +212,14 @@ class NotebookTomtom:
 	print( "" )
 	print( App )
 	print( Ver )
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## Fonction d'affichage du nom et de la version de l'application
+    def WebConnect( self, widget ):
+
+	##import webbrowser
+	webbrowser.open( WebUrl )
+	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction d'affichage de l'utilisation des options
@@ -1653,12 +1664,14 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 	tabBox.pack_start( image, True, False, 2 )
 	
 	##On crée un label "text" (text donné en attribut)
-        tabLabel = gtk.Label( _( '''version ''' ) + Ver + _( '''
-	
-	http://tomonweb.2kool4u.net/pytomtom/
-	''' ) )
+        tabLabel = gtk.Label( _( '''version ''' ) + Ver )
 	tabLabel.set_justify( gtk.JUSTIFY_CENTER )
 	tabBox.pack_start( tabLabel, True, False, 2 )
+	
+	## bouton acces au site web
+        btnWeb = gtk.Button( WebUrl )
+	tabBox.pack_start( btnWeb, True, False, 2 )
+	btnWeb.connect( "clicked", self.WebConnect )
 	
         eventBox = self.CreateCustomTab( _( "About" ), notebook, frame )
         notebook.append_page( frame, eventBox )

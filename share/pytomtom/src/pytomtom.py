@@ -2,10 +2,9 @@
 # -*- coding:utf-8 -*-
 #----------------------------------------------- ENTETE DE DEFINITION DE L'APPLICATION ---------------------------------------
 ## pyTOMTOM - Gerez votre TomTom sous Linux !
-## http://tomonweb.2kool4u.net/pytomtom/
+## http://pytomtom.tuxfamily.org
 ## auteur : Thomas LEROY
 ## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni, Denny
-## les icones utilisees proviennent de http://tango.freedesktop.org/Tango_Desktop_Project
 ## python (>=2.5), python-gtk2, cabextract
 
 #----------------------------------------------- DEFINITION DES REGLES DE DEVELOPPEMENT --------------------------------------
@@ -64,7 +63,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.4.3"
+Ver = "0.5 beta 1"
 WebUrl = "http://pytomtom.tuxfamily.org"
 
 ## i18n (internationalisation) /usr/share/locale
@@ -93,6 +92,8 @@ class NotebookTomtom:
     configFile = App + ".cfg"
     ## Dossier de destination pour le GpsQuickFix sur le point de montage, 
     dest = "/ephem"
+    ## Definition du repertoire contenant la sauvegarde des poi
+    dirPoi = dir + "/poi/" 
     ## Definition du fichier permettant de valider la presence d'un tomtom
     ttgo = "/tomtom.ico"
     ## Dossier contenant les images du logiciel
@@ -105,9 +106,11 @@ class NotebookTomtom:
     ptMounts = []
     ## Definition par defaut du modele, vide veut dire que le modele n'a pas ete fourni
     model = False
+    ##Definition par defaut de la carte, vide veut dire que la carte n'a pas ete fournie
+    CurrentMap = False
     ## Choix de l'onglet affiché au démarrage de l'application, 3 par defaut (About)
-    ## 0=options, 1=GPSQuickFix, 2=Save&Restore, 3=apropos, 4=quitter
-    boxInit = 3
+    ## 0=options, 1=GPSQuickFix, 2=Save&Restore, 3=poi, 4=apropos, 5=quitter
+    boxInit = 4
     ## liste des modeles avec une puce siRFStarIII
     siRFStarIII = ["Carminat",
 	"GO 510 - 710 - 910",
@@ -214,7 +217,7 @@ class NotebookTomtom:
 	print( Ver )
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## Fonction d'affichage du nom et de la version de l'application
+    ## Fonction pour visiter le site web pyTOMTOM
     def WebConnect( self, widget ):
 
 	##import webbrowser
@@ -515,6 +518,30 @@ class NotebookTomtom:
 			self.Debug( 0, "Configuration path is not a directory " + self.dir )
 			sys.exit( 2 )
 
+	##Lecture de la carte utilisee
+	if( os.path.exists( self.ptMount + "/ttgo.bif" ) ):
+		## Ouverture du fichier ttgo.bif en lecture
+		with open( self.ptMount + "/ttgo.bif", "rb" ) as ttgobif:
+			## Lecture des lignes
+			line = ttgobif.readline()
+			while( line ):
+				## suppression des \n de fin de ligne
+				line = line[:-1]
+				## Le fichier se presente sous la forme nom=valeur, on decoupe selon le =
+				line = line.split( '=' )
+				## Suppression des espaces inutiles en debut et fin de mot
+				name = line[ 0 ].strip()
+				if( name in ( "CurrentMap" ) ):
+					## setattr permet d'associer la valeur a l'attribut fourni par son nom au format str
+					## On supprime naturellement les espaces inutiles en debut et fin de mot
+					setattr( self, name, line[ 1 ].strip() )
+					##setattr( self, name, line[ 1 ].strip() )
+								
+				## lecture de la prochaine ligne
+				line = ttgobif.readline()
+		## Fermeture du fichier de configuration
+		ttgobif.close()
+		
 	## Lecture des options
 	self.GetOpts()
 	## Lecture des variables d'environnement
@@ -542,6 +569,7 @@ class NotebookTomtom:
 	self.Debug( 1, "Application: " + App + " - Version: " + Ver )
 	self.Debug( 1, "Mounting point used: " + str( self.ptMount ) )
 	self.Debug( 1, "Model used: " + str( self.model ) )
+	self.Debug( 1, "Curent map: " + str( self.CurrentMap ) )
 
 	return True
 	
@@ -796,7 +824,7 @@ class NotebookTomtom:
 	return res
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## Fonction de recherche d'un enfant de self.window, le nom fourni sous la forme nom_frame.nom_box....
+    ## Fonction de recherche d'un enfant de self.window, le nom fourni sous la forme nom_frame.nom_box.... 7
     def SearchObj( self, name ):
 
 	## TODO : existe-t-il deja une fonction plus rapide ?
@@ -836,6 +864,7 @@ class NotebookTomtom:
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## fonction de remplacement image de demarrage avec toutes les verifications utiles
     def ChangeStartImg( self, widget ):
+		
 		## TODO : mettre en place la reconnaissance des noms des images a remplacer
 		if ( os.path.exists( self.ptMount +"/splash.bmp" ) ):
 			return True ##ecran normal n
@@ -1025,7 +1054,6 @@ class NotebookTomtom:
 		if( obj != None ):
 			## Activation du bouton (de-sactive auparavant)
 			obj.set_sensitive( True )
-		## TODO : Quand la restauration pourra etre lance, supprimer les # devant les 3 lignes suivantes
 		obj = self.SearchObj( "notebook.frameSaveRestore.boxSaveRestore.btnRestore" )
 		if( obj != None ):
 			obj.set_sensitive( True )
@@ -1415,12 +1443,7 @@ class NotebookTomtom:
 	tabBoxLeft.pack_start( image, True, False, 2 )
 		
 	## label
-        label = gtk.Label( _( '''This update sets the last known positions of the satellites. 
-It allows your GPS to find its initial position in less than 30 seconds
-and to initiate navigation more quickly...
-
-Please ensure that you have properly set your GPS parameters in the 
-options.''' ) )
+        label = gtk.Label( _( "This update sets the last known positions of the satellites. \n\nIt allows your GPS to find its initial position in less than 30 seconds \nand to initiate navigation more quickly... \n\nPlease ensure that you have properly set your GPS parameters \nin the options." ) )
 	## On centre le texte
 	label.set_justify( gtk.JUSTIFY_CENTER )
         tabBoxRight.pack_start( label, True, False, 2 )
@@ -1477,8 +1500,6 @@ options.''' ) )
 	image.set_from_file( self.dirPix + "saverestore.png" )
 	tabBoxLeft.pack_start( image, True, False, 2 )
 	
-	
-
 	## Text pour le choix du fichier de sauvegarde
         label = gtk.Label( _( "Backup file:" ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
@@ -1534,9 +1555,7 @@ options.''' ) )
 	self.progressionBar.show()
 
 	## Affichage d'information de la duree
-        label = gtk.Label( _( '''In order to complete these operations ''' ) + App + _( ''' takes time 
-and consumes disk space.
-For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
+        label = gtk.Label( _( "In order to complete these operations " ) + App + _( " takes time \nand consumes disk space. \nFor information, 25 minutes and 1GB on disk for a One Series 30" ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
         tabBoxRight.pack_start( label, True, False, 2 )
 	
@@ -1580,7 +1599,7 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 		tabBoxRight.pack_start( btnRestore, True, False, 2 )
 		## On connecte le signal "clicked" du bouton a rien
 	
-	label = gtk.Label( _( '''Please use restore only in case of necessity !''' ) )
+	label = gtk.Label( _( "Please use restore only in case of necessity !" ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
 	tabBoxRight.pack_start( label, True, False, 2 )
 
@@ -1591,19 +1610,108 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 	return True
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## Fonction de creation de la frame POI
+    def FramePoi( self, notebook ):
+
+	##--------------------------------------
+	## Onglet POI
+	##--------------------------------------
+        frame = gtk.Frame( _( "POI" ) )
+        frame.set_border_width( 10 )
+	frame.set_name( "framePoi" )
+        frame.show()
+	##On crée une boite verticale
+        tabBox = gtk.HBox( False, 2 )	
+	tabBox.set_name( "boxPoi" )
+        frame.add( tabBox )
+        tabBox.show()
+	
+	##On crée une boite horizontale
+        tabBoxLeft = gtk.VBox( False, 2 )
+	tabBoxLeft.set_name( "tabBoxLeftPoi" )
+	tabBoxLeft.set_size_request ( 120, -1 )
+        tabBox.add( tabBoxLeft )
+	tabBoxLeft.show()
+	##On crée une boite horizontale
+        tabBoxRight = gtk.VBox( False, 2 )
+	tabBoxRight.set_name( "tabBoxRightPoi" )
+	tabBoxRight.set_size_request ( 480, -1 )
+        tabBox.add( tabBoxRight )
+        tabBoxRight.show()
+	
+	## image	
+	image = gtk.Image()
+	image.set_from_file( self.dirPix + "poi.png" )
+	tabBoxLeft.pack_start( image, True, False, 2 )
+	
+	## bouton 
+        btndbAddPoi = gtk.Button( _( "Add POI (.ov2) to database..." ) )
+	tabBoxRight.pack_start( btndbAddPoi, True, False, 2 )
+        btndbAddPoi.connect( "clicked", self.addPoiToDatabase )
+	
+	## separator
+        hs = gtk.HSeparator()
+        tabBoxRight.pack_start( hs, True, False, 2 )
+	
+	## Liste des poi de la base
+	self.poiCombo = gtk.combo_box_new_text()
+	self.poiCombo.set_name( "poiCombo" )
+	## Ajout d'une ligne vide
+	self.poiCombo.append_text( _( "Select POI in database" ) )
+	## selection par defaut
+	self.poiCombo.set_active( 0 )
+	
+	## Ajout de tous les anciens poi
+	## Ouverture du dossier des poi
+	files = os.listdir( self.dirPoi )
+	##print files
+	## On tri par ordre alphabetique
+	files.sort()
+	## Pour chaque fichier
+	for file in files:
+		## Recuperation de l'extension du fichier pour savoir s'il s'agit d'un poi
+		##f, extension = os.path.splitext( file )
+		## Ajout du fichier poi, s'il s'agit d'un poi, et qu'il ne s'agit pas du fichier fourni en option
+		##if( extension == ".ov2" ):
+		##	self.poiCombo.append_text( f )
+		self.poiCombo.append_text( file )
+	tabBoxRight.pack_start( self.poiCombo, True, False, 0 )
+	
+	##si CurrentMap a ete fourni, on affiche les boutons
+	if( self.CurrentMap != False ):
+		labelmap = gtk.Label(  _( "Selected map: " ) + self.CurrentMap )
+		tabBoxRight.pack_start( labelmap, True, False, 2 )
+		btnAddPoi = gtk.Button( _( "Add seleted POI on TomTom" ) )
+		tabBoxRight.pack_start( btnAddPoi, True, False, 2 )
+		btnAddPoi.connect( "clicked", self.addPoiToTomtom )
+		btnDelPoi = gtk.Button( _( "Delete seleted POI from TomTom" ) )
+		tabBoxRight.pack_start( btnDelPoi, True, False, 2 )
+		btnDelPoi.connect( "clicked", self.delPoiOnTomtom )
+		##btnDelPoi.set_sensitive( False )
+	else:
+		labelgpsconnect = gtk.Label( _( "Connect your device and restart " ) + App + _("\nbefore adding or deleting POI") )
+		labelgpsconnect.set_justify( gtk.JUSTIFY_CENTER )
+		tabBoxRight.pack_start( labelgpsconnect, True, False, 2 )
+
+        eventBox = self.CreateCustomTab( _( "POI" ), notebook, frame )
+	notebook.append_page( frame, eventBox )
+	
+	return True
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction de creation de la frame PERSONNALISER
     def FramePersonalize( self, notebook ):
 
 	##--------------------------------------
 	## Onglet PERSONNALISER
 	##--------------------------------------
-        frame = gtk.Frame( _( "Personify" ) )
+        frame = gtk.Frame( _( "Personalize" ) )
         frame.set_border_width( 10 )
-	frame.set_name( "framePersonify" )
+	frame.set_name( "Personalize" )
         frame.show()
 	##On crée une boite verticale
         tabBox = gtk.HBox( False, 2 )	
-	tabBox.set_name( "boxPersonify" )
+	tabBox.set_name( "boxPersonalize" )
         frame.add( tabBox )
         tabBox.show()
 	
@@ -1620,7 +1728,7 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 	
 	## image	
 	image = gtk.Image()
-	image.set_from_file( self.dirPix + "personify.png" )
+	image.set_from_file( self.dirPix + "personalize.png" )
 	tabBoxLeft.pack_start( image, True, False, 2 )
 	
 	## label
@@ -1633,11 +1741,10 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 	tabBoxRight.pack_start( b, True, False, 2 )
         b.connect( "clicked", self.Delete )
 
-        eventBox = self.CreateCustomTab( _( "Personify" ), notebook, frame )
+        eventBox = self.CreateCustomTab( _( "Personalize" ), notebook, frame )
 	
 	notebook.append_page( frame, eventBox )
 	
-
 	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1664,7 +1771,7 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 	tabBox.pack_start( image, True, False, 2 )
 	
 	##On crée un label "text" (text donné en attribut)
-        tabLabel = gtk.Label( _( '''version ''' ) + Ver )
+        tabLabel = gtk.Label( _( "version " ) + Ver )
 	tabLabel.set_justify( gtk.JUSTIFY_CENTER )
 	tabBox.pack_start( tabLabel, True, False, 2 )
 	
@@ -1739,30 +1846,78 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
     ## fonction parcourir pour selectionner un dossier / conservation en cas de besoin def parcourir_gps( self,entry ):
     def selectFolder( self,entry ):
 	
-	self.window = gtk.FileChooserDialog( _( "Open..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ),
+	self.popup = gtk.FileChooserDialog( _( "Open..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ),
 		gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER, ( gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK ) );
 
-	if( self.window.run() == gtk.RESPONSE_OK ):
-		dossier = self.window.get_filename()
+	if( self.popup.run() == gtk.RESPONSE_OK ):
+		dossier = self.popup.get_filename()
 		self.Debug( 5, dossier )
-		self.labelfolder.set_text( dossier )
-		self.window.destroy()
+		##self.labelfolder.set_text( dossier )
+		self.popup.destroy()
 
 	return True
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## fonction parcourir pour selectionner un fichier
-    def selectFile( self,entry ):
+    ## fonction parcourir pour selectionner un fichier gtk.FILE_CHOOSER_ACTION_OPEN
+    def addPoiToDatabase( self,entry ):
 	
-	self.window = gtk.FileChooserDialog( _( "Open..." ), gtk.Window(gtk.WINDOW_TOPLEVEL), 
-		gtk.FILE_CHOOSER_ACTION_OPEN, (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK));
+	self.popup = gtk.FileChooserDialog( _( "Open..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ), 
+		gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER, ( gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK ) );
+	filter = gtk.FileFilter()
+	filter.set_name( "POI (*.ov2)" )
+	filter.add_pattern( "*.ov2" )
+	self.popup.add_filter( filter )
+	repHome = os.getenv( "HOME" )
+	self.popup.set_current_folder( repHome )
 
-	if( self.window.run() == gtk.RESPONSE_OK ):
-		file = self.window.get_filename()
-		self.Debug( 5, file )
-		self.labelfile.set_text( file )
-		self.window.destroy()
+	if( self.popup.run() == gtk.RESPONSE_OK ):
+		dirSelected = self.popup.get_filename()
+		self.Debug( 5, dirSelected )
+		##print dirSelected ## chemin complet
+		## on recupere juste le nom du repertoire qui servira a nommer le poi
+		( filepath, filename ) = os.path.split( dirSelected )
+		## on cree le rep du poi dans la base
+		cmd = ("mkdir '" + self.dirPoi + filename + "'" )
+		p = subprocess.Popen( cmd, shell=True )
+		p.wait()
+		## on y copie les fichiers
+		cmd = ("cp '" + dirSelected + "/'* '" + self.dirPoi + filename + "/'" )
+		##cmd = ("cp \"" + dirSelected + "/*\" \"" + self.dirPoi + filename + "/\"" )
+		p = subprocess.Popen( cmd, shell=True )
+		p.wait()
 		
+	self.popup.destroy()
+	## on rajoute la nouvelle entree a la liste
+	self.poiCombo.append_text( filename )
+	self.Popup( _( "POI added to database" ) )
+						
+	return True
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction copie du poi sur le tomtom
+    def addPoiToTomtom( self,entry ):
+	    
+	selectedPoi = self.poiCombo.get_active_text()
+	cmd = ("cp '" + self.dirPoi + selectedPoi + "/'* " + self.ptMount + "/" + self.CurrentMap )
+	p = subprocess.Popen( cmd, shell=True )
+	p.wait()
+	self.Popup( _( "POI " ) + selectedPoi + _( " added to TomTom" ) )
+	
+	return True
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction suppression du poi sur le tomtom
+    def delPoiOnTomtom( self,entry ):
+	    
+	selectedPoi = self.poiCombo.get_active_text()
+	files = os.listdir( self.dirPoi + selectedPoi )
+	for file in files:
+		cmd = ("rm " + self.ptMount + "/" + self.CurrentMap + "/'" + file + "'")
+		p = subprocess.Popen( cmd, shell=True )
+		p.wait()
+	
+	self.Popup( _( "POI " ) + selectedPoi + _( " deleted from TomTom" ) )
+	
 	return True
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1794,7 +1949,7 @@ For information, 25 minutes and 1GB on disk for a One Series 30''' ) )
 		self.FrameOption( notebook )
 		self.FrameGPSQuickFix( notebook )
 		self.FrameBackupRestore( notebook )
-		## TODO decommenter la ligne suivante pour affichage. penser a changer l onglet de demarrage
+		self.FramePoi( notebook )
 		##self.FramePersonalize( notebook )
 		self.FrameAbout( notebook )
 		self.FrameQuit( notebook )

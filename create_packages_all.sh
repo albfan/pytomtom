@@ -5,7 +5,7 @@ BIN_DIR="/bin"
 APP_DIR="/share/applications"
 LOC_DIR="/share/locale"
 ICO_DIR="/share/pixmaps"
-VERSION="0.4.2"
+VERSION="0.5beta"
 
 ## CREATION TAR.GZ
 mkdir -p "pytomtom"$ICO_DIR

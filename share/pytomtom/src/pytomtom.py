@@ -975,9 +975,9 @@ class NotebookTomtom:
 		## -f pour preciser le nom de l'archive plutot que sur le stdout
 		## Execution de la commande seuleument si l'on veut, sinon affichage de ce que l'on aurait fait
 		if( self.noExec == False ):
-			cmd = "cd " + self.ptMount + "; tar -" + option + "f \"" + self.fileName + "\" ." 
+			cmd = "cd '" + self.ptMount + "'; tar -" + option + "f \"" + self.fileName + "\" ." 
 		else:
-			cmd = "cd " + self.ptMount + "; echo tar -" + option + "f \"" + self.fileName + "\" ." 
+			cmd = "cd '" + self.ptMount + "'; echo tar -" + option + "f \"" + self.fileName + "\" ." 
 		self.Debug( 5, "Launching command: " + cmd )
 		self.procBackup = subprocess.Popen( cmd, shell=True )
 
@@ -1878,7 +1878,7 @@ class NotebookTomtom:
     ## fonction parcourir pour selectionner un fichier gtk.FILE_CHOOSER_ACTION_OPEN
     def addPoiToDatabase( self,entry ):
 	
-	self.popup = gtk.FileChooserDialog( _( "Open..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ), 
+	self.popup = gtk.FileChooserDialog( _( "Open folder..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ), 
 		gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER, ( gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK ) );
 	filter = gtk.FileFilter()
 	filter.set_name( "POI (*.ov2)" )
@@ -1894,7 +1894,6 @@ class NotebookTomtom:
 	if( self.popup.run() == gtk.RESPONSE_OK ):
 		dirSelected = self.popup.get_filename()
 		self.Debug( 5, dirSelected )
-		##print dirSelected ## chemin complet
 		## on recupere juste le nom du repertoire qui servira a nommer le poi
 		( filepath, filename ) = os.path.split( dirSelected )
 		## on cree le rep du poi dans la base

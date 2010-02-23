@@ -666,7 +666,7 @@ class NotebookTomtom:
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction demontage
     def UMount(self, mountPoint):
-	cmd = ( "umount " + self.ptMount )
+	cmd = ( "umount '" + self.ptMount +"'" )
 	p = subprocess.Popen( cmd, shell=True )
 	p.wait()
 		
@@ -1917,7 +1917,7 @@ class NotebookTomtom:
     def addPoiToTomtom( self,entry ):
 	    
 	selectedPoi = self.poiCombo.get_active_text()
-	cmd = ("cp '" + self.dirPoi + selectedPoi + "/'* " + self.ptMount + "/" + self.CurrentMap )
+	cmd = ("cp '" + self.dirPoi + selectedPoi + "/'* '" + self.ptMount + "'/" + self.CurrentMap )
 	p = subprocess.Popen( cmd, shell=True )
 	p.wait()
 	self.Popup( _( "POI " ) + selectedPoi + _( " added to TomTom" ) )
@@ -1931,7 +1931,7 @@ class NotebookTomtom:
 	selectedPoi = self.poiCombo.get_active_text()
 	files = os.listdir( self.dirPoi + selectedPoi )
 	for file in files:
-		cmd = ("rm " + self.ptMount + "/" + self.CurrentMap + "/'" + file + "'")
+		cmd = ("rm -f '" + self.ptMount + "'/" + self.CurrentMap + "/'" + file + "'")
 		p = subprocess.Popen( cmd, shell=True )
 		p.wait()
 	

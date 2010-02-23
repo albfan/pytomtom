@@ -519,9 +519,12 @@ class NotebookTomtom:
 			sys.exit( 2 )
 
 	##Lecture de la carte utilisee
-	if( os.path.exists( self.ptMount + "/ttgo.bif" ) ):
+	##if( os.path.exists( self.ptMount + "/ttgo.bif" ) ):
+	##if( os.path.exists( os.path.join( self.ptMount, "/ttgo.bif" ) ) ):
+	fileTTGObif = self.ptMount + "/ttgo.bif"
+	if( os.path.exists( fileTTGObif ) ):
 		## Ouverture du fichier ttgo.bif en lecture
-		with open( self.ptMount + "/ttgo.bif", "rb" ) as ttgobif:
+		with open( fileTTGObif, "rb" ) as ttgobif:
 			## Lecture des lignes
 			line = ttgobif.readline()
 			while( line ):
@@ -1895,18 +1898,17 @@ class NotebookTomtom:
 		## on recupere juste le nom du repertoire qui servira a nommer le poi
 		( filepath, filename ) = os.path.split( dirSelected )
 		## on cree le rep du poi dans la base
-		cmd = ("mkdir '" + self.dirPoi + filename + "'" )
+		cmd = ("mkdir -p '" + self.dirPoi + filename + "'" )
 		p = subprocess.Popen( cmd, shell=True )
 		p.wait()
 		## on y copie les fichiers
 		cmd = ("cp '" + dirSelected + "/'* '" + self.dirPoi + filename + "/'" )
-		##cmd = ("cp \"" + dirSelected + "/*\" \"" + self.dirPoi + filename + "/\"" )
 		p = subprocess.Popen( cmd, shell=True )
 		p.wait()
+		## on rajoute la nouvelle entree a la liste
+		self.poiCombo.append_text( filename )
 		
 	self.popup.destroy()
-	## on rajoute la nouvelle entree a la liste
-	self.poiCombo.append_text( filename )
 	self.Popup( _( "POI added to database" ) )
 						
 	return True

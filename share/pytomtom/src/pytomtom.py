@@ -651,7 +651,7 @@ class NotebookTomtom:
 	if( mountPoint == False ):
 		return False
 
-	## Verification de l'existence du fichier ttgo.bif pour valider qu'il s'agit bien d'un point de montage d'un tomtom
+	## Verification de l'existence du fichier tomtom.ico pour valider qu'il s'agit bien d'un point de montage d'un tomtom
 	self.Debug( 6, "Testing mounting point " + mountPoint )
 	if( os.path.exists( mountPoint + self.ttgo ) ):
 		self.Debug( 5, "Valid mounting point: " + mountPoint )
@@ -800,7 +800,18 @@ class NotebookTomtom:
 		cmd += "t " + type + " "
 	if not( ptMount == None ):
 		cmd += " \"" + ptMount + "\""
-	cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7 --output-delimiter=,"
+	## PROBLEME AVEC LES NOMS DE PERIPHERIQUES CONTENANT DES ESPACES, ex: GO 910 monté sur /media/TomTom Disk
+	## Sys. de fich. Type 1-blocs        Capacité 	Disponible	 Occupée Monté sur
+	## /dev/sdb1     vfat   3938516992 858259456 3080257536      22% /media/CLE USB 4GB
+	## bloc 4 = 858259456 --> OK
+	## mais bloc 7 = /media/CLE et non /media/CLE USB 4GB
+	## RESULTAT = [[858259456, '/media/CLE']]
+	## PISTE A SUIVRE : SEPARER LES COMMANDES ???
+	## df -B 1 -TlP 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4
+	## df -B 1 -TlP 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 7-
+	##cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7- --output-delimiter=,"
+	cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7-"
+	##cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7 --output-delimiter=,"
 
 	## Lancement de la commande, avec recuperation du stdout dans le processus actuel
 	self.Debug( 5, "launching command: " + cmd )
@@ -811,9 +822,11 @@ class NotebookTomtom:
 		## Suppression du \n de la ligne
 		line = line[ : -1 ]
 		## Grace a l'option --output-delimiter, on lance split
-		line = line.split( ',', 2 )
-		self.Debug( 5, "Command result: " + str( int( line[0 ] ) ) + " -> " + line[ 1 ] )
-		res.append( [ int( line[ 0 ] ), line[ 1 ] ] )
+		line = line.split( ' ', 1 )
+		##line = line.split( ',', 2 )
+		self.Debug( 5, "Command result: " + str( int( line[ 0 ] ) ) + " -> " + line[ -1 ] ) ##5
+		res.append( [ int( line[ 0 ] ), line[ -1 ] ] )
+		##res.append( [ int( line[ 0 ] ), line[ 1 ] ] )
 	p.wait()
 
 	if( res == [] ):
@@ -1662,19 +1675,20 @@ class NotebookTomtom:
 	self.poiCombo.set_active( 0 )
 	
 	## Ajout de tous les anciens poi
-	## Ouverture du dossier des poi
-	files = os.listdir( self.dirPoi )
-	##print files
-	## On tri par ordre alphabetique
-	files.sort()
-	## Pour chaque fichier
-	for file in files:
-		## Recuperation de l'extension du fichier pour savoir s'il s'agit d'un poi
-		##f, extension = os.path.splitext( file )
-		## Ajout du fichier poi, s'il s'agit d'un poi, et qu'il ne s'agit pas du fichier fourni en option
-		##if( extension == ".ov2" ):
-		##	self.poiCombo.append_text( f )
-		self.poiCombo.append_text( file )
+	if( os.path.exists( self.dirPoi ) ):
+		## Ouverture du dossier des poi
+		files = os.listdir( self.dirPoi )
+		##print files
+		## On tri par ordre alphabetique
+		files.sort()
+		## Pour chaque fichier
+		for file in files:
+			## Recuperation de l'extension du fichier pour savoir s'il s'agit d'un poi
+			##f, extension = os.path.splitext( file )
+			## Ajout du fichier poi, s'il s'agit d'un poi, et qu'il ne s'agit pas du fichier fourni en option
+			##if( extension == ".ov2" ):
+			##	self.poiCombo.append_text( f )
+			self.poiCombo.append_text( file )
 	tabBoxRight.pack_start( self.poiCombo, True, False, 0 )
 	
 	##si CurrentMap a ete fourni, on affiche les boutons
@@ -1869,6 +1883,10 @@ class NotebookTomtom:
 	self.popup.add_filter( filter )
 	repHome = os.getenv( "HOME" )
 	self.popup.set_current_folder( repHome )
+	
+	if not( os.path.exists( self.dirPoi ) ):
+		## Creation du repertoire si inexistant
+		os.mkdir( self.dirPoi )
 
 	if( self.popup.run() == gtk.RESPONSE_OK ):
 		dirSelected = self.popup.get_filename()

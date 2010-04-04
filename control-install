@@ -1,9 +1,9 @@
 Package: pyTOMTOM
-Version: 0.5beta
+Version: 0.5beta2
 Maintainer: Thomas LEROY (tmsleroy@gmail.com)
 Priority: optional
 Section: utils
-Installed-Size: 179.9
+Installed-Size: 243.1
 Architecture: i386
 Depends: python (>=2.5), python-gtk2, cabextract
 Description: Manage your TomTom Device

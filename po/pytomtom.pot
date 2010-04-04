@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 17:04+0100\n"
+"POT-Creation-Date: 2010-04-04 18:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,55 +16,59 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: share/pytomtom/src/pytomtom.py:778
+#: share/pytomtom/src/pytomtom.py:550 share/pytomtom/src/pytomtom.py:1726
+msgid "Connect your device and restart "
+msgstr ""
+
+#: share/pytomtom/src/pytomtom.py:775
 msgid "GPSQuickFix completed"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:951
+#: share/pytomtom/src/pytomtom.py:961
 msgid "Creation"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:954
+#: share/pytomtom/src/pytomtom.py:964
 msgid "Restoration"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:972 share/pytomtom/src/pytomtom.py:1046
+#: share/pytomtom/src/pytomtom.py:982 share/pytomtom/src/pytomtom.py:1056
 msgid " completed"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1044
+#: share/pytomtom/src/pytomtom.py:1054
 msgid " failed"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1308 share/pytomtom/src/pytomtom.py:1406
+#: share/pytomtom/src/pytomtom.py:1318 share/pytomtom/src/pytomtom.py:1416
 msgid "Options"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1335
+#: share/pytomtom/src/pytomtom.py:1345
 msgid "Please indicate the mounting point of your Tomtom:"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1368
+#: share/pytomtom/src/pytomtom.py:1378
 msgid "During backup or restore, display:"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1373
+#: share/pytomtom/src/pytomtom.py:1383
 msgid "elapsed time"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1381
+#: share/pytomtom/src/pytomtom.py:1391
 msgid "remaining time"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1389
+#: share/pytomtom/src/pytomtom.py:1399
 msgid "total time"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1418 share/pytomtom/src/pytomtom.py:1463
+#: share/pytomtom/src/pytomtom.py:1428 share/pytomtom/src/pytomtom.py:1473
 msgid "GPSQuickFix"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1446
+#: share/pytomtom/src/pytomtom.py:1456
 msgid ""
 "This update sets the last known positions of the satellites. \n"
 "\n"
@@ -75,139 +79,151 @@ msgid ""
 "in the options."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1453
+#: share/pytomtom/src/pytomtom.py:1463
 msgid "Start GPSQuickfix update"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1458
+#: share/pytomtom/src/pytomtom.py:1468
 msgid "Cannot start GPSQuickfix update (cabextract is missing)"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1476
+#: share/pytomtom/src/pytomtom.py:1486
 msgid "Backup and restore"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1504
+#: share/pytomtom/src/pytomtom.py:1514
 msgid "Backup file:"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1558
+#: share/pytomtom/src/pytomtom.py:1582
 msgid "In order to complete these operations "
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1558
+#: share/pytomtom/src/pytomtom.py:1582
 msgid ""
 " takes time \n"
 "and consumes disk space. \n"
 "For information, 25 minutes and 1GB on disk for a One Series 30"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1570
+#: share/pytomtom/src/pytomtom.py:1594
 msgid "Start backup..."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1576
+#: share/pytomtom/src/pytomtom.py:1600
 msgid "Cannot start backup (tar is missing)"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1590
+#: share/pytomtom/src/pytomtom.py:1614
 msgid "Start restore..."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1596
+#: share/pytomtom/src/pytomtom.py:1620
 msgid "Cannot start restore (tar is missing)"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1602
+#: share/pytomtom/src/pytomtom.py:1626
 msgid "Please use restore only in case of necessity !"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1607
+#: share/pytomtom/src/pytomtom.py:1631
 msgid "Backup and Restore"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1619 share/pytomtom/src/pytomtom.py:1696
+#: share/pytomtom/src/pytomtom.py:1643 share/pytomtom/src/pytomtom.py:1730
 msgid "POI"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1648
+#: share/pytomtom/src/pytomtom.py:1671
+msgid "First, you have to add POI to pyTOMTOM's database"
+msgstr ""
+
+#: share/pytomtom/src/pytomtom.py:1676
 msgid "Add POI (.ov2) to database..."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1660
+#: share/pytomtom/src/pytomtom.py:1684
+msgid "Now, you can easily add or remove it from GPS..."
+msgstr ""
+
+#: share/pytomtom/src/pytomtom.py:1692
 msgid "Select POI in database"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1682
+#: share/pytomtom/src/pytomtom.py:1693
+msgid "----------------------"
+msgstr ""
+
+#: share/pytomtom/src/pytomtom.py:1716
 msgid "Selected map: "
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1684
+#: share/pytomtom/src/pytomtom.py:1718
 msgid "Add seleted POI on TomTom"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1687
+#: share/pytomtom/src/pytomtom.py:1721
 msgid "Delete seleted POI from TomTom"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1692
-msgid "Connect your device and restart "
-msgstr ""
-
-#: share/pytomtom/src/pytomtom.py:1692
+#: share/pytomtom/src/pytomtom.py:1726
 msgid ""
 "\n"
 "before adding or deleting POI"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1708 share/pytomtom/src/pytomtom.py:1744
+#: share/pytomtom/src/pytomtom.py:1742 share/pytomtom/src/pytomtom.py:1778
 msgid "Personalize"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1735
+#: share/pytomtom/src/pytomtom.py:1769
 msgid "Replace the startup screen of your GPS by the picture of your choice"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1740
+#: share/pytomtom/src/pytomtom.py:1774
 msgid "button"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1757 share/pytomtom/src/pytomtom.py:1783
+#: share/pytomtom/src/pytomtom.py:1791 share/pytomtom/src/pytomtom.py:1817
 msgid "About"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1774
+#: share/pytomtom/src/pytomtom.py:1808
 msgid "version "
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1795 share/pytomtom/src/pytomtom.py:1840
+#: share/pytomtom/src/pytomtom.py:1829 share/pytomtom/src/pytomtom.py:1874
 msgid "Exit"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1823
+#: share/pytomtom/src/pytomtom.py:1857
 msgid "Don't forget to cleanly unmount your TomTom!"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1827
+#: share/pytomtom/src/pytomtom.py:1861
 msgid "Unmount"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1849 share/pytomtom/src/pytomtom.py:1864
+#: share/pytomtom/src/pytomtom.py:1883
 msgid "Open..."
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1892
+#: share/pytomtom/src/pytomtom.py:1898
+msgid "Open folder..."
+msgstr ""
+
+#: share/pytomtom/src/pytomtom.py:1928
 msgid "POI added to database"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1904 share/pytomtom/src/pytomtom.py:1919
+#: share/pytomtom/src/pytomtom.py:1940 share/pytomtom/src/pytomtom.py:1955
 msgid "POI "
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1904
+#: share/pytomtom/src/pytomtom.py:1940
 msgid " added to TomTom"
 msgstr ""
 
-#: share/pytomtom/src/pytomtom.py:1919
+#: share/pytomtom/src/pytomtom.py:1955
 msgid " deleted from TomTom"
 msgstr ""

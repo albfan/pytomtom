@@ -63,7 +63,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.5 beta 1"
+Ver = "0.5 beta 2"
 WebUrl = "http://pytomtom.tuxfamily.org"
 
 ## i18n (internationalisation) /usr/share/locale
@@ -94,6 +94,8 @@ class NotebookTomtom:
     dest = "/ephem"
     ## Definition du repertoire contenant la sauvegarde des poi
     dirPoi = dir + "/poi/" 
+    ## Definition du repertoire contenant les sauvegardes du GPS
+    dirBackup = dir + "/backup" 
     ## Definition du fichier permettant de valider la presence d'un tomtom
     ttgo = "/tomtom.ico"
     ## Dossier contenant les images du logiciel
@@ -521,28 +523,19 @@ class NotebookTomtom:
 	##Lecture de la carte utilisee
 	##if( os.path.exists( self.ptMount + "/ttgo.bif" ) ):
 	##if( os.path.exists( os.path.join( self.ptMount, "/ttgo.bif" ) ) ):
-	fileTTGObif = self.ptMount + "/ttgo.bif"
-	if( os.path.exists( fileTTGObif ) ):
-		## Ouverture du fichier ttgo.bif en lecture
+	##fileTTGObif = os.path.join( self.ptMount, "/ttgo.bif" ) ## --> /ttgo.bif [Err]
+	##fileTTGObif = os.path.join( str( self.ptMount ), "/ttgo.bif" ) ## --> /ttgo.bif [Err]
+	## tester mettre ttgo.bif en variable
+	fileTTGObif = str( self.ptMount ) + "/CurrentMap.dat" ## --> /media/cle usb 4g/ttgo.bif [OK]
+	##fileTTGObif = str( self.ptMount ) + "/ttgo.bif" ## --> /media/cle usb 4g/ttgo.bif [OK]
+	##print str( fileTTGObif )
+	if( os.path.exists( str( fileTTGObif ) ) ):
 		with open( fileTTGObif, "rb" ) as ttgobif:
-			## Lecture des lignes
 			line = ttgobif.readline()
-			while( line ):
-				## suppression des \n de fin de ligne
-				line = line[:-1]
-				## Le fichier se presente sous la forme nom=valeur, on decoupe selon le =
-				line = line.split( '=' )
-				## Suppression des espaces inutiles en debut et fin de mot
-				name = line[ 0 ].strip()
-				if( name in ( "CurrentMap" ) ):
-					## setattr permet d'associer la valeur a l'attribut fourni par son nom au format str
-					## On supprime naturellement les espaces inutiles en debut et fin de mot
-					setattr( self, name, line[ 1 ].strip() )
-					##setattr( self, name, line[ 1 ].strip() )
-								
-				## lecture de la prochaine ligne
-				line = ttgobif.readline()
-		## Fermeture du fichier de configuration
+			line = line[:-2]
+			line = line.split( "/" )
+			self.CurrentMap = str( line[-1] )
+			##print self.CurrentMap
 		ttgobif.close()
 		
 	## Lecture des options
@@ -554,6 +547,7 @@ class NotebookTomtom:
 	##       de meme si le point de montage n'est pas valide
 	if( self.ptMount == False or self.IsPtMount( self.ptMount ) == False or self.model == False ):
 		self.boxInit = 0
+		self.Popup( _( "Connect your device and restart " ) + App )
 
 	## Validation des possibilites de l'application (verification des dependances externes)
 	## Lancement de la commande which cabextract qui precise l'emplacement de cabextract, renvoi 0 si trouve, 1 sinon
@@ -894,9 +888,9 @@ class NotebookTomtom:
 
 	## si l'option uniq est fournie, on ajoute un nombre aleatoire
 	if( uniq == False ):
-		return( self.dir + "/sv-" + str( date.today() ) + "-" + self.model + ".tar" )
+		return( self.dirBackup + "/sv-" + str( date.today() ) + "-" + self.model + ".tar" )
 	else:
-		return( self.dir + "/sv" + str( random.randint( 1, 50 ) ) + "-" + str( date.today() ) + "-" + self.model + ".tar" )
+		return( self.dirBackup + "/sv" + str( random.randint( 1, 50 ) ) + "-" + str( date.today() ) + "-" + self.model + ".tar" )
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## fonction de lancement du Backup et de la restauration avec toutes les verifications utiles
@@ -906,7 +900,7 @@ class NotebookTomtom:
 	if not( self.IsPtMount( self.ptMount ) ):
 		self.Debug( 1, "Invalid mounting point: " + self.ptMount )
 		return False
-
+	
 	## Recuperation du nom du fichier de sauvegarde
 	files = self.saveFileCombo.get_model()
 	index = self.saveFileCombo.get_active()
@@ -1520,7 +1514,7 @@ class NotebookTomtom:
         label = gtk.Label( _( "Backup file:" ) )
 	label.set_justify( gtk.JUSTIFY_CENTER )
         tabBoxRight.pack_start( label, True, False, 2 )
-	
+		
 	## TODO : n'afficher que le nom du fichier, pas le chemin complet
 	## Liste des fichiers de sauvegarde existant et un nouveau
 	self.saveFileCombo = gtk.combo_box_new_text()
@@ -1534,7 +1528,7 @@ class NotebookTomtom:
 	## Ajout du nom de fichier nouveau (si l'on veut en creer un nouveau)
 	self.saveFileCombo.append_text( file )
 	## Ajout d'une ligne vide
-	self.saveFileCombo.append_text( "" )
+	self.saveFileCombo.append_text( "----------------" )
 
 	## Si le nom du fichier a ete fourni, ajout du nom du fichier, et selection du fichier dans le combo
 	if( self.fileName != False ):
@@ -1544,16 +1538,30 @@ class NotebookTomtom:
 	else:
 		self.saveFileCombo.set_active( 0 )
 
+	## Verification ou creation du dossier backup
+	if not( os.path.exists( self.dirBackup ) ):
+		os.mkdir( self.dirBackup )
+	## TODO importation des anciennes sauvegardes (pytomtom =< 0.4)
+	## Ouverture de l ancien dossier de sauvegarde
+	oldfiles = os.listdir( self.dir )
+	for file in oldfiles:
+		f, extension = os.path.splitext( file )
+		if( extension == ".tar" and ( self.fileName == False or os.path.realpath( self.dir + "/" + file ) != os.path.realpath( self.fileName ) ) ):
+			## on copie les anciennes sauvegardes dans le nouveau rep backup
+			shutil.move( self.dir + "/" + file, self.dirBackup + "/" + file )
+		
 	## Ajout de tous les anciens fichiers de sauvegarde
 	## Ouverture du dossier de sauvegarde
-	files = os.listdir( self.dir )
+	##files = os.listdir( self.dir )
+	files = os.listdir( self.dirBackup )
 	## Pour chaque fichier
 	for file in files:
 		## Recuperation de l'extension du fichier pour savoir s'il s'agit d'une sauvegarde
 		f, extension = os.path.splitext( file )
 		## Ajout du fichier de sauvegarde, s'il s'agit d'une sauvegarde, et qu'il ne s'agit pas du fichier fourni en option
-		if( extension == ".tar" and ( self.fileName == False or os.path.realpath( self.dir + "/" + file ) != os.path.realpath( self.fileName ) ) ):
-			self.saveFileCombo.append_text( self.dir + "/" + file )
+		##if( extension == ".tar" and ( self.fileName == False or os.path.realpath( self.dir + "/" + file ) != os.path.realpath( self.fileName ) ) ):
+		if( extension == ".tar" and ( self.fileName == False or os.path.realpath( self.dirBackup + "/" + file ) != os.path.realpath( self.fileName ) ) ):
+			self.saveFileCombo.append_text( self.dirBackup + "/" + file )
 
 	##self.saveFileCombo.set_size_request ( 60, -1 )
 	tabBoxRight.pack_start( self.saveFileCombo, True, False, 0 )
@@ -1660,6 +1668,10 @@ class NotebookTomtom:
 	image.set_from_file( self.dirPix + "poi.png" )
 	tabBoxLeft.pack_start( image, True, False, 2 )
 	
+	labelfirststep = gtk.Label( _( "First, you have to add POI to pyTOMTOM's database") )
+	labelfirststep.set_justify( gtk.JUSTIFY_CENTER )
+	tabBoxRight.pack_start( labelfirststep, True, False, 2 )
+		
 	## bouton 
         btndbAddPoi = gtk.Button( _( "Add POI (.ov2) to database..." ) )
 	tabBoxRight.pack_start( btndbAddPoi, True, False, 2 )
@@ -1669,11 +1681,16 @@ class NotebookTomtom:
         hs = gtk.HSeparator()
         tabBoxRight.pack_start( hs, True, False, 2 )
 	
+	labelsteptwo = gtk.Label( _( "Now, you can easily add or remove it from GPS...") )
+	labelsteptwo.set_justify( gtk.JUSTIFY_CENTER )
+	tabBoxRight.pack_start( labelsteptwo, True, False, 2 )
+	
 	## Liste des poi de la base
 	self.poiCombo = gtk.combo_box_new_text()
 	self.poiCombo.set_name( "poiCombo" )
 	## Ajout d'une ligne vide
 	self.poiCombo.append_text( _( "Select POI in database" ) )
+	self.poiCombo.append_text( _( "----------------------" ) )
 	## selection par defaut
 	self.poiCombo.set_active( 0 )
 	

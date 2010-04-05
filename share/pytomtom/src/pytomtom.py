@@ -63,7 +63,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.5 beta 2"
+Ver = "0.5 beta 3"
 WebUrl = "http://pytomtom.tuxfamily.org"
 
 ## i18n (internationalisation) /usr/share/locale
@@ -191,6 +191,8 @@ class NotebookTomtom:
     couldBackup = True
     ## Si l'utilisateur veut quitter avant la fin d'un sous-processus, la sauvegarde ou la restauration finissent puis l'application quitte
     quit = False
+    ##
+    gpsStatus = "disconnected"
 
     ## objet graphique window
     window = None
@@ -547,7 +549,7 @@ class NotebookTomtom:
 	##       de meme si le point de montage n'est pas valide
 	if( self.ptMount == False or self.IsPtMount( self.ptMount ) == False or self.model == False ):
 		self.boxInit = 0
-		self.Popup( _( "Connect your device and restart " ) + App )
+		##self.Popup( _( "Connect your device and restart " ) + App )
 
 	## Validation des possibilites de l'application (verification des dependances externes)
 	## Lancement de la commande which cabextract qui precise l'emplacement de cabextract, renvoi 0 si trouve, 1 sinon
@@ -587,6 +589,7 @@ class NotebookTomtom:
 
 	## Enregistrment des options
 	self.PutConfig()
+	self.Popup( _( "Reload " ) + App + _( " to use this settings." ) )
 
 	return True
 
@@ -628,7 +631,7 @@ class NotebookTomtom:
 	## Pour chaque point de montage
 	for ptMountSize, ptMount in ptMounts:
 		if( ptMountSize == -1 ):
-			self.Debug( 5, "No mounting point" )
+			self.Debug( 5, "No mounting point" ) ##5
 			return True
 
 		## Validation du point de montage
@@ -636,7 +639,7 @@ class NotebookTomtom:
 			self.ptMounts.append( [ ptMountSize, ptMount ] )
 
 	## Affichage des informations de deboggage
-	self.Debug( 5, "List of mounting points " + str( self.ptMounts ) )
+	self.Debug( 5, "List of mounting points " + str( self.ptMounts ) ) ##5
 
 	return True
 
@@ -652,9 +655,12 @@ class NotebookTomtom:
 	self.Debug( 6, "Testing mounting point " + mountPoint )
 	if( os.path.exists( mountPoint + self.ttgo ) ):
 		self.Debug( 5, "Valid mounting point: " + mountPoint )
+		self.gpsStatus = "connected"
+		##print "test : ok : tomtom"
 		return True
 
 	## Dans tous les autres cas, le point de montage n'est pas valide
+	##print "test : ERROR : not a tomtom"
 	return False
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -669,6 +675,7 @@ class NotebookTomtom:
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## fonction GPSQUICKFIX, mise a jour des donnees de l'emplacement des satellites (a effectuer une fois par semaine)
     def GpsQuickFix(self, widget):
+	print "starting GpsQuickFix..."
 	
 	## Si cabextract n'existe pas, on ne fait rien
 	if( self.couldGpsFix == False ):
@@ -767,7 +774,7 @@ class NotebookTomtom:
 	except:
 		self.Debug( 0, "Impossible to create temporary directory" )
 	finally:
-		## Suppression du dossier temporaire dans tous les cas (meme si un probleme survient)
+		## Suppression du dossier temporaire dans toça c'est la dernière, supprime tout le reste...us les cas (meme si un probleme survient)
 		shutil.rmtree( tempDirName )
 
 	## Affichage de la fin de l'execution, en popup si l'on est pas en mode script
@@ -811,15 +818,19 @@ class NotebookTomtom:
 	##cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7 --output-delimiter=,"
 
 	## Lancement de la commande, avec recuperation du stdout dans le processus actuel
-	self.Debug( 5, "launching command: " + cmd )
+	self.Debug( 5, "launching command: " + cmd ) ##5
 	p = subprocess.Popen( cmd, stdout = subprocess.PIPE, shell=True )
 	res = []
 	## Lecture du resultat
 	for line in p.stdout:
 		## Suppression du \n de la ligne
 		line = line[ : -1 ]
+		##print "line 001 : "
+		##print line
 		## Grace a l'option --output-delimiter, on lance split
 		line = line.split( ' ', 1 )
+		##print "line 002 : " 
+		##print line
 		##line = line.split( ',', 2 )
 		self.Debug( 5, "Command result: " + str( int( line[ 0 ] ) ) + " -> " + line[ -1 ] ) ##5
 		res.append( [ int( line[ 0 ] ), line[ -1 ] ] )
@@ -831,6 +842,8 @@ class NotebookTomtom:
 		return( [ [ -1, None ] ] )
 
 	## Renvoi des donnees collectees
+	##print "liste des peripheriques trouves (res) : "
+	##print res
 	return res
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1690,7 +1703,7 @@ class NotebookTomtom:
 	self.poiCombo.set_name( "poiCombo" )
 	## Ajout d'une ligne vide
 	self.poiCombo.append_text( _( "Select POI in database" ) )
-	self.poiCombo.append_text( _( "----------------------" ) )
+	self.poiCombo.append_text( "----------------------" )
 	## selection par defaut
 	self.poiCombo.set_active( 0 )
 	
@@ -1711,21 +1724,21 @@ class NotebookTomtom:
 			self.poiCombo.append_text( file )
 	tabBoxRight.pack_start( self.poiCombo, True, False, 0 )
 	
-	##si CurrentMap a ete fourni, on affiche les boutons
+	#------------
 	if( self.CurrentMap != False ):
 		labelmap = gtk.Label(  _( "Selected map: " ) + self.CurrentMap )
 		tabBoxRight.pack_start( labelmap, True, False, 2 )
-		btnAddPoi = gtk.Button( _( "Add seleted POI on TomTom" ) )
-		tabBoxRight.pack_start( btnAddPoi, True, False, 2 )
-		btnAddPoi.connect( "clicked", self.addPoiToTomtom )
-		btnDelPoi = gtk.Button( _( "Delete seleted POI from TomTom" ) )
-		tabBoxRight.pack_start( btnDelPoi, True, False, 2 )
-		btnDelPoi.connect( "clicked", self.delPoiOnTomtom )
-		##btnDelPoi.set_sensitive( False )
-	else:
-		labelgpsconnect = gtk.Label( _( "Connect your device and restart " ) + App + _("\nbefore adding or deleting POI") )
-		labelgpsconnect.set_justify( gtk.JUSTIFY_CENTER )
-		tabBoxRight.pack_start( labelgpsconnect, True, False, 2 )
+	btnAddPoi = gtk.Button( _( "Add seleted POI on TomTom" ) )
+	if( self.CurrentMap == False ): 
+		btnAddPoi.set_sensitive( False )
+	tabBoxRight.pack_start( btnAddPoi, True, False, 2 )
+	btnAddPoi.connect( "clicked", self.addPoiToTomtom )
+	btnDelPoi = gtk.Button( _( "Delete seleted POI from TomTom" ) )
+	if( self.CurrentMap == False ): 
+		btnDelPoi.set_sensitive( False )
+	tabBoxRight.pack_start( btnDelPoi, True, False, 2 )
+	btnDelPoi.connect( "clicked", self.delPoiOnTomtom )
+	#------------
 
         eventBox = self.CreateCustomTab( _( "POI" ), notebook, frame )
 	notebook.append_page( frame, eventBox )
@@ -1860,9 +1873,8 @@ class NotebookTomtom:
 	## demontage propre du GPS
         btnUnmount = gtk.Button( _( "Unmount" ) )
 	##TODO: griser le btn si gps pas branche
-	##if( self.IsPtMount( self.ptMount ) == False ):
-	##	btnUnmount.set_sensitive( False )
-	##self.tempoUnmount = gobject.timeout_add( 2000, btnUnmount.show )
+	if( self.boxInit == 0 ):
+		btnUnmount.set_sensitive( False )
 	tabBoxRight.pack_start( btnUnmount, True, False, 2 )
 	btnUnmount.connect( "clicked", self.UMount )
 	
@@ -1957,12 +1969,26 @@ class NotebookTomtom:
 	return True
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction test en fond de tache	
+    def ma_fonction( self ): 
+	##print "toto" 
+	if( self.ptMount != False ):
+		gpsStatus = "connected"
+		print gpsStatus
+	else:
+		gpsStatus = "disconnected"
+	##while True:
+		##self.ma_fonction() 
+	return True	
+		
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction de demarrage de la classe
     def __init__( self ):
 
 	## Recuperation de la configuration
 	self.GetConfig()
-
+	
 	## Si on est pas en mode script
 	if( self.noGui == False ):
 		##On cree la fenetre principale
@@ -1983,10 +2009,11 @@ class NotebookTomtom:
 		##*************************************************************************************************************
 		## Construction des onglets de la fenetre principale
 		self.FrameOption( notebook )
-		self.FrameGPSQuickFix( notebook )
-		self.FrameBackupRestore( notebook )
-		self.FramePoi( notebook )
-		##self.FramePersonalize( notebook )
+		if( self.boxInit != 0 ):
+			self.FrameGPSQuickFix( notebook )
+			self.FrameBackupRestore( notebook )
+			self.FramePoi( notebook )
+			##self.FramePersonalize( notebook )
 		self.FrameAbout( notebook )
 		self.FrameQuit( notebook )
 		##*************************************************************************************************************
@@ -2019,7 +2046,12 @@ class NotebookTomtom:
 	if( self.noGui == True ):
 		self.Delete( None )
 		return None
-
+		
+	if( self.gpsStatus != "connected" ):
+		self.Popup( _( "Connect your device and reload " ) + App )
+		##self.Delete( None )
+		##return None
+	
 	return None
 
 

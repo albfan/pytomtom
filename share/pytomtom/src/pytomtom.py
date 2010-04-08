@@ -63,7 +63,7 @@ import termios, fcntl, struct
 #----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
 ## Definition du nom et de la version de l'application
 App = "pyTOMTOM"
-Ver = "0.5 beta 3"
+Ver = "0.5 beta 3b"
 WebUrl = "http://pytomtom.tuxfamily.org"
 
 ## i18n (internationalisation) /usr/share/locale
@@ -115,23 +115,35 @@ class NotebookTomtom:
     boxInit = 4
     ## liste des modeles avec une puce siRFStarIII
     siRFStarIII = ["Carminat",
-	"GO 510 - 710 - 910",
-	"GO 520 - 720 - 920 T",
-	"GO 530 - 630 - 730 - 930 T",
-	"One 1st edition",
-	"Rider",
-	"Rider 2nd edition"]
+	"GO 510",
+	"GO 520",
+	"GO 530",
+	"GO 540 LIVE",
+	"GO 630",
+	"GO 710",
+	"GO 720",
+	"GO 730",
+	"GO 910",
+	"GO 920",
+	"GO 930",
+	"ONE 1st Edition",
+	"ONE 2nd Edition (S)",
+	"RIDER",
+	"RIDER 2nd Edition"]
     ## liste des modeles avec une puce globalLocate
-    globalLocate = ["GO 740 Live - 940 Live",
-	"GO 750 Live - 950 Live",
-	"One 3rd edition",
-	"One 30 Series - New One 2008 - One v4",
-	"One IQ Routes",
-	"One XL",
-	"One XL 2008",
-	"One XL IQ Routes",
-	"One XL Live",
-	"Start"]
+    globalLocate = ["GO 740 LIVE",
+	"GO 750 LIVE",
+	"GO 940 LIVE",
+	"GO 950 LIVE",
+	"ONE 2nd Edition (G)",
+	"ONE 3rd Edition",
+	"ONE 30 Series",
+	"ONE IQ Routes",
+	"ONE XL",
+	"Start",
+	"XL 30 Series",
+	"XL IQ Routes",
+	"XL LIVE IQ Routes"]
     ## liste de tous les modeles, somme des modeles
     ## TODO : ne pas utiliser append, mais extend ?
     models = []
@@ -139,6 +151,8 @@ class NotebookTomtom:
 	models.append( model )
     for model in globalLocate:
 	models.append( model )
+    ## On tri par ordre alphabetique
+    models.sort()
 
     ## Niveau de debugage, 1 par defaut, seules les informations de debugage de niveau inferieur ou egal seront vues
     debug = 1
@@ -219,6 +233,34 @@ class NotebookTomtom:
 	print( "" )
 	print( App )
 	print( Ver )
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## Fonction verif dernière version
+    def LatestRelease( self, widget ):
+	try:
+		url = "http://tomonweb.2kool4u.net/pytomtom/LATEST"
+		request = urllib2.Request( url, None )
+		urlFile = urllib2.urlopen( request )
+		tempFile = tempfile.NamedTemporaryFile()
+		tempFile.write( urlFile.read() )
+		tempFile.flush()
+		urlFile.close()
+		with open( tempFile.name, "rb" ) as latest:
+			line = latest.readline()
+			line = line[:-1]
+			latest.close()
+		##print line
+		if( Ver == line ):
+			msg = ( _( "No need to update. You use the latest stable release." ) )
+			self.Popup( msg )
+		else:
+			msg = ( _( "You can update. The latest stable release is " ) + line )
+			self.Popup( msg )
+			
+	except:
+		msg = ( _( "Impossible to fetch data" ) )
+		self.Popup( msg)
+		
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction pour visiter le site web pyTOMTOM
@@ -1724,7 +1766,6 @@ class NotebookTomtom:
 			self.poiCombo.append_text( file )
 	tabBoxRight.pack_start( self.poiCombo, True, False, 0 )
 	
-	#------------
 	if( self.CurrentMap != False ):
 		labelmap = gtk.Label(  _( "Selected map: " ) + self.CurrentMap )
 		tabBoxRight.pack_start( labelmap, True, False, 2 )
@@ -1738,7 +1779,11 @@ class NotebookTomtom:
 		btnDelPoi.set_sensitive( False )
 	tabBoxRight.pack_start( btnDelPoi, True, False, 2 )
 	btnDelPoi.connect( "clicked", self.delPoiOnTomtom )
-	#------------
+	
+	btndbDelPoi = gtk.Button( _( "Delete POI from database..." ) )
+	##btndbDelPoi.set_sensitive( False )
+	tabBoxRight.pack_start( btndbDelPoi, True, False, 2 )
+        btndbDelPoi.connect( "clicked", self.delPoiFromDatabase )
 
         eventBox = self.CreateCustomTab( _( "POI" ), notebook, frame )
 	notebook.append_page( frame, eventBox )
@@ -1822,12 +1867,19 @@ class NotebookTomtom:
 	tabLabel.set_justify( gtk.JUSTIFY_CENTER )
 	tabBox.pack_start( tabLabel, True, False, 2 )
 	
+	#self.LatestRelease()
+	## bouton LatestRelease()
+        btnLatest = gtk.Button(  _( "Need to update ?" ) )
+	tabBox.pack_start( btnLatest, True, False, 2 )
+	btnLatest.connect( "clicked", self.LatestRelease )
+	
 	## bouton acces au site web
         btnWeb = gtk.Button( WebUrl )
 	tabBox.pack_start( btnWeb, True, False, 2 )
 	btnWeb.connect( "clicked", self.WebConnect )
+	btnWeb.set_tooltip_text( _( "Visit homepage..." ) )
 	
-        eventBox = self.CreateCustomTab( _( "About" ), notebook, frame )
+	eventBox = self.CreateCustomTab( _( "About" ), notebook, frame )
         notebook.append_page( frame, eventBox )
 
 	return True
@@ -1882,7 +1934,8 @@ class NotebookTomtom:
 	btnQuit = gtk.Button( stock = gtk.STOCK_QUIT )
 	tabBoxRight.pack_start( btnQuit, True, False, 2 )
         btnQuit.connect( "clicked", self.Delete )
-	
+	btnQuit.set_tooltip_text( _( "bye bye !" ) )
+		
         eventBox = self.CreateCustomTab( _( "Exit" ), notebook, frame )
         notebook.append_page( frame, eventBox )
 
@@ -1967,9 +2020,26 @@ class NotebookTomtom:
 	self.Popup( _( "POI " ) + selectedPoi + _( " deleted from TomTom" ) )
 	
 	return True
+
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction suppression du poi sur le tomtom
+    def delPoiFromDatabase( self,entry ):
+	## on supprime  les fichiers    
+	selectedPoi = self.poiCombo.get_active_text()
+	cmd = ("rm -rf '" + self.dirPoi + selectedPoi + "'")
+	##print cmd
+	p = subprocess.Popen( cmd, shell=True )
+	p.wait()
+	## on supprime l'entree dans le menu deroulant
+	indexPoi = self.poiCombo.get_active()
+	self.poiCombo.remove_text( indexPoi )
+	
+	self.Popup( _( "POI " ) + selectedPoi + _( " deleted from database" ) )
+	
+	return True
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## fonction test en fond de tache	
+    ## fonction test en fond de tache	NON UTILISEE
     def ma_fonction( self ): 
 	##print "toto" 
 	if( self.ptMount != False ):
@@ -2000,6 +2070,10 @@ class NotebookTomtom:
 		self.window.set_icon_from_file( self.dirPix + "icon.png" )
 		## centrage de la fenetre 
 		self.window.set_position( gtk.WIN_POS_CENTER )
+		
+		settings = self.window.get_settings()
+		settings.set_property( 'gtk-tooltip-timeout', 0 )
+				
 		##*************************************************************************************************************
         	##On cree un nouveau notebook
         	notebook = gtk.Notebook()

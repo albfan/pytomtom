@@ -1,14 +1,15 @@
 #/usr/bin/python
 # -*- coding:utf-8 -*-
-#----------------------------------------------- ENTETE DE DEFINITION DE L'APPLICATION ---------------------------------------
-## pyTOMTOM - Gerez votre TomTom sous Linux !
+#----------------------------------------------- APPLICATION HEADER DEFINITION ---------------------------------------
+## pyTOMTOM - Manage your TomTom !
 ## http://pytomtom.tuxfamily.org
-## auteur : Thomas LEROY
-## remerciements à Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni, Denny
+## dev : Thomas LEROY
+## sorry for my bad english in comments...
+## thanks to Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni, Denny
 ## python (>=2.5), python-gtk2, cabextract
 
-#----------------------------------------------- DEFINITION DES REGLES DE DEVELOPPEMENT --------------------------------------
-## Regles de developpement
+#----------------------------------------------- DEVELOPPEMENT RULES DEFINITION --------------------------------------
+## developpement rules
 ##   - Utilisation de la langue anglaise pour le nom des variables et des fonctions (pas de melange)
 ##   - Les noms des fonctions commencent par une majuscule, avec une majuscule a chaque nouveau mot
 ##   ( - les noms de fonctions commencent par une majuscule avec _ pour separer les mots )
@@ -26,42 +27,42 @@
 ##   - un espace apres une virgule
 ##   - les fonctions internes commencent par _
 
-#----------------------------------------------- IMPORT DES LIBRAIRIES UTILES ------------------------------------------------
-## Utilise pour rendre compatible python 2.5 (with)
+#---------------------------------------------------- LIBRARIES IMPORT ---------------------------------------------------------
+## used to be compatible python 2.5 (with)
 from __future__ import with_statement
-## TODO : Utile ? import pygtk
+## TODO : needed ? import pygtk
 import gtk
-## Utilise pour recuperer les fichiers cab pour le GPSFix
+## used to fetch cab for GPSQuickFix
 import urllib2
-##Utilise pour ouvrir le lien du site dans un navigateur
+##used to visit homepage in webbrowser
 import webbrowser
-## Utilise pour lancer des sous-programmes (tar, cabextract, df, ...)
+## used to launch subprocess (tar, cabextract, df, ...)
 import subprocess
-## Utilise pour copier les fichiers et supprimer des repertoires
+## used to copy files and delete directory
 import shutil
-## Utilise pour recuperer les variables d'environnement et faire des manipulations sur les dossiers et fichiers
+## used to get environment variables and operation for folder and files
 import os
-## Utilise pour recuperer des informations sur les fichiers et les dossiers
+## used to get informations about files and directory
 import os.path
-## Utilise pour voir la date du jour
+## used to get date
 from datetime import date
-## Utilise pour recuperer les options fournies en argument
+## used to get options (arg)
 import getopt
-## Utilise pour utiliser les systemes
+## used to use systems
 import sys
-## Utilise pour traduire le texte
+## used to translate text
 import gettext
-## Utilise pour creer des repertoires et des fichiers temporaires
+## used to create temp directory or file
 import tempfile
-## Utilise pour creer un timeout
+## used to create timeout
 import gobject
-## Utilise pour creer un nouveau fichier de sauvegarde avec un chiffre aleatoire
+## used to create new backup file with random number
 import random
-## Utilise pour connaitre la taille du terminal lancant le logiciel
+## used to get terminal witdh
 import termios, fcntl, struct
 
-#----------------------------------------------- DEFINITION GLOBALES ---------------------------------------------------------
-## Definition du nom et de la version de l'application
+#----------------------------------------------- GLOBAL DEFINITION  ---------------------------------------------------------
+## name,  version and homepage
 App = "pyTOMTOM"
 Ver = "0.5 beta 3b"
 WebUrl = "http://pytomtom.tuxfamily.org"
@@ -75,45 +76,45 @@ _ = gettext.gettext
 ##        du logiciel ni ses actions, mais il serait plus propre de ne pas l'avoir
 
 #----------------------------------------------- VERIFICATIONS DES PRE-REQUIS ------------------------------------------------
-## Verification d'etre sous Linux - du moins un systeme posix
+## Verify to running Linux - posix system
 if( os.name != "posix" ):
 	print "You are not runnig Linux operating system"
 	sys.exit( 2 )
-## TODO : Utile ? Verification de python en version 2.0 minimum
+## TODO : needed ? Verify python  >=2.0
 ##pygtk.require('2.0')
 
 #----------------------------------------------- DEFINITION DE LA CLASSE PRINCIPALE ------------------------------------------
 class NotebookTomtom:
 
     ##------------------------------------------ DEFINITION DES VARIABLES GLOBALES -------------------------------------------
-    ## Definition du repertoire contenant les donnees du logiciel
+    ## config directory
     dir = os.getenv( "HOME" ) + "/." + App
-    ## Nom du fichier de configuration du logiciel
+    ## config file
     configFile = App + ".cfg"
-    ## Dossier de destination pour le GpsQuickFix sur le point de montage, 
+    ## ephem directory on tomtom
     dest = "/ephem"
-    ## Definition du repertoire contenant la sauvegarde des poi
+    ## poi database directory
     dirPoi = dir + "/poi/" 
-    ## Definition du repertoire contenant les sauvegardes du GPS
+    ## backup directory
     dirBackup = dir + "/backup" 
-    ## Definition du fichier permettant de valider la presence d'un tomtom
+    ## file needed for recognize a tomtom
     ttgo = "/tomtom.ico"
-    ## Dossier contenant les images du logiciel
+    ## pix directory (for pytomtom)
     dirPix = "../share/pytomtom/pix/"
-    ## Definition par defaut du point de montage, vide veut dire que le point de montage n'a pas ete fourni
+    ## mount point, false = unknow
     ptMount = False
-    ## Taille en octets du point de montage sélectionné
+    ## mount point size (octet)
     ptMountSize = -1
-    ## Liste des points de montage possibles, par defaut aucun
+    ## all mount points, by default empty
     ptMounts = []
-    ## Definition par defaut du modele, vide veut dire que le modele n'a pas ete fourni
+    ## tomtom model, false = unknow
     model = False
-    ##Definition par defaut de la carte, vide veut dire que la carte n'a pas ete fournie
+    ## current map in use, false = unknow
     CurrentMap = False
-    ## Choix de l'onglet affiché au démarrage de l'application, 3 par defaut (About)
-    ## 0=options, 1=GPSQuickFix, 2=Save&Restore, 3=poi, 4=apropos, 5=quitter
+    ## tab at pytomtom start, by default "About"
+    ## 0=options, 1=GPSQuickFix, 2=Save&Restore, 3=poi, 4=about, 5=quit
     boxInit = 4
-    ## liste des modeles avec une puce siRFStarIII
+    ## chipset siRFStarIII models
     siRFStarIII = ["Carminat",
 	"GO 510",
 	"GO 520",
@@ -130,7 +131,7 @@ class NotebookTomtom:
 	"ONE 2nd Edition (S)",
 	"RIDER",
 	"RIDER 2nd Edition"]
-    ## liste des modeles avec une puce globalLocate
+    ## chipset globalLocate models
     globalLocate = ["GO 740 LIVE",
 	"GO 750 LIVE",
 	"GO 940 LIVE",
@@ -139,63 +140,65 @@ class NotebookTomtom:
 	"ONE 3rd Edition",
 	"ONE 30 Series",
 	"ONE IQ Routes",
+	"ONE White Pearl",
 	"ONE XL",
 	"Start",
 	"XL 30 Series",
 	"XL IQ Routes",
 	"XL LIVE IQ Routes"]
-    ## liste de tous les modeles, somme des modeles
-    ## TODO : ne pas utiliser append, mais extend ?
+    ## all models
+    ## TODO : not use append, extend instead ?
     models = []
     for model in siRFStarIII:
 	models.append( model )
     for model in globalLocate:
 	models.append( model )
-    ## On tri par ordre alphabetique
+    ## alphabetic sort
     models.sort()
 
-    ## Niveau de debugage, 1 par defaut, seules les informations de debugage de niveau inferieur ou egal seront vues
+    ## debug level, =< 1 by default
     debug = 1
 
-    ## Fichier de log, sys.stdout pour l'equivalent d'un print
+    ## log, sys.stdout (= print)
     logFileName = dir + "/" + os.path.basename( sys.argv[ 0 ] ) + ".log"
-    ## ex : logFile = open( logFileName, "w" ) ## ecriture dans un fichier de log avec suppression de l'existant
-    ## ex : logFile = open( logFileName, "a" ) ## ecriture dans un fichier de log avec conservation de l'existant
-    logFile = sys.stdout ## equivalent d'un print
+    ## ie : logFile = open( logFileName, "w" ) ## erase an write new
+    ## ie : logFile = open( logFileName, "a" ) ## add and write
+    ## = print
+    logFile = sys.stdout 
 
-    ## Par defaut le fichier de log n'est pas ecrase, cette option permet de l'ecraser
+    ## by default log isn't overwrited, this option to overwrite log
     overwriteLog = False
-    ## lancement sans le gui pour le cas d'un script, faux par defaut
+    ## launching without gui (script mode), false by default
     noGui = False
-    ## lancement de l'application sans lancement des actions exterieures (pour debuggage) a savoir gpsfix, backup, restore
+    ## launching witout do external action (to debug, ie gpsquickfix, backup, restore)
     noExec = False
-    ## Lancement de l'action GPSFix
+    ## launch GPSQuickFix
     doGpsFix = False
-    ## Lancement de l'action de backup
+    ## launch backup
     doBackup = False
-    ## Lancement de l'action de sauvegarde de la configuration
+    ## launch save
     doSave = False
-    ## Lancement de l'action de restauration
+    ## launch restore
     doRestore = False
-    ## Processus du Backup ou Restore, une fois celui-ci lance
+    ## backup or restore launched process
     procBackup = None
-    ## Nom du fichier pour l'action de restauration ou de sauvegarde
+    ## filename for restore or backup
     fileName = False
-    ## Barre de progression
+    ## progression bar for restore or backup
     progressionBar = None
-    ## Taille de la barre de progression pour le mode graphique (pour le mode texte, la taille est calculee en fonction de la taille du terminal)
+    ## progression bar size for gui (in text mode, size is calculated /terminal)
     progressionBarSize = 120
-    ## Affichage du temps estime restant dans la barre de progression
+    ## estimated time remind
     configTimeRemind = True
-    ## Affichage du temps passe dans la barre de progression
+    ## time passed
     configTimePassed = False
-    ## Affichage du temps estime total dans la barre de progression
+    ## estimated total time
     configTimeTot = True
-    ## minuteur pour la barre de progression
+    ## tempo for progress bar
     tempo = None
-    ## delai de rafraichissement de la barre de progression
+    ## tempo delay for progress bar
     tempoDelay = 3000
-    ## timestamp de demarrage du minuteur, pour le calcul du temps estime restant et total
+    ## timestamp at start, to calculate estimated time remind and estimated total time
     tempoStartTime = None
     ## minuteur pour le refraichissement du combo contenant la liste des points de montages
     tempoCombo = None
@@ -205,7 +208,7 @@ class NotebookTomtom:
     couldBackup = True
     ## Si l'utilisateur veut quitter avant la fin d'un sous-processus, la sauvegarde ou la restauration finissent puis l'application quitte
     quit = False
-    ##
+    ## gps status at start
     gpsStatus = "disconnected"
 
     ## objet graphique window
@@ -214,6 +217,8 @@ class NotebookTomtom:
     ptCombo = None
 
     ##------------------------------------------ DEFINITION DES FONCTIONS DE LA CLASSE ---------------------------------------
+    ##
+    
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction d'affichage des informations
     def Debug( self, niveau, text ):
@@ -233,10 +238,27 @@ class NotebookTomtom:
 	print( "" )
 	print( App )
 	print( Ver )
+
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## conversion pyTOMTOM to pytomtom (=< 0.4.2 to 0.5)
+    ## later, we'll suppress this... (or not)
+    def Recup( self ):
+
+	## old config directory
+	old_dir = os.getenv( "HOME" ) + "/.pyTOMTOM"
+	if not( os.path.exists( self.dir ) ):
+		## new config directory if not exist
+		os.mkdir( self.dir )
+	if ( os.path.exists( old_dir ) ):
+		oldfiles = os.listdir( old_dir )
+		for file in oldfiles:
+			## move to new config directory
+			shutil.move( old_dir + "/" + file, self.dir + "/" + file )
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## Fonction verif dernière version
+    ## what's the latest pytomtom release ?
     def LatestRelease( self, widget ):
+	
 	try:
 		url = "http://tomonweb.2kool4u.net/pytomtom/LATEST"
 		request = urllib2.Request( url, None )
@@ -249,7 +271,6 @@ class NotebookTomtom:
 			line = latest.readline()
 			line = line[:-1]
 			latest.close()
-		##print line
 		if( Ver == line ):
 			msg = ( _( "No need to update. You use the latest stable release." ) )
 			self.Popup( msg )
@@ -263,16 +284,16 @@ class NotebookTomtom:
 		
 	
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ## Fonction pour visiter le site web pyTOMTOM
+    ## open pytomtom homepage in browser
     def WebConnect( self, widget ):
 
-	##import webbrowser
 	webbrowser.open( WebUrl )
 	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction d'affichage de l'utilisation des options
-    def Usage(self):
+    def Usage( self ):
+	
 	## Utilisation de sysr.argv[ 0 ] afin d'avoir toujours le bon nom de l'executable
 	print( "" )
 	print( "usage: " + "python " + os.path.basename( sys.argv[ 0 ] ) + " [option]" )
@@ -564,15 +585,35 @@ class NotebookTomtom:
 			self.Debug( 0, "Configuration path is not a directory " + self.dir )
 			sys.exit( 2 )
 
-	##Lecture de la carte utilisee
-	##if( os.path.exists( self.ptMount + "/ttgo.bif" ) ):
-	##if( os.path.exists( os.path.join( self.ptMount, "/ttgo.bif" ) ) ):
-	##fileTTGObif = os.path.join( self.ptMount, "/ttgo.bif" ) ## --> /ttgo.bif [Err]
-	##fileTTGObif = os.path.join( str( self.ptMount ), "/ttgo.bif" ) ## --> /ttgo.bif [Err]
-	## tester mettre ttgo.bif en variable
-	fileTTGObif = str( self.ptMount ) + "/CurrentMap.dat" ## --> /media/cle usb 4g/ttgo.bif [OK]
-	##fileTTGObif = str( self.ptMount ) + "/ttgo.bif" ## --> /media/cle usb 4g/ttgo.bif [OK]
-	##print str( fileTTGObif )
+	## Lecture de la carte utilisee
+	
+	# si carminat TODO mount loopdir
+	if( self.model == "Carminat" ):
+		if not( self.ptMount == False ):
+			desktop_environment = 'generic'
+			if os.environ.get('KDE_FULL_SESSION') == 'true':
+				desktop_environment = 'kde'
+				superman = 'kdesu'
+			elif os.environ.get('GNOME_DESKTOP_SESSION_ID'):
+				desktop_environment = 'gnome'
+				superman = 'gksudo'
+			
+			##cmd = ( "cp '" + self.ptMount + "/loopdir/ext3_loopback' /tmp && mkdir /tmp/vfs && gksudo 'mount -w /tmp/ext3_loopback /tmp/vfs -t ext3 -o loop'" )
+			cmd = ( "cp '" + self.ptMount + "/loopdir/ext3_loopback' /tmp && mkdir /tmp/vfs && " + superman + " 'mount -w /tmp/ext3_loopback /tmp/vfs -t ext3 -o loop'" )
+			print cmd
+			p = subprocess.Popen( cmd, shell=True )
+			p.wait()
+			# TODO si kde ou mieux methode universelle ou monter un systeme sans etre root, mais la je reve...
+	
+			fileTTGObif = os.path.join( "/tmp/vfs", "CurrentMap.dat" )
+	
+	#sinon
+	else:
+		fileTTGObif = os.path.join( self.ptMount, "CurrentMap.dat" ) ## -->  /media/cle usb 4g/ttgo.bif [OK]
+		##fileTTGObif = str( self.ptMount ) + "/CurrentMap.dat" ## --> /media/cle usb 4g/ttgo.bif [OK]
+		
+	print str( fileTTGObif )
+	
 	if( os.path.exists( str( fileTTGObif ) ) ):
 		with open( fileTTGObif, "rb" ) as ttgobif:
 			line = ttgobif.readline()
@@ -711,7 +752,7 @@ class NotebookTomtom:
 	cmd = ( "umount '" + self.ptMount +"'" )
 	p = subprocess.Popen( cmd, shell=True )
 	p.wait()
-		
+	#self.btnUnmount.set_sensitive( False )	
 	return True
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -846,19 +887,9 @@ class NotebookTomtom:
 		cmd += "t " + type + " "
 	if not( ptMount == None ):
 		cmd += " \"" + ptMount + "\""
-	## PROBLEME AVEC LES NOMS DE PERIPHERIQUES CONTENANT DES ESPACES, ex: GO 910 monté sur /media/TomTom Disk
-	## Sys. de fich. Type 1-blocs        Capacité 	Disponible	 Occupée Monté sur
-	## /dev/sdb1     vfat   3938516992 858259456 3080257536      22% /media/CLE USB 4GB
-	## bloc 4 = 858259456 --> OK
-	## mais bloc 7 = /media/CLE et non /media/CLE USB 4GB
-	## RESULTAT = [[858259456, '/media/CLE']]
-	## PISTE A SUIVRE : SEPARER LES COMMANDES ???
-	## df -B 1 -TlP 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4
-	## df -B 1 -TlP 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 7-
-	##cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7- --output-delimiter=,"
-	cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7-"
 	##cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7 --output-delimiter=,"
-
+	cmd += " 2> /dev/null | tail -n +2 | tr -s ' ' | cut -d ' ' -f 4,7-"
+	
 	## Lancement de la commande, avec recuperation du stdout dans le processus actuel
 	self.Debug( 5, "launching command: " + cmd ) ##5
 	p = subprocess.Popen( cmd, stdout = subprocess.PIPE, shell=True )
@@ -867,16 +898,10 @@ class NotebookTomtom:
 	for line in p.stdout:
 		## Suppression du \n de la ligne
 		line = line[ : -1 ]
-		##print "line 001 : "
-		##print line
-		## Grace a l'option --output-delimiter, on lance split
 		line = line.split( ' ', 1 )
-		##print "line 002 : " 
-		##print line
-		##line = line.split( ',', 2 )
 		self.Debug( 5, "Command result: " + str( int( line[ 0 ] ) ) + " -> " + line[ -1 ] ) ##5
-		res.append( [ int( line[ 0 ] ), line[ -1 ] ] )
 		##res.append( [ int( line[ 0 ] ), line[ 1 ] ] )
+		res.append( [ int( line[ 0 ] ), line[ -1 ] ] )
 	p.wait()
 
 	if( res == [] ):
@@ -884,8 +909,6 @@ class NotebookTomtom:
 		return( [ [ -1, None ] ] )
 
 	## Renvoi des donnees collectees
-	##print "liste des peripheriques trouves (res) : "
-	##print res
 	return res
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -930,12 +953,14 @@ class NotebookTomtom:
     ## fonction de remplacement image de demarrage avec toutes les verifications utiles
     def ChangeStartImg( self, widget ):
 		
-		## TODO : mettre en place la reconnaissance des noms des images a remplacer
-		if ( os.path.exists( self.ptMount +"/splash.bmp" ) ):
-			return True ##ecran normal n
-		else: 
-			if ( os.path.exists( self.ptMount +"/splashw.bmp" ) ): ##elif ??
-				return True ##ecran widescreen w
+	## TODO : mettre en place la reconnaissance des noms des images a remplacer
+	if ( os.path.exists( self.ptMount +"/splash.bmp" ) ):
+		return True ##ecran normal n
+	else: 
+		if ( os.path.exists( self.ptMount +"/splashw.bmp" ) ): ##elif ??
+			return True ##ecran widescreen w
+	
+	## subprocess.call( [ "convert image.jpg -resize 320x240 -background black -gravity center -extent 320x240 splash.bmp" ], shell = True )
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction de creation d'un nom de fichier de sauvegarde
@@ -966,7 +991,6 @@ class NotebookTomtom:
 	self.Debug( 1, "File for " + _( type ) + ": " + self.fileName )
 
 	if( type == "restore" ):
-		##c'est corrige: si le fichier n'existe pas !!! et non l'inverse...
 		if not( os.path.exists( self.fileName ) ):
 			self.Debug( 1, "Backup file not found" )
 			return False
@@ -1596,7 +1620,7 @@ class NotebookTomtom:
 	## Verification ou creation du dossier backup
 	if not( os.path.exists( self.dirBackup ) ):
 		os.mkdir( self.dirBackup )
-	## TODO importation des anciennes sauvegardes (pytomtom =< 0.4)
+	## importation des anciennes sauvegardes (pytomtom =< 0.4)
 	## Ouverture de l ancien dossier de sauvegarde
 	oldfiles = os.listdir( self.dir )
 	for file in oldfiles:
@@ -1867,7 +1891,7 @@ class NotebookTomtom:
 	tabLabel.set_justify( gtk.JUSTIFY_CENTER )
 	tabBox.pack_start( tabLabel, True, False, 2 )
 	
-	#self.LatestRelease()
+	##self.LatestRelease()
 	## bouton LatestRelease()
         btnLatest = gtk.Button(  _( "Need to update ?" ) )
 	tabBox.pack_start( btnLatest, True, False, 2 )
@@ -2056,6 +2080,8 @@ class NotebookTomtom:
     ## Fonction de demarrage de la classe
     def __init__( self ):
 
+	## recuperation de pyTOMTOM en pytomtom (=<0.4.2)
+	##self.Recup()
 	## Recuperation de la configuration
 	self.GetConfig()
 	
@@ -2070,7 +2096,7 @@ class NotebookTomtom:
 		self.window.set_icon_from_file( self.dirPix + "icon.png" )
 		## centrage de la fenetre 
 		self.window.set_position( gtk.WIN_POS_CENTER )
-		
+		## timeout for tooltips
 		settings = self.window.get_settings()
 		settings.set_property( 'gtk-tooltip-timeout', 0 )
 				
@@ -2134,7 +2160,8 @@ def main():
     gtk.main()
     return 0
 
-#----------------------------------------------- LANCEMENT DE L'APPLICATION --------------------------------------------------
+#----------------------------------------------- LAUNCHING APPLICATION --------------------------------------------------
 if __name__ == "__main__":
     NotebookTomtom()
     main()
+    

@@ -609,6 +609,7 @@ class NotebookTomtom:
 	
 	#sinon
 	else:
+		self.ptMount = str( self.ptMount )
 		fileTTGObif = os.path.join( self.ptMount, "CurrentMap.dat" ) ## -->  /media/cle usb 4g/ttgo.bif [OK]
 		##fileTTGObif = str( self.ptMount ) + "/CurrentMap.dat" ## --> /media/cle usb 4g/ttgo.bif [OK]
 		

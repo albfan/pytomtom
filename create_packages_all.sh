@@ -18,6 +18,7 @@ mkdir -p "pytomtom"$LOC_DIR
 cp -R share/locale/* "pytomtom"$LOC_DIR
 mkdir -p "pytomtom"$APP_DIR
 cp share/applications/pytomtom.desktop "pytomtom"$APP_DIR
+cp share/applications/pyTOMTOM.desktop "pytomtom"$APP_DIR
 mkdir -p "pytomtom"$BIN_DIR
 cp bin/pytomtom.sh "pytomtom"$BIN_DIR"/pytomtom"
 cp pytomtom.sh "pytomtom"

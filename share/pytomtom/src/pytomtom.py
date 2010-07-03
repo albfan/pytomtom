@@ -139,10 +139,12 @@ class NotebookTomtom:
 	"ONE 2nd Edition (G)",
 	"ONE 3rd Edition",
 	"ONE 30 Series",
+	"ONE 130",
 	"ONE IQ Routes",
 	"ONE White Pearl",
 	"ONE XL",
 	"Start",
+	"Start 2",
 	"XL 30 Series",
 	"XL IQ Routes",
 	"XL LIVE IQ Routes"]
@@ -591,6 +593,7 @@ class NotebookTomtom:
 	if( self.model == "Carminat" ):
 		if not( self.ptMount == False ):
 			desktop_environment = 'generic'
+			superman = ''
 			if os.environ.get('KDE_FULL_SESSION') == 'true':
 				desktop_environment = 'kde'
 				superman = 'kdesu'
@@ -600,10 +603,11 @@ class NotebookTomtom:
 			
 			##cmd = ( "cp '" + self.ptMount + "/loopdir/ext3_loopback' /tmp && mkdir /tmp/vfs && gksudo 'mount -w /tmp/ext3_loopback /tmp/vfs -t ext3 -o loop'" )
 			cmd = ( "cp '" + self.ptMount + "/loopdir/ext3_loopback' /tmp && mkdir /tmp/vfs && " + superman + " 'mount -w /tmp/ext3_loopback /tmp/vfs -t ext3 -o loop'" )
+			print desktop_environment
 			print cmd
 			p = subprocess.Popen( cmd, shell=True )
 			p.wait()
-			# TODO si kde ou mieux methode universelle ou monter un systeme sans etre root, mais la je reve...
+			# TODO methode universelle ou monter un systeme sans etre root, mais la je reve...
 	
 			fileTTGObif = os.path.join( "/tmp/vfs", "CurrentMap.dat" )
 	

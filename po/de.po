@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: pyTOMTOM\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-09 17:46+0200\n"
-"PO-Revision-Date: 2010-07-03 16:46+0000\n"
-"Last-Translator: D.Schäfer <trash4you@online.de>\n"
+"PO-Revision-Date: 2010-08-26 05:33+0000\n"
+"Last-Translator: Tom <Unknown>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-04 03:50+0000\n"
+"X-Launchpad-Export-Date: 2010-08-27 03:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-Language: German\n"
@@ -23,14 +23,16 @@ msgstr ""
 #: share/pytomtom/src/pytomtom.py:271
 msgid "No need to update. You use the latest stable release."
 msgstr ""
+"Kein Grund, um zu aktualisieren. Sie verwenden die letzte stabile "
+"Veröffentlichung."
 
 #: share/pytomtom/src/pytomtom.py:274
 msgid "You can update. The latest stable release is "
-msgstr ""
+msgstr "Sie können aktualisieren. Die letzte stabile Veröffentlichung ist "
 
 #: share/pytomtom/src/pytomtom.py:278
 msgid "Impossible to fetch data"
-msgstr ""
+msgstr "Unmöglich, Daten herbeizuholen"
 
 #: share/pytomtom/src/pytomtom.py:651
 msgid "Reload "
@@ -38,11 +40,11 @@ msgstr "Wiederherstellen "
 
 #: share/pytomtom/src/pytomtom.py:651
 msgid " to use this settings."
-msgstr ""
+msgstr " um diese Einstellung zu verwenden."
 
 #: share/pytomtom/src/pytomtom.py:841
 msgid "GPSQuickFix completed"
-msgstr "GPSQuickFix komplett"
+msgstr "GPSQuickFix abgeschlossen"
 
 #: share/pytomtom/src/pytomtom.py:1033
 msgid "Creation"
@@ -108,7 +110,7 @@ msgstr ""
 
 #: share/pytomtom/src/pytomtom.py:1535
 msgid "Start GPSQuickfix update"
-msgstr "Starte GPSQuickfix Aktualisierung"
+msgstr "GPSQuickfix Aktualisierung starten"
 
 #: share/pytomtom/src/pytomtom.py:1540
 msgid "Cannot start GPSQuickfix update (cabextract is missing)"
@@ -140,7 +142,7 @@ msgstr ""
 
 #: share/pytomtom/src/pytomtom.py:1666
 msgid "Start backup..."
-msgstr "Starte Sicherung..."
+msgstr "Sicherung starten..."
 
 #: share/pytomtom/src/pytomtom.py:1672
 msgid "Cannot start backup (tar is missing)"
@@ -148,7 +150,7 @@ msgstr "Backup kann nicht starten (tar fehlt)"
 
 #: share/pytomtom/src/pytomtom.py:1686
 msgid "Start restore..."
-msgstr "Starte Wiederherstellung..."
+msgstr "Wiederherstellung starten..."
 
 #: share/pytomtom/src/pytomtom.py:1692
 msgid "Cannot start restore (tar is missing)"
@@ -164,39 +166,39 @@ msgstr "Sichern und Wiederherstellen"
 
 #: share/pytomtom/src/pytomtom.py:1715 share/pytomtom/src/pytomtom.py:1805
 msgid "POI"
-msgstr ""
+msgstr "POI"
 
 #: share/pytomtom/src/pytomtom.py:1743
 msgid "First, you have to add POI to pyTOMTOM's database"
-msgstr ""
+msgstr "Als Erstes müssen Sie POI zur pyTOMTOM's Datenbank hinzufügen"
 
 #: share/pytomtom/src/pytomtom.py:1748
 msgid "Add POI (.ov2) to database..."
-msgstr ""
+msgstr "Füge POI (.ov2) zur Datenbank hinzu..."
 
 #: share/pytomtom/src/pytomtom.py:1756
 msgid "Now, you can easily add or remove it from GPS..."
-msgstr ""
+msgstr "Nun können Sie es leicht vom GPS hinzufügen oder entfernen..."
 
 #: share/pytomtom/src/pytomtom.py:1764
 msgid "Select POI in database"
-msgstr ""
+msgstr "Wählen Sie POI in der Datenbank aus"
 
 #: share/pytomtom/src/pytomtom.py:1787
 msgid "Selected map: "
-msgstr ""
+msgstr "Ausgewählte Karte: "
 
 #: share/pytomtom/src/pytomtom.py:1789
 msgid "Add seleted POI on TomTom"
-msgstr ""
+msgstr "Fügen Sie die ausgewählten POI zu TomTom hinzu"
 
 #: share/pytomtom/src/pytomtom.py:1794
 msgid "Delete seleted POI from TomTom"
-msgstr ""
+msgstr "Löschen Sie die ausgewählten POI aus TomTom"
 
 #: share/pytomtom/src/pytomtom.py:1800
 msgid "Delete POI from database..."
-msgstr ""
+msgstr "POI aus der Datenbank löschen..."
 
 #: share/pytomtom/src/pytomtom.py:1817 share/pytomtom/src/pytomtom.py:1853
 msgid "Personalize"
@@ -224,7 +226,7 @@ msgstr ""
 
 #: share/pytomtom/src/pytomtom.py:1897
 msgid "Visit homepage..."
-msgstr ""
+msgstr "Homepage besuchen..."
 
 #: share/pytomtom/src/pytomtom.py:1911 share/pytomtom/src/pytomtom.py:1956
 msgid "Exit"
@@ -232,7 +234,7 @@ msgstr "Beenden"
 
 #: share/pytomtom/src/pytomtom.py:1939
 msgid "Don't forget to cleanly unmount your TomTom!"
-msgstr "Vergessen Sie nicht, Ihr TomTom sauber auszuhängen!"
+msgstr "Vergessen Sie nicht, Ihr TomTom auszuhängen!"
 
 #: share/pytomtom/src/pytomtom.py:1943
 msgid "Unmount"
@@ -240,7 +242,7 @@ msgstr "Aushängen"
 
 #: share/pytomtom/src/pytomtom.py:1954
 msgid "bye bye !"
-msgstr ""
+msgstr "auf Wiedersehen!"
 
 #: share/pytomtom/src/pytomtom.py:1965
 msgid "Open..."
@@ -252,24 +254,24 @@ msgstr ""
 
 #: share/pytomtom/src/pytomtom.py:2010
 msgid "POI added to database"
-msgstr ""
+msgstr "POI zur Datenbank hinzugefügt"
 
 #: share/pytomtom/src/pytomtom.py:2022 share/pytomtom/src/pytomtom.py:2037
 #: share/pytomtom/src/pytomtom.py:2054
 msgid "POI "
-msgstr ""
+msgstr "POI "
 
 #: share/pytomtom/src/pytomtom.py:2022
 msgid " added to TomTom"
-msgstr ""
+msgstr " zum TomTom hinzugefügt"
 
 #: share/pytomtom/src/pytomtom.py:2037
 msgid " deleted from TomTom"
-msgstr ""
+msgstr " vom TomTom gelöscht"
 
 #: share/pytomtom/src/pytomtom.py:2054
 msgid " deleted from database"
-msgstr ""
+msgstr " aus der Datenbank gelöscht"
 
 #: share/pytomtom/src/pytomtom.py:2144
 msgid "Connect your device and reload "

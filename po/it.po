@@ -3,13 +3,13 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-09 17:46+0200\n"
-"PO-Revision-Date: 2010-09-22 09:17+0000\n"
+"PO-Revision-Date: 2010-09-24 08:31+0000\n"
 "Last-Translator: Davide Vidal <davide.vidal@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-24 05:26+0000\n"
+"X-Launchpad-Export-Date: 2010-09-25 05:27+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: share/pytomtom/src/pytomtom.py:271
@@ -180,15 +180,15 @@ msgstr "Mappa selezionata: "
 
 #: share/pytomtom/src/pytomtom.py:1789
 msgid "Add seleted POI on TomTom"
-msgstr ""
+msgstr "Aggiungi i POI selezionati al TOMTOM"
 
 #: share/pytomtom/src/pytomtom.py:1794
 msgid "Delete seleted POI from TomTom"
-msgstr ""
+msgstr "Elimina i POI selezionati dal TOMTOM"
 
 #: share/pytomtom/src/pytomtom.py:1800
 msgid "Delete POI from database..."
-msgstr ""
+msgstr "Elimina i POI dal database"
 
 #: share/pytomtom/src/pytomtom.py:1817 share/pytomtom/src/pytomtom.py:1853
 msgid "Personalize"
@@ -213,7 +213,7 @@ msgstr "versione "
 
 #: share/pytomtom/src/pytomtom.py:1889
 msgid "Need to update ?"
-msgstr ""
+msgstr "Devo aggiornare?"
 
 #: share/pytomtom/src/pytomtom.py:1897
 msgid "Visit homepage..."
@@ -245,12 +245,12 @@ msgstr "Apri cartella"
 
 #: share/pytomtom/src/pytomtom.py:2010
 msgid "POI added to database"
-msgstr ""
+msgstr "POI aggiunti al database"
 
 #: share/pytomtom/src/pytomtom.py:2022 share/pytomtom/src/pytomtom.py:2037
 #: share/pytomtom/src/pytomtom.py:2054
 msgid "POI "
-msgstr ""
+msgstr "POI "
 
 #: share/pytomtom/src/pytomtom.py:2022
 msgid " added to TomTom"

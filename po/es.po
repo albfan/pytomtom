@@ -1,0 +1,335 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: pyTOMTOM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-09 17:46+0200\n"
+"PO-Revision-Date: 2010-10-24 21:21+0000\n"
+"Last-Translator: Bernardo Miguel Savone <Unknown>\n"
+"Language-Team: Spanish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2010-10-25 04:46+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+"X-Poedit-Country: SPAIN\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+# No debes actualizar. Estas usando la ultima version estable
+#: share/pytomtom/src/pytomtom.py:271
+msgid "No need to update. You use the latest stable release."
+msgstr "No debes actualizar. Estas usando la ultima version estable."
+
+# Puedes actualizar. La ultima version estable es
+#: share/pytomtom/src/pytomtom.py:274
+msgid "You can update. The latest stable release is "
+msgstr "Puedes actualizar. La ultima version estable es "
+
+# Imposible recuperar datos
+#: share/pytomtom/src/pytomtom.py:278
+msgid "Impossible to fetch data"
+msgstr "Imposible recuperar datos"
+
+# Recarga
+#: share/pytomtom/src/pytomtom.py:651
+msgid "Reload "
+msgstr "Recarga "
+
+# para usar estas configuraciones
+#: share/pytomtom/src/pytomtom.py:651
+msgid " to use this settings."
+msgstr " para usar esta configuracion"
+
+# GPSQuickFix completado
+#: share/pytomtom/src/pytomtom.py:841
+msgid "GPSQuickFix completed"
+msgstr "GPSQuickFix completado"
+
+# Creacion
+#: share/pytomtom/src/pytomtom.py:1033
+msgid "Creation"
+msgstr "Creacion"
+
+# Restauracion
+#: share/pytomtom/src/pytomtom.py:1036
+msgid "Restoration"
+msgstr "Restauracion"
+
+# completado
+#: share/pytomtom/src/pytomtom.py:1054 share/pytomtom/src/pytomtom.py:1128
+msgid " completed"
+msgstr " completado"
+
+# fallido
+#: share/pytomtom/src/pytomtom.py:1126
+msgid " failed"
+msgstr " fallido"
+
+# Opciones
+#: share/pytomtom/src/pytomtom.py:1390 share/pytomtom/src/pytomtom.py:1488
+msgid "Options"
+msgstr "Opciones"
+
+# Indicar el punto de montaje del propio TomTom:
+#: share/pytomtom/src/pytomtom.py:1417
+msgid "Please indicate the mounting point of your Tomtom:"
+msgstr "Indicar el punto de montaje del propio TomTom:"
+
+# Durante el backup o la restauracion, visualiza:
+#: share/pytomtom/src/pytomtom.py:1450
+msgid "During backup or restore, display:"
+msgstr "Durante el backup o la restauracion, visualiza:"
+
+# tiempo transcurrido
+#: share/pytomtom/src/pytomtom.py:1455
+msgid "elapsed time"
+msgstr "tiempo transcurrido"
+
+# tiempo restante
+#: share/pytomtom/src/pytomtom.py:1463
+msgid "remaining time"
+msgstr "tiempo restante"
+
+# tiempo total
+#: share/pytomtom/src/pytomtom.py:1471
+msgid "total time"
+msgstr "tiempo total"
+
+#: share/pytomtom/src/pytomtom.py:1500 share/pytomtom/src/pytomtom.py:1545
+msgid "GPSQuickFix"
+msgstr "GPSQuickFix"
+
+# Esta actualizacion determina las ultimas posiciones\n
+# conocidas de los satelites.\n
+# \nPermite encontrar la propia posicion inicial\n
+# en menos de 30 segundos\n
+# y comenzar a navegar mas rapidamente...\n
+# \n
+# Asegurarse de haber colocado correctamente los parametros\n
+# en las opciones.
+#: share/pytomtom/src/pytomtom.py:1528
+msgid ""
+"This update sets the last known positions of the satellites. \n"
+"\n"
+"It allows your GPS to find its initial position in less than 30 seconds \n"
+"and to initiate navigation more quickly... \n"
+"\n"
+"Please ensure that you have properly set your GPS parameters \n"
+"in the options."
+msgstr ""
+"Esta actualizacion determina las ultimas posiciones\n"
+"conocidas de los satelites.\n"
+"\n"
+"Permite encontrar la propia posicion inicial\n"
+"en menos de 30 segundos\n"
+"y comenzar a navegar mas rapidamente... \n"
+"\n"
+"Asegurarse de haber colocado correctamente los parametros\n"
+"del GPS en las opciones."
+
+# Efectua la actualizacion de GPSQuickfix
+#: share/pytomtom/src/pytomtom.py:1535
+msgid "Start GPSQuickfix update"
+msgstr "Efectua la actualizacion de GPSQuickfix"
+
+# No se puede efectuar la actualizacion de GPSQuickfix (falta cabextract)
+#: share/pytomtom/src/pytomtom.py:1540
+msgid "Cannot start GPSQuickfix update (cabextract is missing)"
+msgstr ""
+"Imposible efectuar la actualizacion de GPSQuickfix (falta cabextract)"
+
+# Backup y restauracion
+#: share/pytomtom/src/pytomtom.py:1558
+msgid "Backup and restore"
+msgstr "Backup y restauracion"
+
+# Archivo de backup:
+#: share/pytomtom/src/pytomtom.py:1586
+msgid "Backup file:"
+msgstr "Archivo de backup:"
+
+# Para efectuar estas operaciones
+#: share/pytomtom/src/pytomtom.py:1654
+msgid "In order to complete these operations "
+msgstr "Para efectuar estas operaciones "
+
+# toma tiempo y ocupa espacio. \n
+# Como informacion, se necesitan 25 minutos y 1 GB de espacio para un One Series 30
+#: share/pytomtom/src/pytomtom.py:1654
+msgid ""
+" takes time \n"
+"and consumes disk space. \n"
+"For information, 25 minutes and 1GB on disk for a One Series 30"
+msgstr ""
+" toma tiempo y ocupa espacio. \n"
+"Como info, se necesitan 25 minutos y 1GB de espacio para un One Series 30"
+
+# Efectua el backup...
+#: share/pytomtom/src/pytomtom.py:1666
+msgid "Start backup..."
+msgstr "Efectua el backup..."
+
+# Imposible efectuar el backup (falta tar)
+#: share/pytomtom/src/pytomtom.py:1672
+msgid "Cannot start backup (tar is missing)"
+msgstr "Imposible efectuar el backup (falta tar)"
+
+# Efectua la restauracion...
+#: share/pytomtom/src/pytomtom.py:1686
+msgid "Start restore..."
+msgstr "Efectua la restauracion..."
+
+# Imposible efectuar la restauracion (falta tar)
+#: share/pytomtom/src/pytomtom.py:1692
+msgid "Cannot start restore (tar is missing)"
+msgstr "Imposible efectuar la restauracion (falta tar)"
+
+# Por favor utilizar la restauracion solo en caso de absoluta necesidad !
+#: share/pytomtom/src/pytomtom.py:1698
+msgid "Please use restore only in case of necessity !"
+msgstr ""
+"Por favor efectuar la restauracion solo en caso de absoluta necesidad !"
+
+# Backup y restauracion
+#: share/pytomtom/src/pytomtom.py:1703
+msgid "Backup and Restore"
+msgstr "Backup y restauracion"
+
+#: share/pytomtom/src/pytomtom.py:1715 share/pytomtom/src/pytomtom.py:1805
+msgid "POI"
+msgstr "PDI"
+
+# Primero debes agregar POI a la base de datos de pyTOMTOM
+#: share/pytomtom/src/pytomtom.py:1743
+msgid "First, you have to add POI to pyTOMTOM's database"
+msgstr "Primero debes agregar PDI a la base de datos de pyTOMTOM"
+
+# Agregar POI (.ov2) a la base de datos...
+#: share/pytomtom/src/pytomtom.py:1748
+msgid "Add POI (.ov2) to database..."
+msgstr "Agregar PDI (.ov2) a la base de datos..."
+
+# Ahora puedes facilmente agregarlo o eliminarlo del GPS...
+#: share/pytomtom/src/pytomtom.py:1756
+msgid "Now, you can easily add or remove it from GPS..."
+msgstr "Ahora puedes facilmente agregarlo o eliminarlo del GPS"
+
+# Selecciona POI en la base de datos
+#: share/pytomtom/src/pytomtom.py:1764
+msgid "Select POI in database"
+msgstr "Selecciona PDI en la base de datos"
+
+# Mapa seleccionado:
+#: share/pytomtom/src/pytomtom.py:1787
+msgid "Selected map: "
+msgstr "Mapa seleccionado: "
+
+# Agrega los POI seleccionados al TOMTOM
+#: share/pytomtom/src/pytomtom.py:1789
+msgid "Add seleted POI on TomTom"
+msgstr "Agrega los PDI seleccionados al TOMTOM"
+
+# Elimina los POI seleccionados del TOMTOM
+#: share/pytomtom/src/pytomtom.py:1794
+msgid "Delete seleted POI from TomTom"
+msgstr "Elimina los PDI seleccionados del TOMTOM"
+
+# Elimina los POI de la base de datos...
+#: share/pytomtom/src/pytomtom.py:1800
+msgid "Delete POI from database..."
+msgstr "Elimina los PDI de la base de datos..."
+
+# Personaliza
+#: share/pytomtom/src/pytomtom.py:1817 share/pytomtom/src/pytomtom.py:1853
+msgid "Personalize"
+msgstr "Personaliza"
+
+# Reemplaza la imagen de inicio de tu GPS con una imagen que tu elijas
+#: share/pytomtom/src/pytomtom.py:1844
+msgid "Replace the startup screen of your GPS by the picture of your choice"
+msgstr ""
+"Reemplaza la imagen de inicio del propio GPS con una imagen a tu eleccion"
+
+# boton
+#: share/pytomtom/src/pytomtom.py:1849
+msgid "button"
+msgstr "boton"
+
+# Info
+#: share/pytomtom/src/pytomtom.py:1866 share/pytomtom/src/pytomtom.py:1899
+msgid "About"
+msgstr "Info"
+
+# version
+#: share/pytomtom/src/pytomtom.py:1883
+msgid "version "
+msgstr "version "
+
+# Debo actualizar ?
+#: share/pytomtom/src/pytomtom.py:1889
+msgid "Need to update ?"
+msgstr "Debo actualizar ?"
+
+#: share/pytomtom/src/pytomtom.py:1897
+msgid "Visit homepage..."
+msgstr "Visita la Homepage"
+
+# Salir
+#: share/pytomtom/src/pytomtom.py:1911 share/pytomtom/src/pytomtom.py:1956
+msgid "Exit"
+msgstr "Salir"
+
+# No olvides  desmontar correctamente tu TomTom!
+#: share/pytomtom/src/pytomtom.py:1939
+msgid "Don't forget to cleanly unmount your TomTom!"
+msgstr "No olvides desmontar correctamente tu TomTom!"
+
+# Desmontar
+#: share/pytomtom/src/pytomtom.py:1943
+msgid "Unmount"
+msgstr "Desmontar"
+
+# Hasta la proxima !
+#: share/pytomtom/src/pytomtom.py:1954
+msgid "bye bye !"
+msgstr "Hasta la proxima !"
+
+# Abrir...
+#: share/pytomtom/src/pytomtom.py:1965
+msgid "Open..."
+msgstr "Abrir..."
+
+# Abrir carpeta...
+#: share/pytomtom/src/pytomtom.py:1980
+msgid "Open folder..."
+msgstr "Abrir carpeta"
+
+# POI agregados a la base de datos
+#: share/pytomtom/src/pytomtom.py:2010
+msgid "POI added to database"
+msgstr "POI agregado a la base de datos"
+
+#: share/pytomtom/src/pytomtom.py:2022 share/pytomtom/src/pytomtom.py:2037
+#: share/pytomtom/src/pytomtom.py:2054
+msgid "POI "
+msgstr "PDI "
+
+# agregado al TomTom
+#: share/pytomtom/src/pytomtom.py:2022
+msgid " added to TomTom"
+msgstr " agregado al TomTom"
+
+# eliminado del TomTom
+#: share/pytomtom/src/pytomtom.py:2037
+msgid " deleted from TomTom"
+msgstr " eliminado del TomTom"
+
+# eliminado de la base de datos
+#: share/pytomtom/src/pytomtom.py:2054
+msgid " deleted from database"
+msgstr " eliminado de la base de datos"
+
+# Conecta tu dispositivo y recarga
+#: share/pytomtom/src/pytomtom.py:2144
+msgid "Connect your device and reload "
+msgstr "Conecta tu dispositivo y recarga "

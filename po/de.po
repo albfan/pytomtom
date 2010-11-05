@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: pyTOMTOM\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-09 17:46+0200\n"
-"PO-Revision-Date: 2010-08-27 06:44+0000\n"
-"Last-Translator: Tom <Unknown>\n"
+"PO-Revision-Date: 2010-11-04 14:13+0000\n"
+"Last-Translator: bpola <Unknown>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-28 03:50+0000\n"
+"X-Launchpad-Export-Date: 2010-11-05 04:55+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 "X-Poedit-Country: GERMANY\n"
 "X-Poedit-Language: German\n"
@@ -222,7 +222,7 @@ msgstr "Version "
 
 #: share/pytomtom/src/pytomtom.py:1889
 msgid "Need to update ?"
-msgstr ""
+msgstr "Notwendigkeit der Aktualisierung ?"
 
 #: share/pytomtom/src/pytomtom.py:1897
 msgid "Visit homepage..."
@@ -250,7 +250,7 @@ msgstr "Öffnen..."
 
 #: share/pytomtom/src/pytomtom.py:1980
 msgid "Open folder..."
-msgstr ""
+msgstr "Order öffnen"
 
 #: share/pytomtom/src/pytomtom.py:2010
 msgid "POI added to database"
@@ -275,4 +275,4 @@ msgstr " aus der Datenbank gelöscht"
 
 #: share/pytomtom/src/pytomtom.py:2144
 msgid "Connect your device and reload "
-msgstr ""
+msgstr "Verbinden Sie Ihr Gerät und aktualisieren Sie "

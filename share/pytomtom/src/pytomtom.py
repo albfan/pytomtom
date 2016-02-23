@@ -262,7 +262,7 @@ class NotebookTomtom:
     def LatestRelease( self, widget ):
 	
 	try:
-		url = "http://tomonweb.2kool4u.net/pytomtom/LATEST"
+		url = "https://raw.githubusercontent.com/albfan/pytomtom/master/LATEST"
 		request = urllib2.Request( url, None )
 		urlFile = urllib2.urlopen( request )
 		tempFile = tempfile.NamedTemporaryFile()

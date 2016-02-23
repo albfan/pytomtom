@@ -6,7 +6,7 @@
 ## dev : Thomas LEROY
 ## sorry for my bad english in comments...
 ## thanks to Philippe, Sunil, Chamalow, Exzemat, GallyHC, Pascal, Giovanni, Denny
-## python (>=2.5), python-gtk2, cabextract
+## python (>=2.5), python-gtk2, cabextract, ImageMagick
 
 #----------------------------------------------- DEVELOPPEMENT RULES DEFINITION --------------------------------------
 ## developpement rules
@@ -64,7 +64,7 @@ import termios, fcntl, struct
 #----------------------------------------------- GLOBAL DEFINITION  ---------------------------------------------------------
 ## name,  version and homepage
 App = "pyTOMTOM"
-Ver = "0.5 beta 3b"
+Ver = "0.6 alpha 1"
 WebUrl = "http://pytomtom.tuxfamily.org"
 
 ## i18n (internationalisation) /usr/share/locale
@@ -112,15 +112,18 @@ class NotebookTomtom:
     ## current map in use, false = unknow
     CurrentMap = False
     ## tab at pytomtom start, by default "About"
-    ## 0=options, 1=GPSQuickFix, 2=Save&Restore, 3=poi, 4=about, 5=quit
-    boxInit = 4
+    ## 0=options, 1=GPSQuickFix, 2=Save&Restore, 3=poi, 4=personalize, 5=about, 6=quit
+    boxInit = 5
     ## chipset siRFStarIII models
     siRFStarIII = ["Carminat",
+	"GO 300",
+	"GO 500",
 	"GO 510",
 	"GO 520",
 	"GO 530",
 	"GO 540 LIVE",
 	"GO 630",
+	"GO 700",
 	"GO 710",
 	"GO 720",
 	"GO 730",
@@ -136,6 +139,10 @@ class NotebookTomtom:
 	"GO 750 LIVE",
 	"GO 940 LIVE",
 	"GO 950 LIVE",
+	"GO LIVE 820",
+	"GO LIVE 825",
+	"GO Live 1000",
+	"GO Live 1005",
 	"ONE 2nd Edition (G)",
 	"ONE 3rd Edition",
 	"ONE 30 Series",
@@ -145,6 +152,9 @@ class NotebookTomtom:
 	"ONE XL",
 	"Start",
 	"Start 2",
+	"Via 110",
+	"Via 120",
+	"Via 125",
 	"XL 30 Series",
 	"XL IQ Routes",
 	"XL LIVE IQ Routes"]
@@ -961,11 +971,11 @@ class NotebookTomtom:
 	## TODO : mettre en place la reconnaissance des noms des images a remplacer
 	if ( os.path.exists( self.ptMount +"/splash.bmp" ) ):
 		return True ##ecran normal n
+		## subprocess.call( [ "convert image.jpg -resize 320x240 -background black -gravity center -extent 320x240 splash.bmp" ], shell = True )
 	else: 
-		if ( os.path.exists( self.ptMount +"/splashw.bmp" ) ): ##elif ??
+		if ( os.path.exists( self.ptMount +"/splashw.bmp" ) ): ##elif ?? non
 			return True ##ecran widescreen w
-	
-	## subprocess.call( [ "convert image.jpg -resize 320x240 -background black -gravity center -extent 320x240 splash.bmp" ], shell = True )
+			## subprocess.call( [ "convert image.jpg -resize 480x272 -background black -gravity center -extent 480x272 splash.bmp" ], shell = True )
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## Fonction de creation d'un nom de fichier de sauvegarde
@@ -1858,9 +1868,9 @@ class NotebookTomtom:
 	##TODO verifier presence ImageMagick
 	## subprocess.call( [ "convert image.jpg -resize 320x240 -background black -gravity center -extent 320x240 splash.bmp" ], shell = True )
 	## bouton 
-        b = gtk.Button( _( "button" ) )
+        b = gtk.Button( _( "Select image..." ) )
 	tabBoxRight.pack_start( b, True, False, 2 )
-        b.connect( "clicked", self.Delete )
+        b.connect( "clicked", self.selectImg )
 
         eventBox = self.CreateCustomTab( _( "Personalize" ), notebook, frame )
 	
@@ -1982,6 +1992,47 @@ class NotebookTomtom:
 		self.Debug( 5, dossier )
 		##self.labelfolder.set_text( dossier )
 		self.popup.destroy()
+
+	return True
+	
+    ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    ## fonction parcourir pour selectionner un fichier gtk.FILE_CHOOSER_ACTION_OPEN
+    def selectImg( self,entry ):
+	
+	self.popup = gtk.FileChooserDialog( _( "Open folder..." ), gtk.Window( gtk.WINDOW_TOPLEVEL ), 
+		gtk.FILE_CHOOSER_ACTION_OPEN, ( gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL, gtk.STOCK_OPEN, gtk.RESPONSE_OK ) );
+	filter = gtk.FileFilter()
+	filter.set_name( "images" )
+	filter.add_pattern( "*.jpg" )
+	filter.add_pattern( "*.png" )
+	self.popup.add_filter( filter )
+	repHome = os.getenv( "HOME" )
+	self.popup.set_current_folder( repHome )
+	
+	if( self.popup.run() == gtk.RESPONSE_OK ):
+		imgSelected = self.popup.get_filename()
+		self.Debug( 5, imgSelected )
+		self.popup.destroy()
+		## Verification de l'existence du fichier splash ou splashw.bmp
+		if( os.path.exists( self.ptMount + "/splashw.bmp" ) ):
+			cmd = ("convert '" + imgSelected + "' -resize 480x272 -background black -gravity center -extent 480x272 '"+ self.ptMount + "/splashw.bmp'")
+			p = subprocess.Popen( cmd, shell=True )
+			p.wait()
+			self.Popup( _( "OK" ) )
+			return True
+		else:
+			if( os.path.exists( self.ptMount + "/splash.bmp" ) ):
+				cmd = ("convert '" + imgSelected + "' -resize 320x240 -background black -gravity center -extent 320x240 '"+ self.ptMount + "/splash.bmp'")
+				p = subprocess.Popen( cmd, shell=True )
+				p.wait()
+				self.Popup( _( "OK" ) )
+				return True
+			else:
+				self.Popup( _( "Error" ) )
+				return True
+				
+	##self.popup.destroy()
+	##self.Popup( _( "OK" ) )
 
 	return True
 	
@@ -2118,7 +2169,7 @@ class NotebookTomtom:
 			self.FrameGPSQuickFix( notebook )
 			self.FrameBackupRestore( notebook )
 			self.FramePoi( notebook )
-			##self.FramePersonalize( notebook )
+			self.FramePersonalize( notebook )
 		self.FrameAbout( notebook )
 		self.FrameQuit( notebook )
 		##*************************************************************************************************************
